@@ -1,6 +1,6 @@
-import { env } from "../helpers"
 import { Footer } from "../components"
 import "../styles/index.css"
+import "@fortawesome/fontawesome-svg-core/styles.css"
 
 function MyApp({ Component, pageProps }) {
     return (

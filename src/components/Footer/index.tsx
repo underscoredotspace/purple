@@ -12,24 +12,8 @@ import { env } from "../../helpers"
 import { Anchor } from "../primitives"
 
 const Footer: React.FC = () => {
-    const linkStyle = [
-        "block",
-        "p-1",
-        "my-1",
-        "hover:bg-background",
-        "text-center",
-        "text-sm",
-        "border",
-        "border-background",
-        "border-1",
-        "rounded",
-        "max-w-64",
-        "w-full",
-        "flex",
-        "flex-row",
-        "items-center",
-        "justify-center",
-    ].join(" ")
+    const linkStyle =
+        "p-1 my-1 hover:bg-background text-center text-sm border border-background rounded max-w-64 w-full flex items-center justify-center"
 
     return (
         <div className="flex flex-row justify-around mt-4 py-4 px-4 bg-card border-t-2 items-center">
@@ -60,20 +44,22 @@ const Footer: React.FC = () => {
                 >
                     <FontAwesomeIcon
                         icon={faRedditAlien}
-                        className="pr-2 flex-shrink-0 text-2xl"
+                        className="pr-2 flex-shrink-0"
+                        size="2x"
                     />
                     Reddit
                 </Anchor>
                 <Anchor
                     bare
                     className={linkStyle}
-                    href="https://www.youtube.com/channel/UCOKVvuWN-cf63XkXJuYmirQ"
+                    href="https://youtu.be/channel/UCOKVvuWN-cf63XkXJuYmirQ"
                     blank
                     title="GPAD's YouTube Channel"
                 >
                     <FontAwesomeIcon
                         icon={faYoutube}
-                        className="pr-2 flex-shrink-0 text-2xl"
+                        className="pr-2 flex-shrink-0"
+                        size="2x"
                     />
                     YouTube
                 </Anchor>
@@ -86,7 +72,8 @@ const Footer: React.FC = () => {
                 >
                     <FontAwesomeIcon
                         icon={faTwitter}
-                        className="pr-2 flex-shrink-0 text-2xl"
+                        className="pr-2 flex-shrink-0"
+                        size="2x"
                     />
                     Twitter
                 </Anchor>
@@ -99,7 +86,8 @@ const Footer: React.FC = () => {
                 >
                     <FontAwesomeIcon
                         icon={faInstagram}
-                        className="pr-2 flex-shrink-0 text-2xl"
+                        className="pr-2 flex-shrink-0"
+                        size="2x"
                     />
                     Instagram
                 </Anchor>
