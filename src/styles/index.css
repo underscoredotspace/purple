@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-background;
+        @apply text-copy;
+        @apply antialiased;
+    }
+
+    p:not(:last-child) {
+        @apply mb-4;
+    }
+
+    button:focus,
+    a:focus {
+        outline: 1px dotted theme("colors.copy");
+    }
+
+    a:not(.bare) {
+        @apply text-blue-400;
+        @apply underline;
+    }
+
+    a:hover:not(.bare) {
+        @apply text-blue-300;
+    }
+
+    h1 {
+        @apply text-3xl;
+    }
+
+    h2 {
+        @apply text-2xl;
+    }
+
+    h3 {
+        @apply text-xl;
+    }
+
+    h4 {
+        @apply text-lg;
+    }
+}
+
+.desaturated {
+    filter: grayscale(75%);
+}
+
+.screen {
+    mix-blend-mode: screen;
+}
+
+.bg-blur {
+    backdrop-filter: blur(2px);
+}
