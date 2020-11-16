@@ -46,8 +46,7 @@ const Footer: React.FC = () => {
                     Join GPAD
                     <FontAwesomeIcon
                         icon={faExternalLinkAlt}
-                        className="text-pink-400 ml-1"
-                        size="xs"
+                        className="text-pink-400 ml-1 text-sm"
                     />
                 </DiscordInvite>
             </div>
@@ -61,8 +60,7 @@ const Footer: React.FC = () => {
                 >
                     <FontAwesomeIcon
                         icon={faRedditAlien}
-                        className="pr-2 flex-shrink-0"
-                        size="2x"
+                        className="pr-2 flex-shrink-0 text-2xl"
                     />
                     Reddit
                 </Anchor>
@@ -75,8 +73,7 @@ const Footer: React.FC = () => {
                 >
                     <FontAwesomeIcon
                         icon={faYoutube}
-                        className="pr-2 flex-shrink-0"
-                        size="2x"
+                        className="pr-2 flex-shrink-0 text-2xl"
                     />
                     YouTube
                 </Anchor>
@@ -89,8 +86,7 @@ const Footer: React.FC = () => {
                 >
                     <FontAwesomeIcon
                         icon={faTwitter}
-                        className="pr-2 flex-shrink-0"
-                        size="2x"
+                        className="pr-2 flex-shrink-0 text-2xl"
                     />
                     Twitter
                 </Anchor>
@@ -103,8 +99,7 @@ const Footer: React.FC = () => {
                 >
                     <FontAwesomeIcon
                         icon={faInstagram}
-                        className="pr-2 flex-shrink-0"
-                        size="2x"
+                        className="pr-2 flex-shrink-0 text-2xl"
                     />
                     Instagram
                 </Anchor>
