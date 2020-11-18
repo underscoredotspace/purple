@@ -1,21 +1,22 @@
-import { Footer } from "../components"
-import "../styles/index.css"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import { AppProps } from "next/app"
+import { Footer, Header } from "~components"
+import { env } from "~helpers"
+import "../styles/index.css"
 
-function MyApp({ Component, pageProps }) {
-    return (
-        <>
-            <header>
-                <h1>Page Title</h1>
-                <nav>Navigation</nav>
-            </header>
-            <main>
-                Main Content
+const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => (
+    <>
+        <div
+            className="overflow-y-auto absolute inset-0 z-30"
+            style={{ backgroundImage: `url(${env.ASSET}/background.png)` }}
+        >
+            <Header />
+            <div className="pt-16 bg-opacity-95 bg-background min-h-screen flex flex-col justify-between">
                 <Component {...pageProps} />
-            </main>
-            <Footer />
-        </>
-    )
-}
+                <Footer />
+            </div>
+        </div>
+    </>
+)
 
 export default MyApp

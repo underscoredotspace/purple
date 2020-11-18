@@ -1,17 +1,16 @@
-import React from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
-    faRedditAlien,
-    faYoutube,
-    faTwitter,
     faInstagram,
+    faRedditAlien,
+    faTwitter,
+    faYoutube,
 } from "@fortawesome/free-brands-svg-icons"
-import { DiscordInvite } from "../../components"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { DiscordInvite } from ".."
 import { env } from "../../helpers"
 import SocialLink from "./SocialLink"
 
-const Footer: React.FC = () => (
+export const Footer: React.FC = () => (
     <div className="flex flex-row justify-around mt-4 py-4 px-4 bg-card border-t-2 items-center">
         <div className="flex flex-col items-center flex-1">
             <img
@@ -61,5 +60,3 @@ const Footer: React.FC = () => (
         </div>
     </div>
 )
-
-export default Footer

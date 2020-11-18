@@ -1,11 +1,11 @@
 module.exports = {
     future: {
         removeDeprecatedGapUtilities: true,
-        purgeLayersByDefault: true
+        purgeLayersByDefault: true,
     },
     purge: {
         layers: ["base", "components", "utilities"],
-        content: ["./src/**/*.tsx", "./src/**/*.html"],
+        content: ["./src/**/*.tsx"],
         options: {
             whitelist: [
                 "bg-admin",
@@ -31,9 +31,9 @@ module.exports = {
                 "text-eventcontest",
                 "text-discordcontest",
                 "text-achievements",
-                "bg-games"
-            ]
-        }
+                "bg-games",
+            ],
+        },
     },
     theme: {
         extend: {
@@ -55,35 +55,35 @@ module.exports = {
                 achievements: "#83a6ea",
                 discordcontest: "#b89d67",
                 eventcontest: "#3aa692",
-                gpwinner: "#68CAB8"
+                gpwinner: "#68CAB8",
             },
             opacity: {
-                "10": "0.10",
-                "95": "0.95"
+                10: "0.10",
+                95: "0.95",
             },
             boxShadow: {
                 default:
                     "0 3px 3px 0 rgba(0, 0, 0, .5), 0 2px 2px 0 rgba(0, 0, 0, .2)",
-                outline: "0 0 1 0 rgba(0,0,0, .5)"
+                outline: "0 0 1 0 rgba(0,0,0, .5)",
             },
             borderRadius: {
-                squircle: "1.5rem"
+                squircle: "1.5rem",
             },
             gridTemplateColumns: {
-                profile: "repeat(auto-fill, minmax(theme('spacing.64'), 1fr))"
+                profile: "repeat(auto-fill, minmax(theme('spacing.64'), 1fr))",
             },
             maxHeight: {
-                "0": "0",
+                0: "0",
                 "1/4": "25vh",
                 "1/2": "50vh",
                 "3/4": "75vh",
-                full: "100%"
+                full: "100%",
             },
             maxWidth: {
-                "64": "theme('spacing.64')"
-            }
-        }
+                64: "theme('spacing.64')",
+            },
+        },
     },
     variants: {},
-    plugins: []
+    plugins: [],
 }

@@ -12,7 +12,7 @@ const ENABLE_LOGIN = process.env["NEXT_PUBLIC_ENABLE_LOGIN"] === "True"
 const ENABLE_ANALYTICS = process.env["NEXT_PUBLIC_ENABLE_ANALYTICS"] === "True"
 const INVITE_CODE = process.env["NEXT_PUBLIC_INVITE_CODE"]
 
-export default {
+export const env = {
     API_URL,
     ASSET,
     ENABLE_LOGIN,
