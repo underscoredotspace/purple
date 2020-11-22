@@ -6,17 +6,20 @@ import {
 } from "@fortawesome/free-brands-svg-icons"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { DiscordInvite } from ".."
-import { env } from "../../helpers"
+import Image from "next/image"
+import { DiscordInvite } from "~components"
+import { env } from "~helpers"
 import SocialLink from "./SocialLink"
 
 export const Footer: React.FC = () => (
-    <div className="flex flex-row justify-around mt-4 py-4 px-4 bg-card border-t-2 items-center">
+    <footer className="flex flex-row justify-around mt-4 py-4 px-4 bg-card border-t-2 items-center">
         <div className="flex flex-col items-center flex-1">
-            <img
+            <Image
                 src={`${env.ASSET}/logo.png`}
                 alt="GPAD Logo"
-                className="h-24 w-24 mb-1"
+                className="mb-1"
+                width={96}
+                height={96}
             />
             <span
                 className="text-s text-center"
@@ -58,5 +61,5 @@ export const Footer: React.FC = () => (
                 text="Instagram"
             />
         </div>
-    </div>
+    </footer>
 )

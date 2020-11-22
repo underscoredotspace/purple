@@ -1,5 +1,5 @@
 module.exports = {
     images: {
-        domains: [process.env["NEXT_PUBLIC_ASSET"]],
+        domains: ["i.gpadcrew.com"],
     },
 }

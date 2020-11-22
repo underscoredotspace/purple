@@ -1,23 +1,20 @@
-import {
-    faPlaystation as faPS,
-    faXbox,
-} from "@fortawesome/free-brands-svg-icons"
+import { faPlaystation, faXbox } from "@fortawesome/free-brands-svg-icons"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Head from "next/head"
 import Link from "next/link"
 import { DiscordInvite, YouTube } from "../components"
 import { SectionTitle } from "../components/primitives"
 
 const Home: React.FC = () => (
     <>
-        <Head>
-            <title>GPAD - Welcome to GPAD</title>
-        </Head>
         <div className="m-4">
             <p>
                 We are an active and supportive dual-platform (PlayStation 4{" "}
-                <FontAwesomeIcon icon={faPS} className="text-ps" size="xs" />{" "}
+                <FontAwesomeIcon
+                    icon={faPlaystation}
+                    className="text-ps"
+                    size="xs"
+                />{" "}
                 and Xbox One{" "}
                 <FontAwesomeIcon icon={faXbox} className="text-xb" size="xs" />)
                 gaming community.
