@@ -11,7 +11,12 @@ export const reducer = (state: RootState, action: Action): RootState => {
                 ...state,
                 menuVisible: !state.menuVisible,
             }
+        case Actions.closeMenu:
+            return {
+                ...state,
+                menuVisible: false,
+            }
+        default:
+            return state
     }
-
-    return state
 }

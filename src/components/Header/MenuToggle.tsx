@@ -6,16 +6,19 @@ import { SiteContext, toggleMenu } from "store"
 const Menu: React.FC = () => {
     const { state, dispatch } = useContext(SiteContext)
 
-    return (
+    return state.menuVisible ? (
         <button
             onClick={() => dispatch(toggleMenu())}
             className="w-7 text-center"
         >
-            {state.menuVisible ? (
-                <FontAwesomeIcon icon={faTimes} size="2x" className="mx-auto" />
-            ) : (
-                <FontAwesomeIcon icon={faBars} size="2x" className="mx-auto" />
-            )}
+            <FontAwesomeIcon icon={faTimes} size="2x" />
+        </button>
+    ) : (
+        <button
+            onClick={() => dispatch(toggleMenu())}
+            className="w-7 text-center"
+        >
+            <FontAwesomeIcon icon={faBars} size="2x" />
         </button>
     )
 }

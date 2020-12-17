@@ -4,6 +4,7 @@ export interface RootState {
 
 export enum Actions {
     toggleMenu,
+    closeMenu,
 }
 
 export type Action = { type: Actions; payload?: unknown }

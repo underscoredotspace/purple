@@ -22,14 +22,21 @@ const Home: React.FC = () => (
             <p>
                 Our main games are{" "}
                 <Link href="/gta-online">
-                    <b>Grand Theft Auto</b>
+                    <a>
+                        <b>Grand Theft Auto</b>
+                    </a>
                 </Link>{" "}
                 and{" "}
                 <Link href="/red-dead">
-                    <b>Red Dead Redemption</b>
+                    <a>
+                        <b>Red Dead Redemption</b>
+                    </a>
                 </Link>{" "}
                 but our community continues to grow in a number of{" "}
-                <Link href="/other-games">other</Link> online multiplayer games.
+                <Link href="/other-games">
+                    <a>other</a>
+                </Link>{" "}
+                online multiplayer games.
             </p>
             <p>
                 We have an active discord community where members can game
@@ -42,10 +49,15 @@ const Home: React.FC = () => (
         <div className="m-4">
             <p>
                 Have a look at{" "}
-                <Link href="/about-the-crew">about the crew</Link> to learn more
-                about us. Our <Link href="/events">events</Link> page gives you
-                an insight into what our dedicated team of event coordinators do
-                for the crew.
+                <Link href="/about-the-crew">
+                    <a>about the crew</a>
+                </Link>{" "}
+                to learn more about us. Our{" "}
+                <Link href="/events">
+                    <a>events</a>
+                </Link>{" "}
+                page gives you an insight into what our dedicated team of event
+                coordinators do for the crew.
             </p>
         </div>
 
