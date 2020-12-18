@@ -22,6 +22,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         }
     }, [pathname])
 
+    useEffect(() => {
+        const bodyClasses = document.querySelector("body").classList
+        if (state.menuVisible) {
+            bodyClasses.add("overflow-hidden")
+        } else {
+            bodyClasses.remove("overflow-hidden")
+        }
+    }, [state.menuVisible])
+
     return (
         <>
             <Head>

@@ -1,8 +1,8 @@
 import { Route, routes } from "helpers/routes"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import React, { useContext } from "react"
-import { SiteContext } from "store"
+import React, { useContext, useEffect } from "react"
+import { closeMenu, SiteContext } from "store"
 
 interface CreateLinkProps {
     route: Route
@@ -35,12 +35,24 @@ const createLink: React.FC<CreateLinkProps> = ({ route, pathname }) => {
 
 export const Menu: React.FC = () => {
     const { pathname } = useRouter()
-    const { state } = useContext(SiteContext)
+    const { state, dispatch } = useContext(SiteContext)
+
+    function handleEscape({ key }: KeyboardEvent) {
+        if (key === "Escape" && state.menuVisible) {
+            dispatch(closeMenu())
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener("keydown", handleEscape)
+
+        return () => document.removeEventListener("keydown", handleEscape)
+    }, [])
 
     return (
         <nav
             className={[
-                "absolute inset-0 bg-black text-white bg-opacity-50 z-40 mt-16",
+                "fixed inset-0 bg-black text-white bg-opacity-50 z-40 mt-16",
                 "transition",
                 "ease-in-expo",
                 "duration-300",
@@ -49,6 +61,7 @@ export const Menu: React.FC = () => {
                 "bg-background",
                 "bg-opacity-95",
                 "overflow-y-auto",
+                "border-t border-copy",
                 !state.menuVisible ? "opacity-0" : null,
                 !state.menuVisible ? "transform translate-x-full" : null,
             ].join(" ")}
