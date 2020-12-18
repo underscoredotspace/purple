@@ -1,5 +1,6 @@
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { AppProps } from "next/app"
+import Head from "next/head"
 import { useRouter } from "next/router"
 import { useEffect, useMemo, useReducer } from "react"
 import { closeMenu, initialState, reducer, SiteContext } from "store"
@@ -22,22 +23,32 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     }, [pathname])
 
     return (
-        <SiteContext.Provider value={contextValue}>
-            <div
-                className="z-30"
-                style={{ backgroundImage: `url(${env.ASSET}/background.png)` }}
-            >
-                <Menu />
-                <Header />
-                <div className="pt-16 bg-opacity-95 bg-background min-h-screen flex flex-col justify-between">
-                    <main>
-                        <Component {...pageProps} />
-                    </main>
+        <>
+            <Head>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
+                />
+            </Head>
+            <SiteContext.Provider value={contextValue}>
+                <div
+                    className="z-30 absolute w-screen overflow-hidden"
+                    style={{
+                        backgroundImage: `url(${env.ASSET}/background.png)`,
+                    }}
+                >
+                    <Menu />
+                    <Header />
+                    <div className="pt-16 bg-opacity-95 bg-background min-h-screen flex flex-col justify-between">
+                        <main>
+                            <Component {...pageProps} />
+                        </main>
 
-                    <Footer />
+                        <Footer />
+                    </div>
                 </div>
-            </div>
-        </SiteContext.Provider>
+            </SiteContext.Provider>
+        </>
     )
 }
 
