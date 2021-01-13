@@ -1,11 +1,10 @@
-import Image from "next/image"
 import Link from "next/link"
 import { env } from "../../helpers"
 
 const Logo: React.FC = () => (
     <Link href="/">
         <a>
-            <Image
+            <img
                 src={`${env.ASSET}/logo.png`}
                 alt="GPAD Logo"
                 className="my-2"

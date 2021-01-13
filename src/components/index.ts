@@ -1,4 +1,5 @@
 export { Card } from "./Card"
+export { CrewStats } from "./CrewStats"
 export { DiscordInvite } from "./DiscordInvite"
 export { Footer } from "./Footer/Footer"
 export { Header } from "./Header/Header"

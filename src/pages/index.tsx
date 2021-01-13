@@ -2,7 +2,7 @@ import { faPlaystation, faXbox } from "@fortawesome/free-brands-svg-icons"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Link from "next/link"
-import { DiscordInvite, YouTube } from "~components"
+import { CrewStats, DiscordInvite, YouTube } from "~components"
 import { SectionTitle } from "~primitives"
 
 const Home: React.FC = () => (
@@ -61,7 +61,7 @@ const Home: React.FC = () => (
             </p>
         </div>
 
-        {/* <MemberCount /> */}
+        <CrewStats />
 
         <div className="m-4">
             <SectionTitle>Come to our house and get payd!</SectionTitle>
