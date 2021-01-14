@@ -1,5 +1,4 @@
 import { env } from "helpers"
-import Image from "next/image"
 import React, { ReactNode, useEffect, useState } from "react"
 
 interface LazyImageProps {
@@ -39,7 +38,7 @@ export const LazyImage: React.FC<LazyImageProps> = ({
 
     return (
         <div className="relative">
-            <Image
+            <img
                 src={src}
                 alt={alt}
                 className={`w-full h-full ${className} transition-opacity duration-500 ${
