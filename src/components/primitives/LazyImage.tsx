@@ -1,5 +1,5 @@
 import { env } from "helpers"
-import React, { ReactNode, useEffect, useState } from "react"
+import React, { ReactNode, useEffect, useRef, useState } from "react"
 
 interface LazyImageProps {
     className?: string
@@ -29,16 +29,26 @@ export const LazyImage: React.FC<LazyImageProps> = ({
     const [loaded, setLoaded] = useState(false)
     // const [shouldLoad, setShouldLoad] = useState(false)
     const [showLoader, setShowLoader] = useState(false)
+    const imageRef = useRef(null)
 
     useEffect(() => {
-        const t = setTimeout(() => setShowLoader(true), 500)
+        const t = setTimeout(() => !loaded && setShowLoader(true), 500)
 
         return () => clearTimeout(t)
+    }, [])
+
+    useEffect(() => {
+        console.log({ loaded, showLoader })
+    }, [loaded, showLoader])
+
+    useEffect(() => {
+        if (imageRef.current.complete) setLoaded(true)
     }, [])
 
     return (
         <div className="relative">
             <img
+                ref={imageRef}
                 src={src}
                 alt={alt}
                 className={`w-full h-full ${className} transition-opacity duration-500 ${
