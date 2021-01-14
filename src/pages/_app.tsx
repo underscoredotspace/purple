@@ -1,12 +1,12 @@
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import { Footer, Header, Menu } from "components"
+import { env } from "helpers"
 import { AppProps } from "next/app"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { useEffect, useMemo, useReducer } from "react"
 import { closeMenu, initialState, reducer, SiteContext } from "store"
 import "styles/index.css"
-import { Footer, Header, Menu } from "~components"
-import { env } from "~helpers"
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
@@ -43,7 +43,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                 <div
                     className="z-30 absolute w-screen overflow-hidden"
                     style={{
-                        backgroundImage: `url(${env.ASSET}/background.png)`,
+                        backgroundImage: `url(${env.ASSETS}/background.png)`,
                     }}
                 >
                     <Menu />

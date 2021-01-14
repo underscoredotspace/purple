@@ -1,5 +1,6 @@
+import { env } from "helpers"
+import Image from "next/image"
 import React, { ReactNode, useEffect, useState } from "react"
-import { env } from "~helpers"
 
 interface LazyImageProps {
     className?: string
@@ -12,7 +13,7 @@ interface LazyImageProps {
 
 const defaultPlaceholder = (
     <img
-        src={`${env.ASSET}/logo-8.png`}
+        src={`${env.ASSETS}/logo-8.png`}
         className="w-8 h-8 animate-bounce"
         alt=""
     />
@@ -38,13 +39,13 @@ export const LazyImage: React.FC<LazyImageProps> = ({
 
     return (
         <div className="relative">
-            <img
+            <Image
                 src={src}
                 alt={alt}
                 className={`w-full h-full ${className} transition-opacity duration-500 ${
                     !loaded ? "opacity-0" : "opacity-100"
                 }`}
-                onLoad={() => setTimeout(() => setLoaded(true), 200)}
+                onLoad={() => setLoaded(true)}
                 width={width}
                 height={height}
             />

@@ -1,9 +1,7 @@
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { YouTube } from "components"
+import { LazyImage, SectionTitle } from "components/primitives"
 import { env } from "helpers"
 import React from "react"
-import { Card, DiscordInvite, YouTube } from "~components"
-import { LazyImage, SectionTitle } from "~primitives"
 
 const GTAOnline: React.FC = () => (
     <>
@@ -16,7 +14,7 @@ const GTAOnline: React.FC = () => (
             </p>
         </div>
         <LazyImage
-            src={`${env.ASSET}/640/640__613220764166127616.jpg`}
+            src={`${env.ASSETS}/640/640__613220764166127616.jpg`}
             alt="Some of the Crew chilling on Mt. Chilead"
             width={1591}
             height={1080}
@@ -42,21 +40,6 @@ const GTAOnline: React.FC = () => (
                 sourcing and MC sales better than ever.
             </p>
         </div>
-        <Card className="mx-4">
-            <SectionTitle>Come to our house and get payd!</SectionTitle>
-            <p>
-                Join our{" "}
-                <DiscordInvite tag="landing">
-                    Discord Server
-                    <FontAwesomeIcon
-                        icon={faExternalLinkAlt}
-                        className="text-pink-400 ml-1"
-                        size="xs"
-                    />
-                </DiscordInvite>{" "}
-                and our Admissions team will help you join.
-            </p>
-        </Card>
     </>
 )
 

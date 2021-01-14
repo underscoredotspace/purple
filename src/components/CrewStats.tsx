@@ -1,10 +1,10 @@
 import { faPlaystation, faXbox } from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Card } from "components"
+import { SectionTitle } from "components/primitives"
 import { getMembercount } from "helpers/api"
 import { DateTime } from "luxon"
 import React, { useEffect, useState } from "react"
-import { Card } from "~components"
-import { SectionTitle } from "~primitives"
 
 interface MemberCounts {
     ps: number

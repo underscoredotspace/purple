@@ -1,9 +1,9 @@
 import { faPlaystation, faXbox } from "@fortawesome/free-brands-svg-icons"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { CrewStats, DiscordInvite, YouTube } from "components"
+import { SectionTitle } from "components/primitives"
 import Link from "next/link"
-import { CrewStats, DiscordInvite, YouTube } from "~components"
-import { SectionTitle } from "~primitives"
 
 const Home: React.FC = () => (
     <>

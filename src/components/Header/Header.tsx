@@ -6,6 +6,7 @@ import Title from "./Title"
 
 export const Header: React.FC = () => {
     const { state } = useContext(SiteContext)
+
     return (
         <header
             className={`fixed h-16 w-screen bg-background px-6 shadow-sm flex justify-between items-center z-30 ${

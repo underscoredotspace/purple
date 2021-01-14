@@ -1,5 +1,5 @@
-import { env } from "../helpers"
-import { Anchor } from "./primitives"
+import { Anchor } from "components/primitives"
+import { env } from "helpers"
 
 interface DiscordInviteProps {
     className?: string

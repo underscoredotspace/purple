@@ -1,4 +1,4 @@
-import { env } from "~helpers"
+import { env } from "helpers"
 
 const apiUrl = (endpoint: string) => `${env.API_URL}/${endpoint}`
 

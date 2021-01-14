@@ -1,6 +1,6 @@
 import { faCookieBite } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Card } from "~components"
+import { Card } from "components"
 
 const PrivacyPolicy: React.FC = () => (
     <div className="m-4 h-full">
