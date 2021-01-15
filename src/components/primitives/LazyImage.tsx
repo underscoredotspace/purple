@@ -38,10 +38,6 @@ export const LazyImage: React.FC<LazyImageProps> = ({
     }, [])
 
     useEffect(() => {
-        console.log({ loaded, showLoader })
-    }, [loaded, showLoader])
-
-    useEffect(() => {
         if (imageRef.current.complete) setLoaded(true)
     }, [])
 
