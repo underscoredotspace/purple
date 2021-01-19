@@ -1,3 +1,4 @@
+export { AchievementTable } from "./AchievementTable"
 export { Card } from "./Card"
 export { CrewStats } from "./CrewStats"
 export { DiscordInvite } from "./DiscordInvite"
