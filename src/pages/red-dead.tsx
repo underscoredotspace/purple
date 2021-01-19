@@ -9,7 +9,7 @@ import {
 } from "components/primitives"
 import { env } from "helpers"
 import React from "react"
-import { rdoAchievements } from "./Achievements"
+import { rdoAchievements } from "./achievements"
 
 const RedDead: React.FC = () => {
     return (
