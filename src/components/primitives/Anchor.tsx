@@ -15,7 +15,6 @@ export const Anchor: React.FC<AnchorProps> = ({
     href,
     blank,
     title,
-    // tag = "",
     bare = false,
 }) => {
     const target = blank
@@ -27,7 +26,6 @@ export const Anchor: React.FC<AnchorProps> = ({
 
     return (
         <a
-            // onClick={() => eventExternalLink({ title, tag })}
             className={`${className} ${bare ? "bare" : ""}`}
             href={href}
             title={title}

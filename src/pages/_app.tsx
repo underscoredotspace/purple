@@ -10,7 +10,7 @@ import "styles/index.css"
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
-    const { pathname } = useRouter()
+    const { pathname, query, replace } = useRouter()
 
     const contextValue = useMemo(() => {
         return { state, dispatch }
@@ -21,6 +21,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             dispatch(closeMenu())
         }
     }, [pathname])
+
+    useEffect(() => {
+        if (Object.keys(query).length > 0) {
+            replace({ pathname, query: {} })
+        }
+    }, [query])
 
     useEffect(() => {
         const bodyClasses = document.querySelector("body").classList
