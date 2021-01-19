@@ -21,7 +21,7 @@ export const routes: Routes = [
         title: "Wall of Fame",
     },
     {
-        path: "/events",
+        path: "/crew-events",
         title: "Crew Events",
     },
     {
