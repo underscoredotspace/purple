@@ -7,7 +7,7 @@ module.exports = {
         layers: ["base", "components", "utilities"],
         content: ["./src/**/*.tsx"],
         options: {
-            whitelist: [
+            safelist: [
                 "bg-admin",
                 "border-admin",
                 "text-admin",
