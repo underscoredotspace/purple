@@ -11,6 +11,16 @@ interface CreateLinkProps {
     pathname: string
 }
 
+const MenuLink: React.FC<{ title: string; href: string }> = ({
+    title,
+    href,
+    children,
+}) => (
+    <a title={title} href={href} className="bare block p-2 hover:bg-card">
+        {children}
+    </a>
+)
+
 const createLink: React.FC<CreateLinkProps> = ({ route, pathname }) => {
     if (route.path === pathname) {
         return <b className="block p-2 bg-card">{route.title}</b>
@@ -18,25 +28,17 @@ const createLink: React.FC<CreateLinkProps> = ({ route, pathname }) => {
 
     if (route.external) {
         return (
-            <a
-                title={route.title}
-                href={route.path}
-                className="bare block p-2 hover:bg-card"
-            >
+            <MenuLink title={route.title} href={route.path}>
                 {route.title}
-            </a>
+            </MenuLink>
         )
     }
 
     return (
         <Link href={route.path}>
-            <a
-                title={route.title}
-                href={route.path}
-                className="bare block p-2 hover:bg-card"
-            >
+            <MenuLink title={route.title} href={route.path}>
                 {route.title}
-            </a>
+            </MenuLink>
         </Link>
     )
 }
@@ -47,14 +49,16 @@ export const Menu: React.FC = () => {
     const [cookies, setCookies] = useState<Cookies>()
 
     useEffect(() => {
+        document.addEventListener("keydown", handleEscape)
+
+        return () => document.removeEventListener("keydown", handleEscape)
+    }, [state.menuVisible])
+
+    useEffect(() => {
         if (process.browser) {
             setCookies(new Cookies(document.cookie))
         }
     }, [])
-
-    useEffect(() => {
-        console.log({ pathname })
-    }, [pathname])
 
     const loggedIn = !!cookies?.get("auth")
 
@@ -63,12 +67,6 @@ export const Menu: React.FC = () => {
             dispatch(closeMenu())
         }
     }
-
-    useEffect(() => {
-        document.addEventListener("keydown", handleEscape)
-
-        return () => document.removeEventListener("keydown", handleEscape)
-    }, [])
 
     return (
         <nav
@@ -93,25 +91,19 @@ export const Menu: React.FC = () => {
                         {createLink({ route, pathname })}
                     </li>
                 ))}
-                {!loggedIn ? (
+
+                {env.ENABLE_LOGIN ? (
                     <li key={"menu-login"}>
-                        <a
-                            className="bare block p-2 hover:bg-card"
-                            href={`${env.API_URL}/auth/login?redirect=${pathname}`}
+                        <MenuLink
+                            href={`${env.API_URL}/auth/${
+                                loggedIn ? "logout" : "login"
+                            }?redirect=${pathname}`}
+                            title={`Log ${loggedIn ? "out" : "in"}`}
                         >
-                            Log in
-                        </a>
+                            Log {loggedIn ? "out" : "in"}
+                        </MenuLink>
                     </li>
-                ) : (
-                    <li key={"menu-logout"}>
-                        <a
-                            className="bare block p-2 hover:bg-card"
-                            href={`${env.API_URL}/auth/logout?redirect=${pathname}`}
-                        >
-                            Log out
-                        </a>
-                    </li>
-                )}
+                ) : null}
             </ul>
         </nav>
     )
