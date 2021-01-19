@@ -14,3 +14,44 @@ export async function getMembercount(): Promise<{
 
     return { ps: Number(PS), xbox: Number(XBOX), lastUpdate }
 }
+
+export interface Role {
+    name: string
+    position: number
+}
+
+export interface StaffProfile {
+    id: string
+    name?: string
+    location?: string
+    bio?: string
+    picture?: string
+    username: string
+    avatar: string
+    join_date: string
+    roles: Role[]
+}
+
+export async function getStaffProfiles(): Promise<StaffProfile[]> {
+    const staffProfiles = await fetchJSON("staff")
+
+    return staffProfiles
+}
+
+export interface Member {
+    role_id: string
+    member_id: string
+    username: string
+    avatar: string
+}
+
+interface FullMember extends Member {
+    id: string
+    join_date: string
+}
+
+export async function getMembersByRole(role_id: string): Promise<Member[]> {
+    const members: FullMember[] = await fetchJSON(`members/${role_id}`)
+
+    return members.map(({ id, join_date, ...others }) => others)
+}

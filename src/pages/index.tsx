@@ -2,8 +2,7 @@ import { faPlaystation, faXbox } from "@fortawesome/free-brands-svg-icons"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { CrewStats, DiscordInvite, YouTube } from "components"
-import { SectionTitle } from "components/primitives"
-import Link from "next/link"
+import { RouteLink, SectionTitle } from "components/primitives"
 
 const Home: React.FC = () => (
     <>
@@ -21,21 +20,17 @@ const Home: React.FC = () => (
             </p>
             <p>
                 Our main games are{" "}
-                <Link href="/gta-online">
-                    <a>
-                        <b>Grand Theft Auto</b>
-                    </a>
-                </Link>{" "}
+                <RouteLink to="/gta-online" title="Grand Theft Auto" bold>
+                    Grand Theft Auto
+                </RouteLink>{" "}
                 and{" "}
-                <Link href="/red-dead">
-                    <a>
-                        <b>Red Dead Redemption</b>
-                    </a>
-                </Link>{" "}
+                <RouteLink to="/red-dead" title="Red Dead Redemption" bold>
+                    Red Dead Redemption
+                </RouteLink>{" "}
                 but our community continues to grow in a number of{" "}
-                <Link href="/other-games">
-                    <a>other</a>
-                </Link>{" "}
+                <RouteLink to="/other-games" title="Other Games">
+                    other
+                </RouteLink>{" "}
                 online multiplayer games.
             </p>
             <p>
@@ -49,13 +44,13 @@ const Home: React.FC = () => (
         <div className="m-4">
             <p>
                 Have a look at{" "}
-                <Link href="/about-the-crew">
-                    <a>about the crew</a>
-                </Link>{" "}
+                <RouteLink to="/about-the-crew" title="About the Crew">
+                    about the crew
+                </RouteLink>{" "}
                 to learn more about us. Our{" "}
-                <Link href="/events">
-                    <a>events</a>
-                </Link>{" "}
+                <RouteLink to="/events" title="Our Events">
+                    events
+                </RouteLink>{" "}
                 page gives you an insight into what our dedicated team of event
                 coordinators do for the crew.
             </p>
