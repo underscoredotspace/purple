@@ -48,7 +48,7 @@ const Home: React.FC = () => (
                     about the crew
                 </RouteLink>{" "}
                 to learn more about us. Our{" "}
-                <RouteLink to="/events" title="Our Events">
+                <RouteLink to="/crew-events" title="Our Events">
                     events
                 </RouteLink>{" "}
                 page gives you an insight into what our dedicated team of event
