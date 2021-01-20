@@ -20,7 +20,7 @@ const MemberImage: React.FC<MemberImageProps> = ({ member, colour }) => {
             height="64px"
             alt={member.username}
             title={member.username}
-            className={`m-2 rounded-full border-${colour} border w-12 h-12 inline-block`}
+            className={`rounded-full border-${colour} border inline-block`}
             src={avatarPath}
             onError={() => setAvatarPath(`${env.ASSETS}/profiles/claude.png`)}
         />

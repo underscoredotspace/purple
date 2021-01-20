@@ -25,7 +25,7 @@ export const CrewStats: React.FC = () => {
     }, [])
 
     return (
-        <Card className="m-4">
+        <Card>
             <SectionTitle type="h4" className="text-center mb-4">
                 Our Membership
             </SectionTitle>

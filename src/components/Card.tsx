@@ -1,17 +1,15 @@
+import { classNames } from "helpers/misc"
+
 interface CardProps {
     className?: string
-    nopadding?: boolean
 }
 
-export const Card: React.FC<CardProps> = ({
-    children,
-    className = "",
-    nopadding = false,
-}) => (
+export const Card: React.FC<CardProps> = ({ children, className }) => (
     <div
-        className={`bg-card rounded overflow-hidden shadow border border-gray-700 ${
-            nopadding ? "null" : "py-2 px-4"
-        } ${className}`}
+        className={classNames([
+            "bg-card rounded overflow-hidden shadow border border-gray-700",
+            className,
+        ])}
     >
         {children}
     </div>

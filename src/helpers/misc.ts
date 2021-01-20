@@ -19,3 +19,6 @@ export const shuffle = <T>(array: T[]): T[] => {
 
     return array
 }
+
+export const classNames = (className: string[]): string =>
+    className.filter(Boolean).join(" ")

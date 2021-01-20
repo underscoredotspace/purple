@@ -1,7 +1,7 @@
 import { Card } from "components"
+import { EventCard } from "components/EventCard"
 import MemberImage from "components/MemberImage"
-import { LazyImage, RouteLink, SectionTitle } from "components/primitives"
-import { env } from "helpers"
+import { RouteLink, SectionTitle } from "components/primitives"
 import { getMembersByRole, Member } from "helpers/api"
 import React, { useEffect, useState } from "react"
 
@@ -54,259 +54,128 @@ const Events: React.FC = () => {
     }, [])
 
     return (
-        <div className="m-4 flex flex-col items-center">
-            <div className="flex flex-col md:flex-row items-start">
-                <div className="mb-4 md:mr-4 max-w-xl">
-                    <div className="mb-4">
-                        <p>
-                            These are our current{" "}
-                            <RouteLink
-                                to="/gta-online"
-                                title="Grand Theft Auto"
-                                bold
-                            >
-                                GTA Online
-                            </RouteLink>{" "}
-                            events that run throughout the week. We have chaos,
-                            races and, most of all, fun!
-                        </p>
-                        <p>
-                            We&apos;re getting into regular{" "}
-                            <b>
-                                <RouteLink
-                                    to="/red-dead"
-                                    title="Red Dead Redeption"
-                                    bold
-                                >
-                                    Red Dead
-                                </RouteLink>
-                            </b>{" "}
-                            events such as Fight Clubs, Wagon Racing and Weekly
-                            Challenges.
-                        </p>
-                    </div>
-                </div>
-                {/* <Card className="flex-shrink-0 self-center max-w-5xl">
-                    <SectionTitle type="h3">Event Calendar</SectionTitle>
-                    <iframe
-                        src="https://calendar.google.com/calendar/embed?height=600&amp;ctz=America%2FNew_York&amp;wkst=2&amp;bgcolor=%23ffffff&amp;src=Z3BhZC5wcy54Ym94QGdtYWlsLmNvbQ&amp;color=%23F4511E&amp;mode=AGENDA&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTitle=0&amp;showDate=0"
-                        height="300"
-                        frameBorder="0"
-                        scrolling="no"
-                        title="GPAD Events Calendar"
-                        className="border-none w-full"
-                    />
-                </Card> */}
-            </div>
-            <div className="max-w-xl">
-                <SectionTitle type="h3">Our Events</SectionTitle>
+        <>
+            <p>
+                These are our current{" "}
+                <RouteLink to="/gta-online" title="Grand Theft Auto" bold>
+                    GTA Online
+                </RouteLink>{" "}
+                events that run throughout the week. We have chaos, races and,
+                most of all, fun!
+            </p>
+            <p>
+                We&apos;re getting into regular{" "}
+                <b>
+                    <RouteLink to="/red-dead" title="Red Dead Redeption" bold>
+                        Red Dead
+                    </RouteLink>
+                </b>{" "}
+                events such as Fight Clubs, Wagon Racing and Weekly Challenges.
+            </p>
 
-                <Card nopadding className="flex flex-col mb-4">
-                    <SectionTitle
-                        nopadding
-                        type="h4"
-                        className="bg-blue-900 p-2 text-center"
-                    >
-                        Purge Night
-                    </SectionTitle>
-                    <div className="mt-0 border-t border-b border-gray-500">
-                        <LazyImage
-                            src={`${env.ASSETS}/640/640__events_purge.jpg`}
-                            width={828}
-                            height={439}
-                            alt="Purge Night"
-                        />
-                    </div>
-                    <p className="mx-4 my-2">
-                        This is a public service announcement: the <b>purge</b>{" "}
-                        will begin in one hour.
-                    </p>
-                </Card>
+            <SectionTitle type="h3">Our Events</SectionTitle>
 
-                <Card nopadding className="flex flex-col mb-4">
-                    <SectionTitle
-                        nopadding
-                        type="h4"
-                        className="bg-blue-900 p-2 text-center"
-                    >
-                        Triathlon
-                    </SectionTitle>
-                    <div className="mt-0 border-t border-b border-gray-500">
-                        <LazyImage
-                            src={`${env.ASSETS}/640/640__events_triathlon.jpg`}
-                            width={960}
-                            height={536}
-                            alt="Triathlon"
-                        />
-                    </div>
-                    <p className="mx-4 my-2">
-                        In a test of endurance, contestants will swim, cycle
-                        then run. The first to the finish line gets the{" "}
-                        <Role>Ninja Warrior</Role> role. They might need a new
-                        controller though after extreme button mashing.
-                    </p>
-                </Card>
+            <EventCard
+                title="Purge Night"
+                src="purge.jpg"
+                width={828}
+                height={439}
+            >
+                This is a public service announcement: the <b>purge</b> will
+                begin in one hour.
+            </EventCard>
 
-                <Card nopadding className="flex flex-col mb-4">
-                    <SectionTitle
-                        nopadding
-                        type="h4"
-                        className="bg-blue-900 p-2 text-center"
-                    >
-                        GPAD Grand Prix
-                    </SectionTitle>
-                    <div className="mt-0 border-t border-b border-gray-500">
-                        <LazyImage
-                            src={`${env.ASSETS}/640/640__events_f1.jpg`}
-                            width={1044}
-                            height={572}
-                            alt="GPAD Grand Prix"
-                        />
-                    </div>
-                    <p className="mx-4 my-2">
-                        GPAD&apos;s Grand Prix takes place on 8 tracks from
-                        around the world. Racers will compete for the podium in
-                        their very own Open Wheel vehicle. The winner of{" "}
-                        <b>each race</b> get&apos;s an extra special{" "}
-                        <Role gp>Grand Prix</Role> role.
-                    </p>
-                </Card>
+            <EventCard
+                title="Triathlon"
+                src="triathlon.jpg"
+                width={960}
+                height={536}
+            >
+                In a test of endurance, contestants will swim, cycle then run.
+                The first to the finish line gets the <Role>Ninja Warrior</Role>{" "}
+                role. They might need a new controller though after extreme
+                button mashing.
+            </EventCard>
 
-                <Card nopadding className="flex flex-col mb-4">
-                    <SectionTitle
-                        nopadding
-                        type="h4"
-                        className="bg-blue-900 p-2 text-center"
-                    >
-                        Fight Club
-                    </SectionTitle>
-                    <LazyImage
-                        src={`${env.ASSETS}/640/640__events_fightclub.jpg`}
-                        width={960}
-                        height={536}
-                        alt="Fight Club"
-                        className="mt-0 border-t border-b border-gray-500"
-                    />
-                    <p className="mx-4 my-2">
-                        At undisclosed locations our fighters meet and start
-                        smacking down one another until there is only one left.
-                        Best puncher gets the <Role>Golden Gloves</Role> role
-                    </p>
-                </Card>
+            <EventCard
+                title="GPAD Grand Prix"
+                src="f1.jpg"
+                width={1044}
+                height={572}
+            >
+                GPAD&apos;s Grand Prix takes place on 8 tracks from around the
+                world. Racers will compete for the podium in their very own Open
+                Wheel vehicle. The winner of <b>each race</b> get&apos;s an
+                extra special <Role gp>Grand Prix</Role> role.
+            </EventCard>
 
-                <Card nopadding className="flex flex-col mb-4">
-                    <SectionTitle
-                        nopadding
-                        type="h4"
-                        className="bg-blue-900 p-2 text-center"
-                    >
-                        Drag Racing
-                    </SectionTitle>
-                    <LazyImage
-                        src={`${env.ASSETS}/640/640__events_dragracing.jpg`}
-                        width={960}
-                        height={536}
-                        alt="Drag Race"
-                        className="mt-0 border-t border-b border-gray-500"
-                    />
-                    <p className="mx-4 my-2">
-                        Racers meet at certain locations to start competing with
-                        their opponents to see who gets to the finish line
-                        first. Winner gets the <Role>Fast & Furious</Role> role
-                    </p>
-                </Card>
+            <EventCard
+                title="Fight Club"
+                src="fightclub.jpg"
+                width={960}
+                height={536}
+            >
+                At undisclosed locations our fighters meet and start smacking
+                down one another until there is only one left. Best puncher gets
+                the <Role>Golden Gloves</Role> role
+            </EventCard>
 
-                <Card nopadding className="flex flex-col mb-4">
-                    <SectionTitle
-                        nopadding
-                        type="h4"
-                        className="bg-blue-900 p-2 text-center"
-                    >
-                        Top Gear
-                    </SectionTitle>
-                    <LazyImage
-                        src={`${env.ASSETS}/640/640__events_topgear.jpg`}
-                        width={750}
-                        height={419}
-                        alt="Top Gear"
-                        className="mt-0 border-t border-b border-gray-500"
-                    />
-                    <p className="mx-4 my-2">
-                        We gather car lovers to show off their beauties in a
-                        specific class or theme. Cars are judged by their looks
-                        and how good their drivers are. Winner gets the{" "}
-                        <Role>Prettiest Pistons</Role> role
-                    </p>
-                </Card>
+            <EventCard
+                title="Drag Racing"
+                src="dragracing.jpg"
+                width={960}
+                height={536}
+            >
+                Racers compete with friends/mortal enemies to see who gets to
+                the finish line first. Winner gets the{" "}
+                <Role>Fast & Furious</Role> role
+            </EventCard>
 
-                <Card nopadding className="flex flex-col mb-4">
-                    <SectionTitle
-                        nopadding
-                        type="h4"
-                        className="bg-blue-900 p-2 text-center"
-                    >
-                        Fashion Show
-                    </SectionTitle>
-                    <LazyImage
-                        src={`${env.ASSETS}/640/640__events_fashionshow.jpg`}
-                        width={611}
-                        height={343}
-                        alt="Fashion Show"
-                        className="mt-0 border-t border-b border-gray-500"
-                    />
-                    <p className="mx-4 my-2">
-                        With a given theme, our crew members dress up nicely and
-                        accordingly to be judged. Best dressed gets the{" "}
-                        <Role>Fashion Police</Role> role
-                    </p>
-                </Card>
+            <EventCard
+                title="Top Gear"
+                src="topgear.jpg"
+                width={750}
+                height={419}
+            >
+                We gather car lovers to show off their beauties in a specific
+                class or theme. Cars are judged by their looks and how good
+                their drivers are. Winner gets the{" "}
+                <Role>Prettiest Pistons</Role> role
+            </EventCard>
 
-                <Card nopadding className="flex flex-col mb-4">
-                    <SectionTitle
-                        nopadding
-                        type="h4"
-                        className="bg-blue-900 p-2 text-center"
-                    >
-                        Bonus Event
-                    </SectionTitle>
-                    <LazyImage
-                        src={`${env.ASSETS}/640/640__events_bonus.jpg`}
-                        width={3840}
-                        height={2160}
-                        alt="Bonus Event"
-                        className="mt-0 border-t border-b border-gray-500"
-                    />
-                    <p className="mx-4 my-2">
-                        With the <b>Rockstar Newswire</b> out, we host a
-                        playlist full of jobs that are paying out Double (or
-                        Triple) GTA$ & RP.
-                    </p>
-                </Card>
+            <EventCard
+                title="Fashion Show"
+                src="fashionshow.jpg"
+                width={611}
+                height={343}
+            >
+                With a given theme, our crew members dress up nicely and
+                accordingly to be judged. Best dressed gets the{" "}
+                <Role>Fashion Police</Role> role
+            </EventCard>
 
-                <Card nopadding className="flex flex-col mb-4">
-                    <SectionTitle
-                        nopadding
-                        type="h4"
-                        className="bg-blue-900 p-2 text-center"
-                    >
-                        Monday Mayhem
-                    </SectionTitle>
-                    <LazyImage
-                        src={`${env.ASSETS}/640/640__events_mondaymayhem.jpg`}
-                        width={3840}
-                        height={2160}
-                        alt="Monday Mayhem"
-                        className="mt-0 border-t border-b border-gray-500"
-                    />
-                    <p className="mx-4 my-2">
-                        This event is the chaos and rampage that it can only be
-                        found in <b>Last Team Standing</b>. Players compete in
-                        teams in several jobs from Social Club.
-                    </p>
-                </Card>
-            </div>
+            <EventCard
+                title="Bonus Event"
+                src="bonus.jpg"
+                width={3840}
+                height={2160}
+            >
+                With the <b>Rockstar Newswire</b> out, we host a playlist full
+                of jobs that are paying out Double (or Triple) GTA$ & RP.
+            </EventCard>
 
-            <Card>
+            <EventCard
+                title="Monday Mayhem"
+                src="mondaymayhem.jpg"
+                width={3840}
+                height={2160}
+            >
+                This event is the chaos and rampage that it can only be found in{" "}
+                <b>Last Team Standing</b>. Players compete in teams in several
+                jobs from Social Club.
+            </EventCard>
+
+            <Card className="px-4 py-2">
                 <SectionTitle type="h3" className="text-events">
                     The Event Coordinators
                 </SectionTitle>
@@ -315,7 +184,7 @@ const Events: React.FC = () => {
                     activities that bring us together in game. They help plan,
                     organize and host crew events.
                 </p>
-                <div className="flex flex-row flex-wrap min-w-0">
+                <div className="grid grid-cols-4 place-items-center py-4 gap-4">
                     {eventsRoles &&
                         Object.entries(
                             eventsRoles
@@ -330,7 +199,7 @@ const Events: React.FC = () => {
                         )}
                 </div>
             </Card>
-        </div>
+        </>
     )
 }
 

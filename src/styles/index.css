@@ -9,10 +9,6 @@
         @apply antialiased;
     }
 
-    p:not(:last-child) {
-        @apply mb-4;
-    }
-
     button:focus,
     a:focus {
         outline: 1px dotted theme("colors.copy");

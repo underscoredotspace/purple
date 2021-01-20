@@ -61,30 +61,28 @@ const AboutTheCrew: React.FC = () => {
 
     return (
         <>
-            <div className="m-4">
-                <p>
-                    GPAD started out as a{" "}
-                    <RouteLink to="/gta-online" title="GTA Online" bold>
-                        <b>GTA Online</b>
-                    </RouteLink>{" "}
-                    crew but has now become something much bigger. Our{" "}
-                    <RouteLink to="/red-dead" title="Red Dead Redemption">
-                        <b>Red Dead</b>
-                    </RouteLink>{" "}
-                    expansion has taken off and as{" "}
-                    <RouteLink to="/other-games" title="Other Games">
-                        other games
-                    </RouteLink>{" "}
-                    became popular, we&apos;ve given our community options for
-                    those games as well.
-                </p>
-                <p>
-                    <b>GPAD</b> is a gaming community, but we also care about
-                    much more than that. You can enjoy discussing food, people
-                    can talk about health &amp; fitness, share amazing travel
-                    photos and more!
-                </p>
-            </div>
+            <p>
+                GPAD started out as a{" "}
+                <RouteLink to="/gta-online" title="GTA Online" bold>
+                    <b>GTA Online</b>
+                </RouteLink>{" "}
+                crew but has now become something much bigger. Our{" "}
+                <RouteLink to="/red-dead" title="Red Dead Redemption">
+                    <b>Red Dead</b>
+                </RouteLink>{" "}
+                expansion has taken off and as{" "}
+                <RouteLink to="/other-games" title="Other Games">
+                    other games
+                </RouteLink>{" "}
+                became popular, we&apos;ve given our community options for those
+                games as well.
+            </p>
+            <p>
+                <b>GPAD</b> is a gaming community, but we also care about much
+                more than that. You can enjoy discussing food, people can talk
+                about health &amp; fitness, share amazing travel photos and
+                more!
+            </p>
 
             <LazyImage
                 src={`${env.ASSETS}/640/640__614274821722865681.jpg`}
@@ -93,50 +91,49 @@ const AboutTheCrew: React.FC = () => {
                 height={536}
                 data-credit="Brooks5566"
             />
-            <div className="m-4">
-                <p>
-                    We may have started out as a gaming server, but you wont
-                    find a family like <b>GPAD</b> anywhere.
-                </p>
 
-                <SectionTitle>Keeping the Show Running</SectionTitle>
-                <p>
-                    The crew wouldn&apos;t be the same without the members that
-                    help keep the wheels turning.
-                </p>
-                {helperRoles &&
-                    Object.entries(helperRoles).map(
-                        (
-                            [roleName, { members, description, colour }],
-                            ndx,
-                            arr
-                        ) => (
-                            <Card
-                                key={`helper-role-${roleName}`}
-                                className={
-                                    ndx !== arr.length - 1 ? "mb-4" : undefined
-                                }
+            <p>
+                We may have started out as a gaming server, but you wont find a
+                family like <b>GPAD</b> anywhere.
+            </p>
+
+            <SectionTitle>Keeping the Show Running</SectionTitle>
+            <p>
+                The crew wouldn&apos;t be the same without the members that help
+                keep the wheels turning.
+            </p>
+            {helperRoles &&
+                Object.entries(helperRoles).map(
+                    (
+                        [roleName, { members, description, colour }],
+                        ndx,
+                        arr
+                    ) => (
+                        <Card
+                            key={`helper-role-${roleName}`}
+                            className={
+                                ndx !== arr.length - 1 ? "mb-4" : undefined
+                            }
+                        >
+                            <SectionTitle
+                                type="h3"
+                                className={`text-${colour}`}
                             >
-                                <SectionTitle
-                                    type="h3"
-                                    className={`text-${colour}`}
-                                >
-                                    {roleName}
-                                </SectionTitle>
-                                <p>{description}</p>
+                                {roleName}
+                            </SectionTitle>
+                            <p>{description}</p>
 
-                                {members &&
-                                    members.map((member) => (
-                                        <MemberImage
-                                            key={`helper-role-${roleName}-${member.member_id}`}
-                                            member={member}
-                                            colour={colour}
-                                        />
-                                    ))}
-                            </Card>
-                        )
-                    )}
-            </div>
+                            {members &&
+                                members.map((member) => (
+                                    <MemberImage
+                                        key={`helper-role-${roleName}-${member.member_id}`}
+                                        member={member}
+                                        colour={colour}
+                                    />
+                                ))}
+                        </Card>
+                    )
+                )}
         </>
     )
 }

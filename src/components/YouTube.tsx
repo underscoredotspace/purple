@@ -24,7 +24,7 @@ export const YouTube: React.FC<YouTubeProps> = ({ videoId, title }) => {
     }
 
     return (
-        <div style={{ ...style, margin: "0 auto", backgroundColor: "black" }}>
+        <div style={{ ...style }}>
             <iframe
                 title={title}
                 style={style}

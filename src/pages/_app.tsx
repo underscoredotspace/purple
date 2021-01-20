@@ -1,5 +1,6 @@
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { Footer, Header, Menu } from "components"
+import { Container } from "components/primitives"
 import { env } from "helpers"
 import { AppProps } from "next/app"
 import { useRouter } from "next/router"
@@ -39,7 +40,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     return (
         <SiteContext.Provider value={contextValue}>
             <div
-                className="z-30 absolute w-screen overflow-hidden"
+                className="z-30 absolute w-screen overflow-hidden bg-fixed"
                 style={{
                     backgroundImage: `url(${env.ASSETS}/background.png)`,
                 }}
@@ -47,8 +48,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                 <Menu />
                 <Header />
                 <div className="pt-16 bg-opacity-95 bg-background min-h-screen flex flex-col justify-between">
-                    <main>
-                        <Component {...pageProps} />
+                    <main className="max-w-xl mx-auto">
+                        <Container className="mx-4">
+                            <Component {...pageProps} />
+                        </Container>
                     </main>
 
                     <Footer />
