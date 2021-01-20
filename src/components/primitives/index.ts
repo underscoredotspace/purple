@@ -1,4 +1,5 @@
 export { Anchor } from "./Anchor"
 export { LazyImage } from "./LazyImage"
+export { Pill } from "./Pill"
 export { RouteLink } from "./RouteLink"
 export { SectionTitle } from "./SectionTitle"
