@@ -42,7 +42,7 @@ export const Footer: React.FC = () => (
                 text="Reddit"
             />
             <SocialLink
-                href="https://youtu.be/channel/UCOKVvuWN-cf63XkXJuYmirQ"
+                href="https://youtube.com/channel/UCOKVvuWN-cf63XkXJuYmirQ"
                 title="GPAD's YouTube Channel"
                 icon={faYoutube}
                 text="YouTube"
