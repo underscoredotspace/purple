@@ -2,6 +2,7 @@ import { Action, Actions, RootState } from "./types"
 
 export const initialState: RootState = {
     menuVisible: false,
+    loggedIn: false,
 }
 
 export const reducer = (state: RootState, action: Action): RootState => {
@@ -15,6 +16,12 @@ export const reducer = (state: RootState, action: Action): RootState => {
             return {
                 ...state,
                 menuVisible: false,
+            }
+
+        case Actions.setLoggedIn:
+            return {
+                ...state,
+                loggedIn: action.payload["isLoggedIn"],
             }
         default:
             return state

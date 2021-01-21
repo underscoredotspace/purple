@@ -1,9 +1,9 @@
 import { env } from "helpers"
+import { classNames } from "helpers/misc"
 import { Route, routes } from "helpers/routes"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import React, { useContext, useEffect, useState } from "react"
-import { Cookies } from "react-cookie"
+import React, { useContext, useEffect } from "react"
 import { closeMenu, SiteContext } from "store"
 
 interface CreateLinkProps {
@@ -46,31 +46,23 @@ const createLink: React.FC<CreateLinkProps> = ({ route, pathname }) => {
 export const Menu: React.FC = () => {
     const { pathname } = useRouter()
     const { state, dispatch } = useContext(SiteContext)
-    const [cookies, setCookies] = useState<Cookies>()
+    const { loggedIn, menuVisible } = state
 
     useEffect(() => {
         document.addEventListener("keydown", handleEscape)
 
         return () => document.removeEventListener("keydown", handleEscape)
-    }, [state.menuVisible])
-
-    useEffect(() => {
-        if (process.browser) {
-            setCookies(new Cookies(document.cookie))
-        }
-    }, [])
-
-    const loggedIn = !!cookies?.get("auth")
+    }, [menuVisible])
 
     function handleEscape({ key }: KeyboardEvent) {
-        if (key === "Escape" && state.menuVisible) {
+        if (key === "Escape" && menuVisible) {
             dispatch(closeMenu())
         }
     }
 
     return (
         <nav
-            className={[
+            className={classNames([
                 "fixed inset-0 bg-black text-white bg-opacity-50 z-40 mt-16",
                 "transition",
                 "ease-in-expo",
@@ -81,9 +73,8 @@ export const Menu: React.FC = () => {
                 "bg-opacity-95",
                 "overflow-y-auto",
                 "border-t border-copy",
-                !state.menuVisible ? "opacity-0" : null,
-                !state.menuVisible ? "transform translate-x-full" : null,
-            ].join(" ")}
+                !menuVisible ? "opacity-0 transform translate-x-full" : null,
+            ])}
         >
             <ul className="p-4 h-full">
                 {Object.values(routes).map((route) => (

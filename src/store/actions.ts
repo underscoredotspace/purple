@@ -7,3 +7,8 @@ export const toggleMenu = (): Action => ({
 export const closeMenu = (): Action => ({
     type: Actions.closeMenu,
 })
+
+export const setLoggedIn = (isLoggedIn: boolean): Action => ({
+    type: Actions.setLoggedIn,
+    payload: { isLoggedIn },
+})

@@ -4,8 +4,15 @@ import { Container } from "components/primitives"
 import { env } from "helpers"
 import { AppProps } from "next/app"
 import { useRouter } from "next/router"
-import { useEffect, useMemo, useReducer } from "react"
-import { closeMenu, initialState, reducer, SiteContext } from "store"
+import { useEffect, useMemo, useReducer, useState } from "react"
+import { Cookies } from "react-cookie"
+import {
+    closeMenu,
+    initialState,
+    reducer,
+    setLoggedIn,
+    SiteContext,
+} from "store"
 import "styles/index.css"
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
@@ -27,6 +34,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             replace({ pathname, query: {} })
         }
     }, [query])
+
+    const [cookies, setCookies] = useState<Cookies>()
+
+    useEffect(() => {
+        if (process.browser) {
+            setCookies(new Cookies(document.cookie))
+            dispatch(setLoggedIn(!!cookies?.get("auth")))
+        }
+    }, [])
 
     useEffect(() => {
         const bodyClasses = document.querySelector("body").classList
