@@ -204,16 +204,16 @@ const achievements: Achievement[] = [
 
 const Achievements: React.FC = () => {
     return (
-        <div className="m-4">
+        <>
             <p>Discord roles you can earn for in-game or crew achievements</p>
             {achievements.map((a, ndx) => (
-                <Card className="mb-4" key={`achievements-${ndx}`}>
+                <Card padding key={`achievements-${ndx}`}>
                     <SectionTitle type="h3">{a.name}</SectionTitle>
-                    <p>{a.desc}</p>
+                    <p className="pb-4">{a.desc}</p>
                     <AchievementTable tableData={a.roles} colour={a.colour} />
                 </Card>
             ))}
-        </div>
+        </>
     )
 }
 

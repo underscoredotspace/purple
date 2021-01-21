@@ -175,7 +175,7 @@ const Events: React.FC = () => {
                 jobs from Social Club.
             </EventCard>
 
-            <Card className="px-4 py-2">
+            <Card padding>
                 <SectionTitle type="h3" className="text-events">
                     The Event Coordinators
                 </SectionTitle>

@@ -1,14 +1,9 @@
 import { Card } from "components"
-import { LazyImage, Pill, RouteLink } from "components/primitives"
+import { LazyImage, Pill, Pills, RouteLink, Text } from "components/primitives"
 import { env } from "helpers"
-import React from "react"
 
-const Word: React.FC<{ last?: boolean }> = ({ children, last }) => (
-    <span
-        className={`bg-white text-black px-2 border-2 border-black screen ${
-            last ? "md:mr-12" : ""
-        }`}
-    >
+const Word: React.FC = ({ children }) => (
+    <span className={`bg-white text-black px-2 border-2 border-black screen`}>
         {children}
     </span>
 )
@@ -26,7 +21,7 @@ const GameCard: React.FC<GameCardProps> = ({
     pictures,
     games,
 }) => (
-    <Card nopadding className="mb-4 max-w-xl">
+    <Card>
         <div className="relative flex flex-row h-48 md:h-64 w-full content z-20 border-b border-gray-700 overflow-hidden">
             {pictures[0] && (
                 <LazyImage
@@ -44,27 +39,23 @@ const GameCard: React.FC<GameCardProps> = ({
                     className="object-cover w-1/2"
                 />
             )}
-            <div className="absolute inset-0 flex flex-wrap items-center justify-center md:justify-end text-4xl font-black bg-black bg-opacity-10 content-center px-4">
-                {title.split(" ").map((word, i, arr) => (
-                    <Word key={`word-${i}`} last={i === arr.length - 1}>
-                        {word}
-                    </Word>
+            <p className="absolute inset-0 flex flex-wrap items-center justify-center md:justify-end text-4xl font-black bg-black bg-opacity-10 content-center px-4">
+                {title.split(" ").map((word, i) => (
+                    <Word key={`word-${i}`}>{word}</Word>
                 ))}
-            </div>
+            </p>
         </div>
-        <div className="m-4">
-            <p>{description}</p>
+        <Text padding>{description}</Text>
+        <Pills className="px-4">
             {games &&
                 games.map((game) => (
                     <Pill
-                        className="mr-2 mt-2"
+                        className="bg-games text-card"
                         key={`game-${game}`}
-                        bgColor="games"
                         text={game}
-                        textColor="card"
                     />
                 ))}
-        </div>
+        </Pills>
     </Card>
 )
 
@@ -177,7 +168,7 @@ const gameCards: GameCardProps[] = [
 ]
 
 const OtherGames: React.FC = () => (
-    <div className="mx-4 mt-4 flex flex-col md:items-center">
+    <>
         <p>
             As well as{" "}
             <RouteLink to="/gta-online" title="Grand Theft Auto" bold>
@@ -198,7 +189,7 @@ const OtherGames: React.FC = () => (
         {gameCards.map((card) => (
             <GameCard key={`gamecard-${card.title}`} {...card} />
         ))}
-    </div>
+    </>
 )
 
 export default OtherGames

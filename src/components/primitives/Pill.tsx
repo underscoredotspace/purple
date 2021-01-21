@@ -1,38 +1,24 @@
-import React from "react"
+import { Text } from "components/primitives"
+import { classNames } from "helpers/misc"
+import { ContainerProps } from "./Containers"
 
-interface PillProps {
-    bgColor: string
-    textColor: string
-    borderColor?: string
+interface PillProps extends ContainerProps {
     text: string
-    className: string
 }
 
-export const Pill: React.FC<PillProps> = ({
-    bgColor,
-    textColor,
-    borderColor,
-    text,
-    className = "",
-}) => (
+export const Pill: React.FC<PillProps> = ({ text, className }) => (
     <div
-        className={[
-            `bg-${bgColor}`,
-            `text-${textColor}`,
-            "inline-block",
-            "rounded-md",
-            "px-3",
-            "py-1",
-            "text-xs",
-            "font-black",
-            "text-card",
-            "font-mono",
-            "border",
-            `border-${borderColor ?? "black"}`,
-            "border-dotted",
+        className={classNames([
+            "inline-block rounded-md mr-2 mb-2 px-3 py-1 font-mono border border-black border-dotted",
             className,
-        ].join(" ")}
+        ])}
     >
-        {text}
+        <Text className="text-xs text-card">{text}</Text>
+    </div>
+)
+
+export const Pills: React.FC<ContainerProps> = ({ children, className }) => (
+    <div className={classNames(["flex flex-row flex-wrap", className])}>
+        {children}
     </div>
 )

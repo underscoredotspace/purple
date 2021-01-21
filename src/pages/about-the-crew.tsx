@@ -104,17 +104,8 @@ const AboutTheCrew: React.FC = () => {
             </p>
             {helperRoles &&
                 Object.entries(helperRoles).map(
-                    (
-                        [roleName, { members, description, colour }],
-                        ndx,
-                        arr
-                    ) => (
-                        <Card
-                            key={`helper-role-${roleName}`}
-                            className={
-                                ndx !== arr.length - 1 ? "mb-4" : undefined
-                            }
-                        >
+                    ([roleName, { members, description, colour }]) => (
+                        <Card padding key={`helper-role-${roleName}`}>
                             <SectionTitle
                                 type="h3"
                                 className={`text-${colour}`}
@@ -123,14 +114,16 @@ const AboutTheCrew: React.FC = () => {
                             </SectionTitle>
                             <p>{description}</p>
 
-                            {members &&
-                                members.map((member) => (
-                                    <MemberImage
-                                        key={`helper-role-${roleName}-${member.member_id}`}
-                                        member={member}
-                                        colour={colour}
-                                    />
-                                ))}
+                            <div className="grid grid-cols-4 place-items-center py-4 gap-4">
+                                {members &&
+                                    members.map((member) => (
+                                        <MemberImage
+                                            key={`helper-role-${roleName}-${member.member_id}`}
+                                            member={member}
+                                            colour={colour}
+                                        />
+                                    ))}
+                            </div>
                         </Card>
                     )
                 )}

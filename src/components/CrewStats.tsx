@@ -25,18 +25,18 @@ export const CrewStats: React.FC = () => {
     }, [])
 
     return (
-        <Card>
+        <Card padding>
             <SectionTitle type="h4" className="text-center mb-4">
                 Our Membership
             </SectionTitle>
-            <div className="flex flex-row justify-center items-center text-2xl font-bold font-mono">
-                <div className="text-ps pr-4">
-                    <FontAwesomeIcon icon={faPlaystation} className="mr-2" />
-                    {memberCounts?.ps ?? "..."}
+            <div className="grid grid-cols-2 gap-4 place-items-center text-2xl font-bold font-mono">
+                <div className="text-ps space-x-2">
+                    <FontAwesomeIcon icon={faPlaystation} />
+                    <span>{memberCounts?.ps ?? "..."}</span>
                 </div>
-                <div className="text-xb pl-4">
-                    <FontAwesomeIcon icon={faXbox} className="mr-2" />
-                    {memberCounts?.xbox ?? "..."}
+                <div className="text-xb space-x-2">
+                    <FontAwesomeIcon icon={faXbox} />
+                    <span>{memberCounts?.xbox ?? "..."}</span>
                 </div>
             </div>
             <div className="text-gray-500 text-xs text-right mt-4">

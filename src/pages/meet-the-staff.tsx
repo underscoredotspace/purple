@@ -65,7 +65,7 @@ const MeetTheStaff: React.FC = () => {
     if (!profileRows) return null
 
     return (
-        <div className="m-4">
+        <>
             {roles.map((role, index, array) => {
                 const row = profileRows[role.key]
 
@@ -94,7 +94,7 @@ const MeetTheStaff: React.FC = () => {
                     </Fragment>
                 )
             })}
-        </div>
+        </>
     )
 }
 

@@ -1,7 +1,7 @@
 import { env } from "helpers"
 import React from "react"
 import { Card } from "./Card"
-import { LazyImage } from "./primitives"
+import { LazyImage, Text } from "./primitives"
 
 interface PictureProps {
     title?: string
@@ -19,26 +19,18 @@ export const Picture: React.FC<PictureProps> = ({
     height,
 }) => {
     return (
-        <Card nopadding className="w-full max-w-xl mb-4">
+        <Card>
             <LazyImage
                 src={`${env.ASSETS}/640/640__${src}`}
                 alt={subtitle}
                 width={width}
                 height={height}
-                className="flex justify-center items-center w-full h-64 bg-background object-cover object-top"
             />
-            <div
-                className={[
-                    "flex",
-                    "flex-col",
-                    "justify-end",
-                    "text-copy",
-                    "p-3",
-                ].join(" ")}
-            >
-                {title && <div className="font-bold">@{title}</div>}
-                <div className="font-light text-sm">{subtitle}</div>
-            </div>
+
+            <Text padding>
+                {title && <Text className="font-bold">{title}</Text>}
+                <Text className="font-light text-sm">{subtitle}</Text>
+            </Text>
         </Card>
     )
 }

@@ -87,7 +87,7 @@ export const Profile: ProfileComponent = ({
     )
 
     return (
-        <Card nopadding>
+        <Card>
             <div
                 className={[
                     "border-b-4",
