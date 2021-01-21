@@ -1,3 +1,5 @@
+import { faDiscord } from "@fortawesome/free-brands-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { env } from "helpers"
 import { classNames } from "helpers/misc"
 import { Route, routes } from "helpers/routes"
@@ -16,7 +18,11 @@ const MenuLink: React.FC<{ title: string; href: string }> = ({
     href,
     children,
 }) => (
-    <a title={title} href={href} className="bare block p-2 hover:bg-card">
+    <a
+        title={title}
+        href={href}
+        className="bare p-2 hover:bg-card flex flex-row items-center"
+    >
         {children}
     </a>
 )
@@ -89,9 +95,25 @@ export const Menu: React.FC = () => {
                             href={`${env.API_URL}/auth/${
                                 loggedIn ? "logout" : "login"
                             }?redirect=${pathname}`}
-                            title={`Log ${loggedIn ? "out" : "in"}`}
+                            title={`Log ${
+                                loggedIn ? "out" : "in with Discord"
+                            }`}
                         >
-                            Log {loggedIn ? "out" : "in"}
+                            Log{" "}
+                            {loggedIn ? (
+                                "out"
+                            ) : (
+                                <span>
+                                    in with{" "}
+                                    <span className="font-bold text-discord">
+                                        Discord{" "}
+                                        <FontAwesomeIcon
+                                            icon={faDiscord}
+                                            className="text-discord"
+                                        />
+                                    </span>
+                                </span>
+                            )}
                         </MenuLink>
                     </li>
                 ) : null}
