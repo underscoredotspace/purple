@@ -40,9 +40,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     useEffect(() => {
         if (process.browser) {
             setCookies(new Cookies(document.cookie))
-            dispatch(setLoggedIn(!!cookies?.get("auth")))
         }
     }, [])
+
+    useEffect(() => {
+        dispatch(setLoggedIn(!!cookies?.get("auth")))
+    }, [cookies])
 
     useEffect(() => {
         const bodyClasses = document.querySelector("body").classList
