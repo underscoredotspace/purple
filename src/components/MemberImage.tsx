@@ -8,6 +8,7 @@ interface MemberImageProps {
     colour?: string
     className?: string
     size?: number
+    title?: string
 }
 
 const MemberImage: React.FC<MemberImageProps> = ({
@@ -15,6 +16,7 @@ const MemberImage: React.FC<MemberImageProps> = ({
     colour,
     className,
     size = 64,
+    title,
 }) => {
     const [avatarPath, setAvatarPath] = useState(
         `https://cdn.discordapp.com/avatars/${
@@ -27,10 +29,10 @@ const MemberImage: React.FC<MemberImageProps> = ({
             width={size}
             height={size}
             alt={member.username}
-            title={member.username}
+            title={title || member.username}
             className={classNames([
-                `rounded-full border inline-block`,
-                colour && `border-${colour}`,
+                `rounded-full inline-block`,
+                colour && `border border-${colour}`,
                 className,
             ])}
             src={avatarPath}

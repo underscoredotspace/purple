@@ -14,7 +14,7 @@ const Title: React.FC = () => {
             <Head>
                 <title>GPAD - {route?.title ?? "Page Not Found"}</title>
             </Head>
-            <h1 className="text-2xl font-extrabold mx-4 text-copy">
+            <h1 className="w-full text-xl font-extrabold text-copy text-center">
                 {state.menuVisible ? "Menu" : route?.title ?? "Page Not Found"}
             </h1>
         </>

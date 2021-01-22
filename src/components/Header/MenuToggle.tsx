@@ -9,14 +9,14 @@ const Menu: React.FC = () => {
     return state.menuVisible ? (
         <button
             onClick={() => dispatch(toggleMenu())}
-            className="w-7 text-center"
+            className="w-7 text-center flex-shrink-0"
         >
             <FontAwesomeIcon icon={faTimes} size="2x" />
         </button>
     ) : (
         <button
             onClick={() => dispatch(toggleMenu())}
-            className="w-7 text-center"
+            className="w-7 text-center flex-shrink-0"
         >
             <FontAwesomeIcon icon={faBars} size="2x" />
         </button>

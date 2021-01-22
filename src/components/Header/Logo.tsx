@@ -6,7 +6,6 @@ const Logo: React.FC = () => (
         <img
             src={`${env.ASSETS}/logo.png`}
             alt="GPAD Logo"
-            className="my-2"
             width={40}
             height={40}
         />
