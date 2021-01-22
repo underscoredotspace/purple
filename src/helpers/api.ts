@@ -15,6 +15,12 @@ export async function getMembercount(): Promise<{
     return { ps: Number(PS), xbox: Number(XBOX), lastUpdate }
 }
 
+export async function getUser(): Promise<Omit<Member, "role_id">> {
+    const { avatar, userid, username } = await fetchJSON("auth/user")
+
+    return { member_id: userid, avatar, username }
+}
+
 export interface Role {
     name: string
     position: number

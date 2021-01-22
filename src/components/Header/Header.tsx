@@ -1,4 +1,6 @@
-import { useContext } from "react"
+import MemberImage from "components/MemberImage"
+import { getUser, Member } from "helpers/api"
+import { useContext, useEffect, useState } from "react"
 import { SiteContext } from "store"
 import Logo from "./Logo"
 import MenuToggle from "./MenuToggle"
@@ -8,6 +10,13 @@ import Title from "./Title"
 
 export const Header: React.FC = () => {
     const { state } = useContext(SiteContext)
+    const [member, setMember] = useState<Omit<Member, "role_id">>()
+
+    useEffect(() => {
+        if (state.loggedIn) {
+            getUser().then(setMember)
+        }
+    }, [state.loggedIn])
 
     return (
         <header
@@ -20,6 +29,7 @@ export const Header: React.FC = () => {
 
             <Logo />
             <Title />
+            {member && <MemberImage member={member} />}
             <MenuToggle />
         </header>
     )
