@@ -3,17 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { env } from "helpers"
 import { classNames } from "helpers/misc"
 import { Route, routes } from "helpers/routes"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { useContext, useEffect } from "react"
 import { closeMenu, SiteContext } from "store"
+import { RouteLink } from "./primitives"
 
 interface CreateLinkProps {
     route: Route
     pathname: string
 }
 
-const MenuLink: React.FC<{ title: string; href: string }> = ({
+const MenuLink: React.FC<{ title: string; href?: string }> = ({
     title,
     href,
     children,
@@ -32,20 +32,16 @@ const createLink: React.FC<CreateLinkProps> = ({ route, pathname }) => {
         return <b className="block p-2 bg-card">{route.title}</b>
     }
 
-    if (route.external) {
-        return (
-            <MenuLink title={route.title} href={route.path}>
-                {route.title}
-            </MenuLink>
-        )
-    }
+    const className = "bare p-2 hover:bg-card flex flex-row items-center"
 
-    return (
-        <Link href={route.path}>
-            <MenuLink title={route.title} href={route.path}>
-                {route.title}
-            </MenuLink>
-        </Link>
+    return route.external ? (
+        <a title={route.title} href={route.path} className={className}>
+            {route.title}
+        </a>
+    ) : (
+        <RouteLink to={route.path} title={route.title} className={className}>
+            {route.title}
+        </RouteLink>
     )
 }
 
@@ -99,20 +95,20 @@ export const Menu: React.FC = () => {
                                 loggedIn ? "out" : "in with Discord"
                             }`}
                         >
-                            Log{" "}
+                            Log&nbsp;
                             {loggedIn ? (
                                 "out"
                             ) : (
-                                <span>
-                                    in with{" "}
+                                <>
+                                    in with&nbsp;
                                     <span className="font-bold text-discord">
-                                        Discord{" "}
+                                        Discord&nbsp;
                                         <FontAwesomeIcon
                                             icon={faDiscord}
                                             className="text-discord"
                                         />
                                     </span>
-                                </span>
+                                </>
                             )}
                         </MenuLink>
                     </li>

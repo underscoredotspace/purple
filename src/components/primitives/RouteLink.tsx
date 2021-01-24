@@ -1,9 +1,11 @@
+import { classNames } from "helpers/misc"
 import Link from "next/link"
 
 interface RouteLinkProps {
     bold?: boolean
     title: string
     to: string
+    className?: string
 }
 
 export const RouteLink: React.FC<RouteLinkProps> = ({
@@ -11,9 +13,13 @@ export const RouteLink: React.FC<RouteLinkProps> = ({
     title,
     bold,
     children,
+    className,
 }) => (
     <Link href={to}>
-        <a title={title} className={`${bold ? "font-bold" : ""}`}>
+        <a
+            title={title}
+            className={classNames([bold && "font-bold", className])}
+        >
             {children}
         </a>
     </Link>
