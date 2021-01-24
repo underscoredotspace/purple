@@ -170,7 +170,7 @@ const Events: React.FC = () => {
                 width={3840}
                 height={2160}
             >
-                This event is the chaos and rampage that it can only be found in{" "}
+                This event is the chaos and rampage that can only be found in{" "}
                 <b>Last Team Standing</b>. Players compete in teams in several
                 jobs from Social Club.
             </EventCard>
