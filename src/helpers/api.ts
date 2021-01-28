@@ -3,7 +3,9 @@ import { env } from "helpers"
 const apiUrl = (endpoint: string) => `${env.API_URL}/${endpoint}`
 
 const fetchJSON = (endpoint: string) =>
-    fetch(apiUrl(endpoint)).then((res) => res.json())
+    fetch(apiUrl(endpoint), { credentials: "include" }).then((res) =>
+        res.json()
+    )
 
 export async function getMembercount(): Promise<{
     ps: number
