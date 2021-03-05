@@ -16,11 +16,11 @@
 
     a:not(.bare) {
         @apply text-blue-400;
-        @apply underline;
+        @apply no-underline;
     }
 
     a:hover:not(.bare) {
-        @apply text-blue-300;
+        @apply text-yellow-400;
     }
 
     h1 {
