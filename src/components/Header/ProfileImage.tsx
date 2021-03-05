@@ -1,30 +1,18 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import MemberImage from "components/MemberImage"
-import { getUser, Member } from "helpers/api"
-import React, { useContext, useEffect, useState } from "react"
-import { setLoggedIn, SiteContext } from "store"
+import React, { useContext } from "react"
+import { SiteContext } from "store"
 
 const ProfileImage: React.FC = () => {
-    const { state, dispatch } = useContext(SiteContext)
-    const [member, setMember] = useState<Omit<Member, "role_id">>()
+    const { state } = useContext(SiteContext)
 
-    useEffect(() => {
-        if (state.loggedIn) {
-            getUser()
-                .then(setMember)
-                .catch(() => {
-                    dispatch(setLoggedIn(false))
-                })
-        }
-    }, [state.loggedIn])
-
-    if (member) {
+    if (state.user) {
         return (
             <MemberImage
                 size={32}
-                member={member}
-                title={`You're logged in as ${member.username}`}
+                user={state.user}
+                title={`You're logged in as ${state.user.username}`}
                 className="border border-copy border-opacity-50"
             />
         )

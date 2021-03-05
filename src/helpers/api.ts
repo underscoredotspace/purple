@@ -1,4 +1,5 @@
 import { env } from "helpers"
+import { User } from "store/types"
 
 const apiUrl = (endpoint: string) => `${env.API_URL}/${endpoint}`
 
@@ -17,11 +18,7 @@ export async function getMembercount(): Promise<{
     return { ps: Number(PS), xbox: Number(XBOX), lastUpdate }
 }
 
-export async function getUser(): Promise<Omit<Member, "role_id">> {
-    const { avatar, userid, username } = await fetchJSON("auth/user")
-
-    return { member_id: userid, avatar, username }
-}
+export const getUser = (): Promise<User> => fetchJSON("auth/user")
 
 export interface Role {
     name: string
