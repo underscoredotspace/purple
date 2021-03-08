@@ -16,12 +16,14 @@ export const CrewStats: React.FC = () => {
     const [memberCounts, setMemberCounts] = useState<MemberCounts>()
 
     useEffect(() => {
-        getMembercount().then(({ ps, xbox, lastUpdate }) => {
-            const timeAgo = DateTime.fromISO(lastUpdate)
-                .toRelative({ style: "short", round: true })
-                ?.toString()
-            setMemberCounts({ ps, xbox, lastUpdate: timeAgo ?? "" })
-        })
+        getMembercount()
+            .then(({ ps, xbox, lastUpdate }) => {
+                const timeAgo = DateTime.fromISO(lastUpdate)
+                    .toRelative({ style: "short", round: true })
+                    ?.toString()
+                setMemberCounts({ ps, xbox, lastUpdate: timeAgo ?? "" })
+            })
+            .catch(console.error)
     }, [])
 
     return (

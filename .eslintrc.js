@@ -17,6 +17,7 @@ module.exports = {
         node: true,
         es6: true,
     },
+    ignorePatterns: ["*.js"],
     rules: {
         "react/prop-types": "off",
         "@typescript-eslint/no-unused-vars": [
