@@ -7,13 +7,13 @@ import { RouteLink, SectionTitle } from "components/primitives"
 const Home: React.FC = () => (
     <>
         <p>
-            We are an active and supportive dual-platform (PlayStation 4{" "}
+            We are an active and supportive dual-platform (PlayStation{" "}
             <FontAwesomeIcon
                 icon={faPlaystation}
                 className="text-ps"
                 size="xs"
             />{" "}
-            and Xbox One{" "}
+            and Xbox{" "}
             <FontAwesomeIcon icon={faXbox} className="text-xb" size="xs" />)
             gaming community.
         </p>
@@ -21,12 +21,13 @@ const Home: React.FC = () => (
             Our main games are{" "}
             <RouteLink to="/gta-online" title="Grand Theft Auto" bold>
                 Grand Theft Auto
-            </RouteLink>{" "}
-            and{" "}
+            </RouteLink>
+            ,{" "}
             <RouteLink to="/red-dead" title="Red Dead Redemption" bold>
                 Red Dead Redemption
             </RouteLink>{" "}
-            but our community continues to grow in a number of{" "}
+            and <strong>Call of Duty</strong>. Our community continues to grow
+            in a number of{" "}
             <RouteLink to="/other-games" title="Other Games">
                 other
             </RouteLink>{" "}

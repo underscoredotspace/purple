@@ -61,6 +61,12 @@ const GameCard: React.FC<GameCardProps> = ({
 
 const gameCards: GameCardProps[] = [
     {
+        title: "Call of Duty",
+        description:
+            'Call of Duty is arguably one of the most popular shooter games. Whether you fancy "running and gunning", "sniping", or even "camping", you can find friends to play with here at GPAD.',
+        pictures: ["games_cod1.jpg"],
+    },
+    {
         title: "Among Us",
         description:
             "Since this game is massively popular, we're holding weekly events! Yes, red is sus aren't they?",
@@ -70,12 +76,6 @@ const gameCards: GameCardProps[] = [
         title: "Minecraft",
         description: "We have a steady base of Minecraft players in GPAD.",
         pictures: ["games_minecraft1.jpg", "games_minecraft2.jpg"],
-    },
-    {
-        title: "Call of Duty",
-        description:
-            'Call of Duty is arguably one of the most popular shooter games. Whether you fancy "running and gunning", "sniping", or even "camping", you can find friends to play with here at GPAD.',
-        pictures: ["games_cod1.jpg"],
     },
     {
         title: "Role Playing Games",
