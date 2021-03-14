@@ -1,9 +1,10 @@
 import { SectionTitle } from "components/primitives"
-import { Profile, ProfileProps, ROLES } from "components/Profile"
-import { getStaffProfiles, Role, StaffProfile } from "helpers/api"
+import { Profile } from "components/Profile"
+import { getStaffProfiles } from "helpers/api"
 import React, { Fragment, useEffect, useState } from "react"
+import { Role } from "types"
 
-const ProfileRow: React.FC<{ profiles: ProfileProps[] }> = ({ profiles }) => (
+const Profiles: React.FC<{ role: Role }> = ({ role }) => (
     <div
         className={[
             "grid",
@@ -13,49 +14,32 @@ const ProfileRow: React.FC<{ profiles: ProfileProps[] }> = ({ profiles }) => (
             "justify-center",
         ].join(" ")}
     >
-        {profiles.map((profile) => (
-            <Profile {...profile} key={`profile-${profile.name}`} />
+        {role.members.map((member) => (
+            <Profile
+                member={member}
+                highestRole={role}
+                key={`profile-${member.id}`}
+            />
         ))}
     </div>
 )
 
-type ProfileRows = Record<Role["name"], StaffProfile[]>
+const descriptions: Record<string, string> = {
+    "568141992794783749":
+        "The first point of call for disputes between crew members. They monitor Discord and lobbies, and resolve conflicts within crew.",
+    "549644467498516508":
+        "Monitor Discord and lobbies, enforce the rules, and have the ability to ban/mute/kick. They are second in command to the Admin.",
+
+    "546342033867014165":
+        "The top of the hierarchy, they make the rules once agreed upon with the staff, maintain the Discord server, and the Reddit page. Crew members should come to them if they have any issues, feedback for staff members or anything crew related.",
+}
 
 const MeetTheStaff: React.FC = () => {
-    const [profileRows, setProfileRows] = useState<ProfileRows>()
-    const roles = [ROLES["Admin"], ROLES["Mod"], ROLES["Staff"]]
+    const [profileRows, setProfileRows] = useState<Role[]>()
 
     useEffect(() => {
         getStaffProfiles()
-            .then((rawProfiles) => {
-                if (rawProfiles.length === 0) {
-                    return
-                }
-
-                const mapped = rawProfiles.reduce((mappedProfiles, profile) => {
-                    const highestRole = profile.roles.reduce(
-                        (highest, role) => {
-                            if (!highest || role.position > highest.position) {
-                                return role
-                            }
-                            return highest
-                        }
-                    ).name
-
-                    // add member to correct ProfileRow
-                    if (!mappedProfiles[highestRole]) {
-                        mappedProfiles[highestRole] = []
-                    }
-
-                    mappedProfiles[highestRole].push(profile)
-
-                    return mappedProfiles
-                }, {} as ProfileRows)
-
-                mapped["Admin"] = mapped["Admin"].reverse()
-
-                setProfileRows(mapped)
-            })
+            .then(setProfileRows)
             .catch((error) => {
                 console.error(error)
                 setProfileRows(undefined)
@@ -66,27 +50,14 @@ const MeetTheStaff: React.FC = () => {
 
     return (
         <>
-            {roles.map((role, index, array) => {
-                const row = profileRows[role.key]
-
-                const profiles: ProfileProps[] = row.map((profile) => ({
-                    id: profile.id,
-                    name: profile.name || profile.username,
-                    mainRole: role.key,
-                    otherRoles: [],
-                    bio: profile.bio,
-                    location: profile.location,
-                    picture: profile.picture,
-                    avatar: profile.avatar,
-                }))
-
+            {profileRows.map((role, index, array) => {
                 return (
                     <Fragment key={`profile-row-${index}`}>
                         <div className="mb-4">
-                            <SectionTitle>{role.text}</SectionTitle>
-                            <p>{role.description}</p>
+                            <SectionTitle>{role.name}</SectionTitle>
+                            <p>{descriptions[role.id]}</p>
                         </div>
-                        <ProfileRow profiles={profiles} />
+                        <Profiles role={role} />
 
                         {index !== array.length - 1 ? (
                             <hr className="my-4 border-gray-700" />

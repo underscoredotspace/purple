@@ -2,55 +2,39 @@ import { Card } from "components"
 import MemberImage from "components/MemberImage"
 import { LazyImage, RouteLink, SectionTitle } from "components/primitives"
 import { env } from "helpers"
-import { getMembersByRole, Member } from "helpers/api"
+import { getMembersByRole } from "helpers/api"
 import React, { useEffect, useState } from "react"
+import { RoleListItems } from "types"
 
-export interface Role {
-    id: string
-    description: string
-    members?: Member[]
-    colour: string
-}
-
-const roles: Record<string, Role> = {
-    "Veteran Crew": {
+const roles: RoleListItems = [
+    {
+        name: "Veteran Crew",
         colour: "vet",
         id: "608388097285161131",
         description:
             "Veterans have demonstrated their knowledge of different games and have proven that they are willing to help the crew in any way possible. They monitor chats, assist new members, answer questions, and offer advice. ",
     },
-    "Admissions Team": {
+    {
+        name: "Admissions Team",
         colour: "admissions",
         id: "568174092977700866",
         description:
             "The first point of contact for prospective members. They handle the process of everyone becoming part of the family. ",
     },
-}
+]
 
 const AboutTheCrew: React.FC = () => {
-    const [helperRoles, setHelperRoles] = useState<Record<string, Role>>()
+    const [helperRoles, setHelperRoles] = useState<RoleListItems>()
 
     useEffect(() => {
-        Promise.all(
-            Object.entries(roles).map(([name, role]) =>
-                getMembersByRole(role.id).then((members) => ({
-                    id: role.id,
-                    name,
-                    members,
-                    description: role.description,
-                    colour: role.colour,
-                }))
-            )
-        )
-            .then((m) => {
+        getMembersByRole(roles.map((role) => role.id))
+            .then((rolesWithMembers) => {
                 setHelperRoles(
-                    m.reduce(
-                        (acc, { id, name, members, description, colour }) => {
-                            acc[name] = { id, description, members, colour }
-                            return acc
-                        },
-                        {} as Record<string, Role>
-                    )
+                    roles.map((role) => ({
+                        ...role,
+                        members: rolesWithMembers.find((r) => r.id === role.id)
+                            .members,
+                    }))
                 )
             })
             .catch((error) => {
@@ -103,30 +87,25 @@ const AboutTheCrew: React.FC = () => {
                 keep the wheels turning.
             </p>
             {helperRoles &&
-                Object.entries(helperRoles).map(
-                    ([roleName, { members, description, colour }]) => (
-                        <Card padding key={`helper-role-${roleName}`}>
-                            <SectionTitle
-                                type="h3"
-                                className={`text-${colour}`}
-                            >
-                                {roleName}
-                            </SectionTitle>
-                            <p>{description}</p>
+                helperRoles.map(({ colour, description, members, name }) => (
+                    <Card padding key={`helper-role-${name}`}>
+                        <SectionTitle type="h3" className={`text-${colour}`}>
+                            {name}
+                        </SectionTitle>
+                        <p>{description}</p>
 
-                            <div className="grid grid-cols-4 place-items-center py-4 gap-4">
-                                {members &&
-                                    members.map((member) => (
-                                        <MemberImage
-                                            key={`helper-role-${roleName}-${member.member_id}`}
-                                            member={member}
-                                            colour={colour}
-                                        />
-                                    ))}
-                            </div>
-                        </Card>
-                    )
-                )}
+                        <div className="grid grid-cols-4 place-items-center py-4 gap-4">
+                            {members &&
+                                members.map((member) => (
+                                    <MemberImage
+                                        key={`helper-role-${name}-${member.id}`}
+                                        member={member}
+                                        colour={colour}
+                                    />
+                                ))}
+                        </div>
+                    </Card>
+                ))}
         </>
     )
 }

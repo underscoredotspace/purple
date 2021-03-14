@@ -42,9 +42,7 @@ export const CrewStats: React.FC = () => {
                 </div>
             </div>
             <div className="text-gray-500 text-xs text-right mt-4">
-                {memberCounts?.lastUpdate
-                    ? `updated ${memberCounts.lastUpdate}`
-                    : "..."}
+                updated every 6 hours
             </div>
         </Card>
     )

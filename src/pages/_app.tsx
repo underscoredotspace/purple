@@ -46,7 +46,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     }, [])
 
     useEffect(() => {
-        dispatch(setLoggedIn(!!cookies?.get("auth")))
+        dispatch(setLoggedIn(!!cookies?.get("gpad_auth")))
     }, [cookies])
 
     useEffect(() => {

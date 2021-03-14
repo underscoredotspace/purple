@@ -1,9 +1,4 @@
-export interface User {
-    userId: string
-    username: string
-    avatar: string
-    permissions: string[]
-}
+import { User } from "types"
 
 export interface RootState {
     menuVisible: boolean

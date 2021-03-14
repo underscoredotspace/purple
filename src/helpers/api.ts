@@ -1,62 +1,46 @@
 import { env } from "helpers"
-import { User } from "store/types"
+import { stringify } from "querystring"
+import { Role, User } from "types"
 
-const apiUrl = (endpoint: string) => `${env.API_URL}/${endpoint}`
+type QueryObject = Record<
+    string,
+    | string
+    | number
+    | boolean
+    | readonly string[]
+    | readonly number[]
+    | readonly boolean[]
+>
 
-const fetchJSON = (endpoint: string) =>
-    fetch(apiUrl(endpoint), { credentials: "include" }).then((res) =>
-        res.json()
-    )
+export const qs = (queryObject?: QueryObject): string => stringify(queryObject)
+
+const apiUrl = (endpoint: string, qs?: string) =>
+    `${env.API_URL}/${endpoint}?${qs}`
+
+const fetchJSON = (endpoint: string, query?: QueryObject) =>
+    fetch(apiUrl(endpoint, qs(query)), {
+        credentials: "include",
+    }).then((res) => res.json())
 
 export async function getMembercount(): Promise<{
     ps: number
     xbox: number
-    lastUpdate: string
 }> {
-    const { PS, XBOX, lastUpdate } = await fetchJSON("member-count")
+    const { "GTA-PS": PS, "GTA-XBOX": XBOX } = await fetchJSON("member-count")
 
-    return { ps: Number(PS), xbox: Number(XBOX), lastUpdate }
+    return { ps: Number(PS), xbox: Number(XBOX) }
 }
 
 export const getUser = (): Promise<User> => fetchJSON("auth/user")
 
-export interface Role {
-    name: string
-    position: number
-}
+export const getMembersByRole = (roleIds: string[]): Promise<Role[]> =>
+    fetchJSON("members", { roleIds })
 
-export interface StaffProfile {
-    id: string
-    name?: string
-    location?: string
-    bio?: string
-    picture?: string
-    username: string
-    avatar: string
-    join_date: string
-    roles: Role[]
-}
-
-export async function getStaffProfiles(): Promise<StaffProfile[]> {
-    const staffProfiles = await fetchJSON("staff")
-
-    return staffProfiles
-}
-
-export interface Member {
-    role_id: string
-    member_id: string
-    username: string
-    avatar: string
-}
-
-interface FullMember extends Member {
-    id: string
-    join_date: string
-}
-
-export async function getMembersByRole(role_id: string): Promise<Member[]> {
-    const members: FullMember[] = await fetchJSON(`members/${role_id}`)
-
-    return members.map(({ id, join_date, ...others }) => others)
-}
+export const getStaffProfiles = (): Promise<Role[]> =>
+    fetchJSON("profile", {
+        roleIds: [
+            "568141992794783749",
+            "549644467498516508",
+            "546342033867014165",
+        ],
+    })

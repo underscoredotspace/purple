@@ -11,7 +11,11 @@ const ProfileImage: React.FC = () => {
         return (
             <MemberImage
                 size={32}
-                user={state.user}
+                member={{
+                    id: state.user.userid,
+                    username: state.user.username,
+                    avatar: state.user.avatar,
+                }}
                 title={`You're logged in as ${state.user.username}`}
                 className="border border-copy border-opacity-50"
             />

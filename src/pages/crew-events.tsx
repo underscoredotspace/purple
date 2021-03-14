@@ -2,14 +2,9 @@ import { Card } from "components"
 import { EventCard } from "components/EventCard"
 import MemberImage from "components/MemberImage"
 import { RouteLink, SectionTitle } from "components/primitives"
-import { getMembersByRole, Member } from "helpers/api"
+import { getMembersByRole } from "helpers/api"
 import React, { useEffect, useState } from "react"
-
-interface EventsRole {
-    id: string
-    colour: string
-    members?: Member[]
-}
+import { RoleListItem, RoleListItems } from "types"
 
 const Role: React.FC<{ gp?: boolean }> = ({ children, gp }) => (
     <span className={`${gp ? "text-green-400" : "text-green-600"} font-bold`}>
@@ -17,40 +12,47 @@ const Role: React.FC<{ gp?: boolean }> = ({ children, gp }) => (
     </span>
 )
 
-const Events: React.FC = () => {
-    const [eventsRoles, setEventsRoles] = useState<Record<string, EventsRole>>()
+const roles: RoleListItems = [
+    {
+        name: "PlayStation",
+        colour: "ps",
+        id: "608396947795083274",
+    },
+    {
+        name: "Xbox",
+        colour: "xb",
+        id: "609447212925190147",
+    },
+]
 
-    const roles: Record<string, EventsRole> = {
-        PlayStation: {
-            colour: "ps",
-            id: "608396947795083274",
-        },
-        XBox: {
-            colour: "xb",
-            id: "609447212925190147",
-        },
-    }
+const eventsTeam: RoleListItem = {
+    name: "Events Team",
+    colour: "events",
+    description:
+        "The Events Team are the masterminds behind the creative activities that bring us together in game. They help plan, organize and host crew events.",
+    id: "",
+}
+
+const Events: React.FC = () => {
+    const [helperRoles, setHelperRoles] = useState<RoleListItems>()
 
     useEffect(() => {
-        Promise.all(
-            Object.entries(roles).map(([name, role]) =>
-                getMembersByRole(role.id).then((members) => ({
-                    id: role.id,
-                    name,
-                    members,
-                    colour: role.colour,
-                }))
-            )
-        )
-            .then((m) => {
-                setEventsRoles(
-                    m.reduce((acc, { id, name, members, colour }) => {
-                        acc[name] = { id, members, colour }
-                        return acc
-                    }, {} as Record<string, EventsRole>)
-                )
+        getMembersByRole(roles.map((role) => role.id))
+            .then((rolesWithMembers) => {
+                setHelperRoles([
+                    {
+                        ...eventsTeam,
+                        members: rolesWithMembers.reduce(
+                            (members, role) => [...members, ...role.members],
+                            []
+                        ),
+                    },
+                ])
             })
-            .catch(console.error)
+            .catch((error) => {
+                console.error(error)
+                setHelperRoles(undefined)
+            })
     }, [])
 
     return (
@@ -175,30 +177,26 @@ const Events: React.FC = () => {
                 jobs from Social Club.
             </EventCard>
 
-            <Card padding>
-                <SectionTitle type="h3" className="text-events">
-                    The Event Coordinators
-                </SectionTitle>
-                <p>
-                    Event coordinators are the masterminds behind the creative
-                    activities that bring us together in game. They help plan,
-                    organize and host crew events.
-                </p>
-                <div className="grid grid-cols-4 place-items-center py-4 gap-4">
-                    {eventsRoles &&
-                        Object.entries(
-                            eventsRoles
-                        ).map(([roleName, { members, colour }]) =>
-                            members?.map((member) => (
-                                <MemberImage
-                                    key={`helper-role-${roleName}-${member.member_id}`}
-                                    member={member}
-                                    colour={colour}
-                                />
-                            ))
-                        )}
-                </div>
-            </Card>
+            {helperRoles &&
+                helperRoles.map(({ colour, description, members, name }) => (
+                    <Card padding key={`helper-role-${name}`}>
+                        <SectionTitle type="h3" className={`text-${colour}`}>
+                            {name}
+                        </SectionTitle>
+                        <p>{description}</p>
+
+                        <div className="grid grid-cols-4 place-items-center py-4 gap-4">
+                            {members &&
+                                members.map((member) => (
+                                    <MemberImage
+                                        key={`helper-role-${name}-${member.id}`}
+                                        member={member}
+                                        colour={colour}
+                                    />
+                                ))}
+                        </div>
+                    </Card>
+                ))}
         </>
     )
 }
