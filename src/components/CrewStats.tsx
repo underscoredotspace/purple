@@ -3,13 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Card } from "components"
 import { SectionTitle } from "components/primitives"
 import { getMembercount } from "helpers/api"
-import { DateTime } from "luxon"
 import React, { useEffect, useState } from "react"
 
 interface MemberCounts {
     ps: number
     xbox: number
-    lastUpdate: string
 }
 
 export const CrewStats: React.FC = () => {
@@ -17,11 +15,8 @@ export const CrewStats: React.FC = () => {
 
     useEffect(() => {
         getMembercount()
-            .then(({ ps, xbox, lastUpdate }) => {
-                const timeAgo = DateTime.fromISO(lastUpdate)
-                    .toRelative({ style: "short", round: true })
-                    ?.toString()
-                setMemberCounts({ ps, xbox, lastUpdate: timeAgo ?? "" })
+            .then(({ ps, xbox }) => {
+                setMemberCounts({ ps, xbox })
             })
             .catch(console.error)
     }, [])

@@ -4,6 +4,7 @@ import { Card } from "components"
 import { env } from "helpers"
 import React, { useState } from "react"
 import { Member, Role } from "types"
+import { Pill } from "./primitives"
 
 interface ProfileProps {
     member: Member
@@ -14,6 +15,30 @@ const colours = {
     16748308: "staff",
     26623: "admin",
     63488: "mod",
+    16713367: "admissions",
+    16761450: "sessionmaker",
+    16717056: "events",
+    8774655: "ps",
+    10680994: "xb",
+    8688216: "cod",
+}
+
+const rolesToShow: string[] = [
+    "568174092977700866", //admissions
+    "609447212925190147", //events gta-xb
+    "608396947795083274", //events gta-ps
+    "760091219069763594", //events rdo-xb
+    "760091432114716692", //events rdo-ps
+    "572443602773344276", //session maker,
+    "594361392090316811", //gta-ps
+    "594361443239985152", //gta-xb
+    "760089861822087178", //rdo-ps
+    "764203700092534846", //rdo-xb
+    "638182847449923594", //cod
+]
+
+function filterRoles(role: Role): boolean {
+    return rolesToShow.includes(role.id)
 }
 
 type ProfileComponent = React.FC<ProfileProps>
@@ -97,17 +122,25 @@ export const Profile: ProfileComponent = ({ member, highestRole }) => {
 
             <hr className="border-gray-700" />
 
-            {/* <div classNames={["flex", "flex-row", "flex-wrap", "px-4", "pt-2"]}>
-                {other.map(role => (
+            <div
+                className={[
+                    "flex",
+                    "flex-row",
+                    "flex-wrap",
+                    "px-4",
+                    "pt-2",
+                ].join(" ")}
+            >
+                {member?.roles?.filter(filterRoles).map((role) => (
                     <Pill
-                        classNames={["mr-2", "mb-2", ""]}
-                        bgColor={role.color}
-                        textColor="card"
-                        text={role.text}
-                        key={`role-${name}-${role.text}`}
+                        className={`mr-2 mb-2 bg-${
+                            colours[role.color] ?? "copy"
+                        } bg-opacity-80`}
+                        text={role.name}
+                        key={`role-${member.id}-${role.id}`}
                     />
                 ))}
-            </div> */}
+            </div>
         </Card>
     )
 }

@@ -9,11 +9,11 @@ interface PillProps extends ContainerProps {
 export const Pill: React.FC<PillProps> = ({ text, className }) => (
     <div
         className={classNames([
-            "inline-block rounded-md mr-2 mb-2 px-3 py-1 font-mono border border-black border-dotted",
+            "inline-block rounded-sm mr-2 mb-2 px-1 font-mono",
             className,
         ])}
     >
-        <Text className="text-xs text-card">{text}</Text>
+        <Text className="text-xs text-card font-black">{text}</Text>
     </div>
 )
 
