@@ -1,23 +1,14 @@
 import { env } from "helpers"
-import { stringify } from "querystring"
+import { ParsedUrlQueryInput, stringify } from "querystring"
 import { Role, User } from "types"
 
-type QueryObject = Record<
-    string,
-    | string
-    | number
-    | boolean
-    | readonly string[]
-    | readonly number[]
-    | readonly boolean[]
->
-
-export const qs = (queryObject?: QueryObject): string => stringify(queryObject)
+export const qs = (queryObject?: ParsedUrlQueryInput): string =>
+    stringify(queryObject)
 
 const apiUrl = (endpoint: string, qs?: string) =>
     `${env.API_URL}/${endpoint}?${qs}`
 
-const fetchJSON = (endpoint: string, query?: QueryObject) =>
+const fetchJSON = (endpoint: string, query?: ParsedUrlQueryInput) =>
     fetch(apiUrl(endpoint, qs(query)), {
         credentials: "include",
     }).then((res) => res.json())
