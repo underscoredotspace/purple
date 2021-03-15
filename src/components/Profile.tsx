@@ -25,10 +25,10 @@ const colours = {
 
 const rolesToShow: string[] = [
     "568174092977700866", //admissions
-    "609447212925190147", //events gta-xb
-    "608396947795083274", //events gta-ps
-    "760091219069763594", //events rdo-xb
-    "760091432114716692", //events rdo-ps
+    // "609447212925190147", //events gta-xb
+    // "608396947795083274", //events gta-ps
+    // "760091219069763594", //events rdo-xb
+    // "760091432114716692", //events rdo-ps
     "572443602773344276", //session maker,
     "594361392090316811", //gta-ps
     "594361443239985152", //gta-xb
@@ -127,6 +127,7 @@ export const Profile: ProfileComponent = ({ member, highestRole }) => {
                     "flex",
                     "flex-row",
                     "flex-wrap",
+                    // "justify-center",
                     "px-4",
                     "pt-2",
                 ].join(" ")}
