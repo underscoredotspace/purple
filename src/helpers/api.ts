@@ -30,8 +30,8 @@ export const getMembersByRole = (roleIds: string[]): Promise<Role[]> =>
 export const getStaffProfiles = (): Promise<Role[]> =>
     fetchJSON("profile", {
         roleIds: [
-            "568141992794783749",
-            "549644467498516508",
             "546342033867014165",
+            "549644467498516508",
+            "568141992794783749",
         ],
     })

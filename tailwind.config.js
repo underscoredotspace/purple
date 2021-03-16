@@ -29,6 +29,8 @@ module.exports = {
                 "bg-sessionmaker",
                 "border-ps",
                 "border-xb",
+                "bg-ps",
+                "bg-xb",
                 "text-eventcontest",
                 "text-discordcontest",
                 "text-achievements",
