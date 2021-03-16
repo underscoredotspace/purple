@@ -34,4 +34,4 @@ export const getStaffProfiles = (): Promise<Role[]> =>
             "549644467498516508",
             "568141992794783749",
         ],
-    })
+    }).then((roles: Role[]) => roles.sort((a, b) => b.position - a.position))
