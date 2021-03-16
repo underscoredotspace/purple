@@ -1,4 +1,5 @@
-import { Action, Actions, User } from "./types"
+import { User } from "types"
+import { Action, Actions } from "./types"
 
 export const toggleMenu = (): Action => ({
     type: Actions.toggleMenu,
