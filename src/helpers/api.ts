@@ -25,7 +25,7 @@ export async function getMembercount(): Promise<{
 export const getUser = (): Promise<User> => fetchJSON("auth/user")
 
 export const getMembersByRole = (roleIds: string[]): Promise<Role[]> =>
-    fetchJSON("members", { roleIds })
+    fetchJSON("member", { roleIds })
 
 export const getStaffProfiles = (): Promise<Role[]> =>
     fetchJSON("profile", {
