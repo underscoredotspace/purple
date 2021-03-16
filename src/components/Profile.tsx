@@ -3,95 +3,65 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Card } from "components"
 import { env } from "helpers"
 import React, { useState } from "react"
+import { Member, Role } from "types"
+import { Pill } from "./primitives"
 
-export interface RoleType {
-    key: string
-    color: string
-    text: string
-    plural?: string
-    description?: string
+interface ProfileProps {
+    member: Member
+    highestRole: Role
 }
 
-export const ROLES: Record<string, RoleType> = {
-    Staff: {
-        key: "Staff",
-        color: "staff",
-        text: "Staff",
-        description:
-            "The first point of call for disputes between crew members. They monitor Discord and lobbies, and resolve conflicts within crew.",
-    },
-    Mod: {
-        key: "Mod",
-        color: "mod",
-        text: "Moderator",
-        plural: "Mods",
-        description:
-            "Monitor Discord and lobbies, enforce the rules, and have the ability to ban/mute/kick. They are second in command to the Admin.",
-    },
-    ps: { key: "", color: "ps", text: "PS" },
-    xb: { key: "", color: "xb", text: "Xbox" },
-    admissions: { key: "", color: "admissions", text: "Admissions" },
-    events: { key: "", color: "events", text: "Events" },
-    Admin: {
-        key: "Admin",
-        color: "admin",
-        text: "Admin",
-        description:
-            "The top of the hierarchy, they make the rules once agreed upon with the staff, maintain the Discord server, and the Reddit page. Crew members should come to them if they have any issues, feedback for staff members or anything crew related.",
-    },
-    sessionMaker: { key: "", color: "sessionmaker", text: "Session Maker" },
+const colours = {
+    16748308: "staff",
+    26623: "admin",
+    63488: "mod",
+    16713367: "admissions",
+    16761450: "sessionmaker",
+    16717056: "events",
+    8774655: "ps",
+    10680994: "xb",
+    8688216: "cod",
 }
 
-export enum Role {
-    staff = "staff",
-    mod = "mod",
-    ps = "ps",
-    xb = "xb",
-    admissions = "admissions",
-    events = "events",
-    admin = "admin",
-    sessionMaker = "sessionMaker",
-}
+const rolesToShow: string[] = [
+    "568174092977700866", //admissions
+    // "609447212925190147", //events gta-xb
+    // "608396947795083274", //events gta-ps
+    // "760091219069763594", //events rdo-xb
+    // "760091432114716692", //events rdo-ps
+    "572443602773344276", //session maker,
+    "594361392090316811", //gta-ps
+    "594361443239985152", //gta-xb
+    "760089861822087178", //rdo-ps
+    "764203700092534846", //rdo-xb
+    "638182847449923594", //cod
+]
 
-export interface ProfileProps {
-    id: string
-    name: string
-    mainRole: string
-    otherRoles: string[]
-    picture?: string
-    location?: string
-    bio?: string
-    avatar: string
+function filterRoles(role: Role): boolean {
+    return rolesToShow.includes(role.id)
 }
 
 type ProfileComponent = React.FC<ProfileProps>
 
-export const Profile: ProfileComponent = ({
-    id,
-    name,
-    mainRole,
-    picture,
-    location,
-    bio,
-    avatar,
-}) => {
-    const role = ROLES[mainRole]
-    // const other = otherRoles.map(r => ROLES[r])
-    const avatarURL = `https://cdn.discordapp.com/avatars/${id}/${avatar.replace(
-        "a_",
-        ""
-    )}.png?size=64`
+export const Profile: ProfileComponent = ({ member, highestRole }) => {
+    const avatarURL = `https://cdn.discordapp.com/avatars/${member.id}/${
+        member.avatar
+    }.${member.avatar.startsWith("a_") ? "gif" : "png"}?size=128`
 
     const [avatarPath, setAvatarPath] = useState(
-        picture ? `${env.ASSETS}/profiles/${picture}` : avatarURL
+        member?.profile?.picture
+            ? `${env.ASSETS}/profiles/${member.profile.picture}`
+            : avatarURL
     )
+
+    const colour = colours[highestRole.color]
 
     return (
         <Card>
             <div
                 className={[
                     "border-b-4",
-                    `border-${role.color}`,
+                    `border-${colour}`,
                     "border-opacity-50",
                     "w-full",
                     "font-bold",
@@ -101,8 +71,8 @@ export const Profile: ProfileComponent = ({
                     "flex flex-row items-baseline justify-center",
                 ].join(" ")}
             >
-                {role.text}
-                {id === "468237949142827008" && (
+                {highestRole.name}
+                {member.id === "468237949142827008" && (
                     <FontAwesomeIcon
                         icon={faCrown}
                         className="text-yellow-400 ml-1"
@@ -119,28 +89,32 @@ export const Profile: ProfileComponent = ({
                         "mx-auto",
                         "border-2",
                         "border-opacity-50",
-                        `border-${role.color}`,
+                        `border-${colour}`,
                     ].join(" ")}
                     src={avatarPath}
-                    alt={name}
+                    alt={member?.profile?.name ?? member.displayName}
                     onError={() =>
                         setAvatarPath(`${env.ASSETS}/profiles/claude.png`)
                     }
                 />
 
                 <div className="mx-auto pt-2 text-center">
-                    <div className="font-bold">{name}</div>
-                    <div className="text-gray-500 text-sm">{location}</div>
+                    <div className="font-bold">
+                        {member?.profile?.name ?? member.displayName}
+                    </div>
+                    <div className="text-gray-500 text-sm">
+                        {member?.profile?.location}
+                    </div>
                 </div>
             </div>
 
-            {bio && (
+            {member?.profile?.bio && (
                 <>
                     <hr className="border-gray-700" />
 
                     <div className="flex flex-col px-4 py-2">
-                        {bio.split("\n").map((p, i) => (
-                            <p key={`bio-${name}-p${i}`}>{p}</p>
+                        {member.profile.bio.split("\n").map((p, i) => (
+                            <p key={`bio-${member.id}-p${i}`}>{p}</p>
                         ))}
                     </div>
                 </>
@@ -148,17 +122,26 @@ export const Profile: ProfileComponent = ({
 
             <hr className="border-gray-700" />
 
-            {/* <div classNames={["flex", "flex-row", "flex-wrap", "px-4", "pt-2"]}>
-                {other.map(role => (
+            <div
+                className={[
+                    "flex",
+                    "flex-row",
+                    "flex-wrap",
+                    // "justify-center",
+                    "px-4",
+                    "pt-2",
+                ].join(" ")}
+            >
+                {member?.roles?.filter(filterRoles).map((role) => (
                     <Pill
-                        classNames={["mr-2", "mb-2", ""]}
-                        bgColor={role.color}
-                        textColor="card"
-                        text={role.text}
-                        key={`role-${name}-${role.text}`}
+                        className={`mr-2 mb-2 bg-${
+                            colours[role.color] ?? "copy"
+                        } bg-opacity-80`}
+                        text={role.name}
+                        key={`role-${member.id}-${role.id}`}
                     />
                 ))}
-            </div> */}
+            </div>
         </Card>
     )
 }

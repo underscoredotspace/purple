@@ -2,6 +2,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css"
 import { Footer, Header, Menu } from "components"
 import { Container } from "components/primitives"
 import { env } from "helpers"
+import { getUser } from "helpers/api"
 import { AppProps } from "next/app"
 import { useRouter } from "next/router"
 import { useEffect, useMemo, useReducer, useState } from "react"
@@ -11,6 +12,7 @@ import {
     initialState,
     reducer,
     setLoggedIn,
+    setUser,
     SiteContext,
 } from "store"
 import "styles/index.css"
@@ -44,8 +46,19 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     }, [])
 
     useEffect(() => {
-        dispatch(setLoggedIn(!!cookies?.get("auth")))
+        dispatch(setLoggedIn(!!cookies?.get("gpad_auth")))
     }, [cookies])
+
+    useEffect(() => {
+        if (state.loggedIn) {
+            getUser()
+                .then((user) => dispatch(setUser(user)))
+                .catch(() => {
+                    dispatch(setLoggedIn(false))
+                    dispatch(setUser(null))
+                })
+        }
+    }, [state.loggedIn])
 
     useEffect(() => {
         const bodyClasses = document.querySelector("body").classList
