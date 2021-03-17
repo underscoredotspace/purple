@@ -3,6 +3,7 @@ export interface Route {
     title: string
     category?: string
     external?: boolean
+    hidden?: boolean
 }
 
 type Routes = Route[]
@@ -51,6 +52,7 @@ export const routes: Routes = [
         path: "/privacy-policy",
         title: "Privacy Policy",
     },
+    { path: "/admin/staff-profile", title: "Your Profile", hidden: true },
 ]
 
 export const getRoute = (pathname: string): Route | undefined =>

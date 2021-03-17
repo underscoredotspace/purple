@@ -1,9 +1,10 @@
-import { User } from "types"
+import { Member, User } from "types"
 
 export interface RootState {
     menuVisible: boolean
     loggedIn: boolean
     user: User | null
+    member: Member | null
 }
 
 export enum Actions {

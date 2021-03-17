@@ -100,7 +100,7 @@ export const Profile: ProfileComponent = ({ member, highestRole }) => {
 
                 <div className="mx-auto pt-2 text-center">
                     <div className="font-bold">
-                        {member?.profile?.name ?? member.displayName}
+                        {member?.profile?.name || member.displayName}
                     </div>
                     <div className="text-gray-500 text-sm">
                         {member?.profile?.location}
@@ -112,7 +112,7 @@ export const Profile: ProfileComponent = ({ member, highestRole }) => {
                 <>
                     <hr className="border-gray-700" />
 
-                    <div className="flex flex-col px-4 py-2">
+                    <div className="flex flex-col px-4 py-2 space-y-2">
                         {member.profile.bio.split("\n").map((p, i) => (
                             <p key={`bio-${member.id}-p${i}`}>{p}</p>
                         ))}

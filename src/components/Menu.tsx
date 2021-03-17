@@ -79,11 +79,13 @@ export const Menu: React.FC = () => {
             ])}
         >
             <ul className="p-4 h-full">
-                {Object.values(routes).map((route) => (
-                    <li key={`menu-${route.title}`}>
-                        {createLink({ route, pathname })}
-                    </li>
-                ))}
+                {Object.values(routes)
+                    .filter(({ hidden }) => !hidden)
+                    .map((route) => (
+                        <li key={`menu-${route.title}`}>
+                            {createLink({ route, pathname })}
+                        </li>
+                    ))}
 
                 {env.ENABLE_LOGIN ? (
                     <li key={"menu-login"}>

@@ -16,7 +16,7 @@ export interface Member {
     profile?: Profile
 }
 
-interface Profile {
+export interface Profile {
     id: string
     name?: string
     location?: string

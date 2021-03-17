@@ -2,7 +2,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css"
 import { Footer, Header, Menu } from "components"
 import { Container } from "components/primitives"
 import { env } from "helpers"
-import { getUser } from "helpers/api"
+import { getProfile, getUser } from "helpers/api"
 import { AppProps } from "next/app"
 import { useRouter } from "next/router"
 import { useEffect, useMemo, useReducer, useState } from "react"
@@ -52,7 +52,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     useEffect(() => {
         if (state.loggedIn) {
             getUser()
-                .then((user) => dispatch(setUser(user)))
+                .then((user) =>
+                    getProfile(user.userid).then((member) => ({ user, member }))
+                )
+                .then(({ user, member }) => dispatch(setUser(user, member)))
                 .catch(() => {
                     dispatch(setLoggedIn(false))
                     dispatch(setUser(null))
@@ -80,7 +83,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                 <Menu />
                 <Header />
                 <div className="pt-16 bg-opacity-95 bg-background min-h-screen flex flex-col justify-between">
-                    <main className="max-w-xl mx-auto">
+                    <main className="w-full max-w-xl mx-auto">
                         <Container className="mx-4">
                             <Component {...pageProps} />
                         </Container>

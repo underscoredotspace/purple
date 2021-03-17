@@ -1,4 +1,4 @@
-import { User } from "types"
+import { Member, User } from "types"
 import { Action, Actions } from "./types"
 
 export const toggleMenu = (): Action => ({
@@ -14,7 +14,7 @@ export const setLoggedIn = (isLoggedIn: boolean): Action => ({
     payload: { isLoggedIn },
 })
 
-export const setUser = (user: User): Action => ({
+export const setUser = (user: User, member?: Member): Action => ({
     type: Actions.setUser,
-    payload: { user },
+    payload: { user, member },
 })

@@ -21,13 +21,13 @@ const MemberImage: React.FC<MemberImageProps> = ({
     const [avatarPath, setAvatarPath] = useState(
         `https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.${
             member.avatar.startsWith("a_") ? "gif" : "png"
-        }?size=64`
+        }?size=${size}`
     )
 
     return (
         <img
-            width={size}
-            height={size}
+            width={`${size}px`}
+            height={`${size}px`}
             alt={member.username}
             title={title || member.username}
             className={classNames([
