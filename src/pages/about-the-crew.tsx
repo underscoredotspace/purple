@@ -101,6 +101,7 @@ const AboutTheCrew: React.FC = () => {
                                         key={`helper-role-${name}-${member.id}`}
                                         member={member}
                                         colour={colour}
+                                        size={32}
                                     />
                                 ))}
                         </div>

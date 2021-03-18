@@ -7,7 +7,7 @@ interface MemberImageProps {
     member: Pick<Member, "avatar" | "username" | "id">
     colour?: string
     className?: string
-    size?: number
+    size: number
     title?: string
 }
 
@@ -15,7 +15,7 @@ const MemberImage: React.FC<MemberImageProps> = ({
     member,
     colour,
     className,
-    size = 64,
+    size,
     title,
 }) => {
     const [avatarPath, setAvatarPath] = useState(

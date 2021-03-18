@@ -3,8 +3,8 @@ import { Member, User } from "types"
 export interface RootState {
     menuVisible: boolean
     loggedIn: boolean
-    user: User | null
-    member: Member | null
+    user?: User | null
+    member?: Member | null
 }
 
 export enum Actions {

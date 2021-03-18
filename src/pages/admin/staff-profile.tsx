@@ -27,6 +27,10 @@ const StaffProfile: React.FC = () => {
     }
 
     useEffect(() => {
+        if (!state.user?.userid) {
+            return
+        }
+
         getProfile(state.user.userid).then((m) => {
             const memberWithProfile = {
                 ...m,
@@ -41,7 +45,7 @@ const StaffProfile: React.FC = () => {
             }
             setMember(memberWithProfile)
         })
-    }, [])
+    }, [state.user])
 
     const handleChange: HandleChange = (field, value) =>
         setMember((member) => ({
@@ -68,12 +72,6 @@ const StaffProfile: React.FC = () => {
                 "justify-center",
             ].join(" ")}
         >
-            <Profile
-                member={member}
-                highestRole={getHighestRole(member)}
-                key={`profile-${member.id}`}
-            />
-
             <form
                 className="flex flex-col space-y-2 max-w-64"
                 onSubmit={(e) => {
@@ -96,6 +94,12 @@ const StaffProfile: React.FC = () => {
                     value="Save"
                 />
             </form>
+
+            <Profile
+                member={member}
+                highestRole={getHighestRole(member)}
+                key={`profile-${member.id}`}
+            />
         </div>
     ) : null
 }
