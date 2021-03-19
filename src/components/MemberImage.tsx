@@ -1,10 +1,10 @@
 import { env } from "helpers"
-import { Member } from "helpers/api"
 import { classNames } from "helpers/misc"
 import React, { useState } from "react"
+import { Member } from "types"
 
 interface MemberImageProps {
-    member: Omit<Member, "role_id">
+    member: Pick<Member, "avatar" | "username" | "id">
     colour?: string
     className?: string
     size?: number
@@ -19,9 +19,9 @@ const MemberImage: React.FC<MemberImageProps> = ({
     title,
 }) => {
     const [avatarPath, setAvatarPath] = useState(
-        `https://cdn.discordapp.com/avatars/${
-            member.member_id
-        }/${member.avatar.replace("a_", "")}.png?size=64`
+        `https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.${
+            member?.avatar?.startsWith("a_") ? "gif" : "png"
+        }?size=${size}`
     )
 
     return (

@@ -3,6 +3,8 @@ import { Action, Actions, RootState } from "./types"
 export const initialState: RootState = {
     menuVisible: false,
     loggedIn: false,
+    user: null,
+    member: null,
 }
 
 export const reducer = (state: RootState, action: Action): RootState => {
@@ -22,6 +24,13 @@ export const reducer = (state: RootState, action: Action): RootState => {
             return {
                 ...state,
                 loggedIn: action.payload["isLoggedIn"],
+            }
+
+        case Actions.setUser:
+            return {
+                ...state,
+                user: action.payload["user"] || null,
+                member: action.payload["member"] || null,
             }
         default:
             return state

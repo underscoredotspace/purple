@@ -1,2 +1,2 @@
-/api/*     https://a.gpadcrew.com/:splat  200
+/api/*     https://v2.gpadcrew.com/:splat  200
 /assets/*  https://i.gpadcrew.com/:splat  200

@@ -1,65 +1,59 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { env } from "helpers"
+import { ParsedUrlQueryInput, stringify } from "querystring"
+import { Member, Profile, Role, User } from "types"
 
-const apiUrl = (endpoint: string) => `${env.API_URL}/${endpoint}`
+export const qs = (queryObject?: ParsedUrlQueryInput): string =>
+    stringify(queryObject)
 
-const fetchJSON = (endpoint: string) =>
-    fetch(apiUrl(endpoint), { credentials: "include" }).then((res) =>
-        res.json()
-    )
+const apiUrl = (endpoint: string, qs?: string) =>
+    `${env.API_URL}/${endpoint}${qs ? `?${qs}` : ""}`
+
+interface FetchJSONOptions {
+    query?: any
+    body?: any
+    method?: "get" | "post"
+}
+
+type FetchJSON = (endpoint: string, options?: FetchJSONOptions) => Promise<any>
+
+const fetchJSON: FetchJSON = (endpoint, { query, body, method } = {}) =>
+    fetch(apiUrl(endpoint, query ? qs(query) : undefined), {
+        method: method ?? "get",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+    })
+        .then((res) => res.json() as unknown)
+        .catch(() => ({}))
 
 export async function getMembercount(): Promise<{
     ps: number
     xbox: number
-    lastUpdate: string
 }> {
-    const { PS, XBOX, lastUpdate } = await fetchJSON("member-count")
+    const { "GTA-PS": PS, "GTA-XBOX": XBOX } = await fetchJSON("member-count")
 
-    return { ps: Number(PS), xbox: Number(XBOX), lastUpdate }
+    return { ps: Number(PS), xbox: Number(XBOX) }
 }
 
-export async function getUser(): Promise<Omit<Member, "role_id">> {
-    const { avatar, userid, username } = await fetchJSON("auth/user")
+export const getUser = (): Promise<User> => fetchJSON("auth/user")
 
-    return { member_id: userid, avatar, username }
-}
+export const getMembersByRole = (roleIds: string[]): Promise<Role[]> =>
+    fetchJSON("member", { query: { roleIds } })
 
-export interface Role {
-    name: string
-    position: number
-}
+export const getProfile = (memberId: string): Promise<Member> =>
+    fetchJSON(`profile/${memberId}`)
 
-export interface StaffProfile {
-    id: string
-    name?: string
-    location?: string
-    bio?: string
-    picture?: string
-    username: string
-    avatar: string
-    join_date: string
-    roles: Role[]
-}
+export const saveProfile = (profile: Profile): Promise<void> =>
+    fetchJSON(`profile/${profile.id}`, { method: "post", body: profile })
 
-export async function getStaffProfiles(): Promise<StaffProfile[]> {
-    const staffProfiles = await fetchJSON("staff")
-
-    return staffProfiles
-}
-
-export interface Member {
-    role_id: string
-    member_id: string
-    username: string
-    avatar: string
-}
-
-interface FullMember extends Member {
-    id: string
-    join_date: string
-}
-
-export async function getMembersByRole(role_id: string): Promise<Member[]> {
-    const members: FullMember[] = await fetchJSON(`members/${role_id}`)
-
-    return members.map(({ id, join_date, ...others }) => others)
-}
+export const getStaffProfiles = (): Promise<Role[]> =>
+    fetchJSON("profile/by-role", {
+        query: {
+            roleIds: [
+                "546342033867014165",
+                "549644467498516508",
+                "568141992794783749",
+            ],
+        },
+    }).then((roles: Role[]) => roles.sort((a, b) => b.position - a.position))

@@ -3,25 +3,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Card } from "components"
 import { SectionTitle } from "components/primitives"
 import { getMembercount } from "helpers/api"
-import { DateTime } from "luxon"
 import React, { useEffect, useState } from "react"
 
 interface MemberCounts {
     ps: number
     xbox: number
-    lastUpdate: string
 }
 
 export const CrewStats: React.FC = () => {
     const [memberCounts, setMemberCounts] = useState<MemberCounts>()
 
     useEffect(() => {
-        getMembercount().then(({ ps, xbox, lastUpdate }) => {
-            const timeAgo = DateTime.fromISO(lastUpdate)
-                .toRelative({ style: "short", round: true })
-                ?.toString()
-            setMemberCounts({ ps, xbox, lastUpdate: timeAgo ?? "" })
-        })
+        getMembercount()
+            .then(({ ps, xbox }) => {
+                setMemberCounts({ ps, xbox })
+            })
+            .catch(console.error)
     }, [])
 
     return (
@@ -40,9 +37,7 @@ export const CrewStats: React.FC = () => {
                 </div>
             </div>
             <div className="text-gray-500 text-xs text-right mt-4">
-                {memberCounts?.lastUpdate
-                    ? `updated ${memberCounts.lastUpdate}`
-                    : "..."}
+                updated every 6 hours
             </div>
         </Card>
     )

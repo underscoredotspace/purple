@@ -2,18 +2,21 @@ import "@fortawesome/fontawesome-svg-core/styles.css"
 import { Footer, Header, Menu } from "components"
 import { Container } from "components/primitives"
 import { env } from "helpers"
+import { getProfile, getUser } from "helpers/api"
 import { AppProps } from "next/app"
 import { useRouter } from "next/router"
-import { useEffect, useMemo, useReducer, useState } from "react"
-import { Cookies } from "react-cookie"
+import { useEffect, useMemo, useReducer } from "react"
+import { CookiesProvider, useCookies } from "react-cookie"
 import {
     closeMenu,
     initialState,
     reducer,
     setLoggedIn,
+    setUser,
     SiteContext,
 } from "store"
 import "styles/index.css"
+import { User } from "types"
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
@@ -35,17 +38,35 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         }
     }, [query])
 
-    const [cookies, setCookies] = useState<Cookies>()
+    const [cookies, , removeCookie] = useCookies()
 
     useEffect(() => {
-        if (process.browser) {
-            setCookies(new Cookies(document.cookie))
+        dispatch(setLoggedIn(!!cookies["gpad_auth"]))
+    }, [cookies["gpad_auth"]])
+
+    useEffect(() => {
+        if (state.loggedIn) {
+            getUser()
+                .then((user: User) => {
+                    if (!user.userid) {
+                        throw new Error("user logged out")
+                    }
+
+                    return getProfile(user.userid).then((member) => ({
+                        user,
+                        member,
+                    }))
+                })
+                .then(({ user, member }) => dispatch(setUser(user, member)))
+                .catch((error) => {
+                    console.error(error.message)
+
+                    removeCookie("gpad_auth")
+                    dispatch(setLoggedIn(false))
+                    dispatch(setUser(null))
+                })
         }
-    }, [])
-
-    useEffect(() => {
-        dispatch(setLoggedIn(!!cookies?.get("auth")))
-    }, [cookies])
+    }, [state.loggedIn])
 
     useEffect(() => {
         const bodyClasses = document.querySelector("body").classList
@@ -57,26 +78,28 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     }, [state.menuVisible])
 
     return (
-        <SiteContext.Provider value={contextValue}>
-            <div
-                className="z-30 absolute w-screen overflow-hidden bg-fixed"
-                style={{
-                    backgroundImage: `url(${env.ASSETS}/background.png)`,
-                }}
-            >
-                <Menu />
-                <Header />
-                <div className="pt-16 bg-opacity-95 bg-background min-h-screen flex flex-col justify-between">
-                    <main className="max-w-xl mx-auto">
-                        <Container className="mx-4">
-                            <Component {...pageProps} />
-                        </Container>
-                    </main>
+        <CookiesProvider>
+            <SiteContext.Provider value={contextValue}>
+                <div
+                    className="z-30 absolute w-screen overflow-hidden bg-fixed"
+                    style={{
+                        backgroundImage: `url(${env.ASSETS}/background.png)`,
+                    }}
+                >
+                    <Menu />
+                    <Header />
+                    <div className="pt-16 bg-opacity-95 bg-background min-h-screen flex flex-col justify-between">
+                        <main className="w-full max-w-xl mx-auto">
+                            <Container className="mx-4">
+                                <Component {...pageProps} />
+                            </Container>
+                        </main>
 
-                    <Footer />
+                        <Footer />
+                    </div>
                 </div>
-            </div>
-        </SiteContext.Provider>
+            </SiteContext.Provider>
+        </CookiesProvider>
     )
 }
 
