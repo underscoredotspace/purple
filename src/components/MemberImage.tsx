@@ -7,7 +7,7 @@ interface MemberImageProps {
     member: Pick<Member, "avatar" | "username" | "id">
     colour?: string
     className?: string
-    size: number
+    size?: number
     title?: string
 }
 
@@ -15,19 +15,21 @@ const MemberImage: React.FC<MemberImageProps> = ({
     member,
     colour,
     className,
-    size,
+    size = 64,
     title,
 }) => {
     const [avatarPath, setAvatarPath] = useState(
         `https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.${
-            member.avatar.startsWith("a_") ? "gif" : "png"
+            member?.avatar?.startsWith("a_") ? "gif" : "png"
         }?size=${size}`
     )
 
+    console.log({ member: member.username, size })
+
     return (
         <img
-            width={`${size}px`}
-            height={`${size}px`}
+            width={size}
+            height={size}
             alt={member.username}
             title={title || member.username}
             className={classNames([

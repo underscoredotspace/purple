@@ -8,8 +8,8 @@ import { Role } from "types"
 
 const profileRoles = ["820365518431059989", "568141992794783749"]
 
-const WithLink: React.FC<{ roles: Role[] }> = ({ roles, children }) => {
-    if (roles.find((role) => profileRoles.includes(role.id))) {
+const WithLink: React.FC<{ roles?: Role[] }> = ({ roles, children }) => {
+    if (roles?.find((role) => profileRoles.includes(role.id))) {
         return (
             <RouteLink
                 title=""

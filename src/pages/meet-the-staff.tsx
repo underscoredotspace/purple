@@ -34,12 +34,47 @@ const descriptions: Record<string, string> = {
         "The top of the hierarchy, they make the rules once agreed upon with the staff, maintain the Discord server, and the Reddit page. Crew members should come to them if they have any issues, feedback for staff members or anything crew related.",
 }
 
+const eventRole: Role = {
+    name: "Events",
+    color: "fake-events-role",
+    id: "fake-events-role",
+    position: 1,
+}
+
+const eventRoles = [
+    "609447212925190147", //events gta-xb
+    "608396947795083274", //events gta-ps
+    "760091219069763594", //events rdo-xb
+    "760091432114716692", //events rdo-ps
+]
+
+const mappedStaffProfiles = (staffRoles: Role[]): Role[] =>
+    staffRoles.map((role) => ({
+        ...role,
+        members: role.members.map((member) => {
+            if (member.roles.find(({ id }) => eventRoles.includes(id))) {
+                return {
+                    ...member,
+                    roles: [
+                        ...member.roles.filter(
+                            ({ id }) => !eventRoles.includes(id)
+                        ),
+                        eventRole,
+                    ],
+                }
+            }
+            return member
+        }),
+    }))
+
 const MeetTheStaff: React.FC = () => {
     const [profileRows, setProfileRows] = useState<Role[]>()
 
     useEffect(() => {
         getStaffProfiles()
-            .then(setProfileRows)
+            .then((staffProfiles) =>
+                setProfileRows(mappedStaffProfiles(staffProfiles))
+            )
             .catch((error) => {
                 console.error(error)
                 setProfileRows(undefined)

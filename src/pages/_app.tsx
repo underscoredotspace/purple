@@ -16,6 +16,7 @@ import {
     SiteContext,
 } from "store"
 import "styles/index.css"
+import { User } from "types"
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
@@ -52,11 +53,21 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     useEffect(() => {
         if (state.loggedIn) {
             getUser()
-                .then((user) =>
-                    getProfile(user.userid).then((member) => ({ user, member }))
-                )
+                .then((user: User) => {
+                    if (!user.userid) {
+                        throw new Error("user logged out")
+                    }
+
+                    return getProfile(user.userid).then((member) => ({
+                        user,
+                        member,
+                    }))
+                })
                 .then(({ user, member }) => dispatch(setUser(user, member)))
-                .catch(() => {
+                .catch((error) => {
+                    console.error(error.message)
+
+                    cookies.remove("gpad_auth")
                     dispatch(setLoggedIn(false))
                     dispatch(setUser(null))
                 })

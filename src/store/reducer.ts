@@ -8,6 +8,7 @@ export const initialState: RootState = {
 }
 
 export const reducer = (state: RootState, action: Action): RootState => {
+    console.log({ state, action })
     switch (action.type) {
         case Actions.toggleMenu:
             return {

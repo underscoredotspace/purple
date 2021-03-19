@@ -17,7 +17,7 @@ const colours = {
     63488: "mod",
     16713367: "admissions",
     16761450: "sessionmaker",
-    16717056: "events",
+    "fake-events-role": "events",
     8774655: "ps",
     10680994: "xb",
     8688216: "cod",
@@ -25,10 +25,7 @@ const colours = {
 
 const rolesToShow: string[] = [
     "568174092977700866", //admissions
-    // "609447212925190147", //events gta-xb
-    // "608396947795083274", //events gta-ps
-    // "760091219069763594", //events rdo-xb
-    // "760091432114716692", //events rdo-ps
+    "fake-events-role", // events 😉
     "572443602773344276", //session maker,
     "594361392090316811", //gta-ps
     "594361443239985152", //gta-xb
