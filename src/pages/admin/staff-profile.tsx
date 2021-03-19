@@ -1,7 +1,6 @@
 import { Profile } from "components/Profile"
 import { getProfile, saveProfile } from "helpers/api"
 import { useRouter } from "next/router"
-import NotFound from "pages/404"
 import React, { useContext, useEffect, useState } from "react"
 import { SiteContext } from "store"
 import { Member } from "types"
@@ -20,11 +19,13 @@ const getHighestRole = (member: Member) =>
 const StaffProfile: React.FC = () => {
     const { state } = useContext(SiteContext)
     const [member, setMember] = useState<Member>()
-    const { push } = useRouter()
+    const { push, replace } = useRouter()
 
-    if (!state.user) {
-        return <NotFound />
-    }
+    useEffect(() => {
+        if (!state.user) {
+            replace("/")
+        }
+    }, [])
 
     useEffect(() => {
         if (!state.user?.userid) {
@@ -58,8 +59,8 @@ const StaffProfile: React.FC = () => {
 
     const handleSubmit = () =>
         saveProfile(member.profile).then(() => {
-            alert("profile updated!")
-            push("/")
+            alert("Profile updated!")
+            push("/meet-the-staff")
         })
 
     return member ? (
