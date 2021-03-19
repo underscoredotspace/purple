@@ -24,8 +24,6 @@ const MemberImage: React.FC<MemberImageProps> = ({
         }?size=${size}`
     )
 
-    console.log({ member: member.username, size })
-
     return (
         <img
             width={size}

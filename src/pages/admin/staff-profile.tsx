@@ -73,7 +73,7 @@ const StaffProfile: React.FC = () => {
             ].join(" ")}
         >
             <form
-                className="flex flex-col space-y-2 max-w-64"
+                className="flex flex-col space-y-2 w-full"
                 onSubmit={(e) => {
                     handleSubmit()
                     e.preventDefault()

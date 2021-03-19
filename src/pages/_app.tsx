@@ -5,8 +5,8 @@ import { env } from "helpers"
 import { getProfile, getUser } from "helpers/api"
 import { AppProps } from "next/app"
 import { useRouter } from "next/router"
-import { useEffect, useMemo, useReducer, useState } from "react"
-import { Cookies } from "react-cookie"
+import { useEffect, useMemo, useReducer } from "react"
+import { CookiesProvider, useCookies } from "react-cookie"
 import {
     closeMenu,
     initialState,
@@ -38,17 +38,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         }
     }, [query])
 
-    const [cookies, setCookies] = useState<Cookies>()
+    const [cookies, , removeCookie] = useCookies()
 
     useEffect(() => {
-        if (process.browser) {
-            setCookies(new Cookies(document.cookie))
-        }
-    }, [])
-
-    useEffect(() => {
-        dispatch(setLoggedIn(!!cookies?.get("gpad_auth")))
-    }, [cookies])
+        dispatch(setLoggedIn(!!cookies["gpad_auth"]))
+    }, [cookies["gpad_auth"]])
 
     useEffect(() => {
         if (state.loggedIn) {
@@ -67,7 +61,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                 .catch((error) => {
                     console.error(error.message)
 
-                    cookies.remove("gpad_auth")
+                    removeCookie("gpad_auth")
                     dispatch(setLoggedIn(false))
                     dispatch(setUser(null))
                 })
@@ -84,26 +78,28 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     }, [state.menuVisible])
 
     return (
-        <SiteContext.Provider value={contextValue}>
-            <div
-                className="z-30 absolute w-screen overflow-hidden bg-fixed"
-                style={{
-                    backgroundImage: `url(${env.ASSETS}/background.png)`,
-                }}
-            >
-                <Menu />
-                <Header />
-                <div className="pt-16 bg-opacity-95 bg-background min-h-screen flex flex-col justify-between">
-                    <main className="w-full max-w-xl mx-auto">
-                        <Container className="mx-4">
-                            <Component {...pageProps} />
-                        </Container>
-                    </main>
+        <CookiesProvider>
+            <SiteContext.Provider value={contextValue}>
+                <div
+                    className="z-30 absolute w-screen overflow-hidden bg-fixed"
+                    style={{
+                        backgroundImage: `url(${env.ASSETS}/background.png)`,
+                    }}
+                >
+                    <Menu />
+                    <Header />
+                    <div className="pt-16 bg-opacity-95 bg-background min-h-screen flex flex-col justify-between">
+                        <main className="w-full max-w-xl mx-auto">
+                            <Container className="mx-4">
+                                <Component {...pageProps} />
+                            </Container>
+                        </main>
 
-                    <Footer />
+                        <Footer />
+                    </div>
                 </div>
-            </div>
-        </SiteContext.Provider>
+            </SiteContext.Provider>
+        </CookiesProvider>
     )
 }
 
