@@ -1,4 +1,5 @@
 import { faDiscord } from "@fortawesome/free-brands-svg-icons"
+import { faLock } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { env } from "helpers"
 import { classNames } from "helpers/misc"
@@ -34,6 +35,12 @@ const createLink: React.FC<CreateLinkProps> = ({ route, pathname }) => {
     }
 
     const className = "bare p-2 hover:bg-card flex flex-row items-center"
+    const LockIcon = route.permissions ? (
+        <FontAwesomeIcon
+            icon={faLock}
+            className="text-yellow-400 text-xs ml-1"
+        />
+    ) : null
 
     return route.external ? (
         <a title={route.title} href={route.path} className={className}>
@@ -42,6 +49,7 @@ const createLink: React.FC<CreateLinkProps> = ({ route, pathname }) => {
     ) : (
         <RouteLink to={route.path} title={route.title} className={className}>
             {route.title}
+            {LockIcon}
         </RouteLink>
     )
 }
