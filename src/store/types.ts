@@ -1,10 +1,11 @@
-import { Member, User } from "types"
+import { Member, Permissions, User } from "types"
 
 export interface RootState {
     menuVisible: boolean
     loggedIn: boolean
-    user?: User | null
-    member?: Member | null
+    user?: User
+    member?: Member
+    permissions: Permissions
 }
 
 export enum Actions {

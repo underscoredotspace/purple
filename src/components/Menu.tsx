@@ -6,6 +6,7 @@ import { Route, routes } from "helpers/routes"
 import { useRouter } from "next/router"
 import React, { useContext, useEffect } from "react"
 import { closeMenu, SiteContext } from "store"
+import { Permissions } from "types"
 import { RouteLink } from "./primitives"
 
 interface CreateLinkProps {
@@ -45,6 +46,13 @@ const createLink: React.FC<CreateLinkProps> = ({ route, pathname }) => {
     )
 }
 
+const hasPermission = (route: Route, permissions: Permissions): boolean =>
+    route.permissions
+        ? !!route.permissions.find((permission) =>
+              permissions.includes(permission)
+          )
+        : true
+
 export const Menu: React.FC = () => {
     const { pathname } = useRouter()
     const { state, dispatch } = useContext(SiteContext)
@@ -80,7 +88,7 @@ export const Menu: React.FC = () => {
         >
             <ul className="p-4 h-full">
                 {Object.values(routes)
-                    .filter(({ hidden }) => !hidden)
+                    .filter((route) => hasPermission(route, state.permissions))
                     .map((route) => (
                         <li key={`menu-${route.title}`}>
                             {createLink({ route, pathname })}

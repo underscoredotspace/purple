@@ -32,6 +32,13 @@ export interface User {
     expires: Date
 }
 
+export type Permissions = string[]
+
+export interface ExtendedUser extends User {
+    member?: Member
+    permissions?: Permissions
+}
+
 export interface RoleListItem {
     id: string
     name: string
