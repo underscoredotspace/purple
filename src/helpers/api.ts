@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { env } from "helpers"
 import { ParsedUrlQueryInput, stringify } from "querystring"
-import { Member, Profile, Role, User } from "types"
+import { Member, Permission, Profile, Role, User } from "types"
 
 export const qs = (queryObject?: ParsedUrlQueryInput): string =>
     stringify(queryObject)
@@ -15,9 +15,9 @@ interface FetchJSONOptions {
     method?: "get" | "post"
 }
 
-type FetchJSON = (endpoint: string, options?: FetchJSONOptions) => Promise<any>
+type FetchAPI = (endpoint: string, options?: FetchJSONOptions) => Promise<any>
 
-const fetchJSON: FetchJSON = (endpoint, { query, body, method } = {}) =>
+const fetchAPI: FetchAPI = (endpoint, { query, body, method } = {}) =>
     fetch(apiUrl(endpoint, query ? qs(query) : undefined), {
         method: method ?? "get",
         credentials: "include",
@@ -31,24 +31,24 @@ export async function getMembercount(): Promise<{
     ps: number
     xbox: number
 }> {
-    const { "GTA-PS": PS, "GTA-XBOX": XBOX } = await fetchJSON("member-count")
+    const { "GTA-PS": PS, "GTA-XBOX": XBOX } = await fetchAPI("member-count")
 
     return { ps: Number(PS), xbox: Number(XBOX) }
 }
 
-export const getUser = (): Promise<User> => fetchJSON("auth/user")
+export const getUser = (): Promise<User> => fetchAPI("auth/user")
 
 export const getMembersByRole = (roleIds: string[]): Promise<Role[]> =>
-    fetchJSON("member", { query: { roleIds } })
+    fetchAPI("member", { query: { roleIds } })
 
 export const getProfile = (memberId: string): Promise<Member> =>
-    fetchJSON(`profile/${memberId}`)
+    fetchAPI(`profile/${memberId}`)
 
 export const saveProfile = (profile: Profile): Promise<void> =>
-    fetchJSON(`profile/${profile.id}`, { method: "post", body: profile })
+    fetchAPI(`profile/${profile.id}`, { method: "post", body: profile })
 
 export const getStaffProfiles = (): Promise<Role[]> =>
-    fetchJSON("profile/by-role", {
+    fetchAPI("profile/by-role", {
         query: {
             roleIds: [
                 "546342033867014165",
@@ -57,3 +57,8 @@ export const getStaffProfiles = (): Promise<Role[]> =>
             ],
         },
     }).then((roles: Role[]) => roles.sort((a, b) => b.position - a.position))
+
+export const getAllPermissions = (): Promise<{
+    permissions: Permission[]
+    roles: Role[]
+}> => fetchAPI("auth/permission")

@@ -32,7 +32,7 @@ const MemberImage: React.FC<MemberImageProps> = ({
             title={title || member.username}
             className={classNames([
                 `rounded-full inline-block`,
-                colour && `border border-${colour}`,
+                colour && `border-2 border-opacity-50 border-${colour}`,
                 className,
             ])}
             src={avatarPath}
