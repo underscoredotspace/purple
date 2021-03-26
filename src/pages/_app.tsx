@@ -7,6 +7,7 @@ import { AppProps } from "next/app"
 import { useRouter } from "next/router"
 import { useEffect, useMemo, useReducer } from "react"
 import { CookiesProvider, useCookies } from "react-cookie"
+import "semantic-ui-css/semantic.min.css"
 import {
     closeMenu,
     initialState,

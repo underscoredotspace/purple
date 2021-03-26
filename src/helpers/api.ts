@@ -12,20 +12,24 @@ const apiUrl = (endpoint: string, qs?: string) =>
 interface FetchJSONOptions {
     query?: any
     body?: any
-    method?: "get" | "post"
+    method?: "GET" | "POST" | "PATCH" | "DELETE"
 }
 
 type FetchAPI = (endpoint: string, options?: FetchJSONOptions) => Promise<any>
 
 const fetchAPI: FetchAPI = (endpoint, { query, body, method } = {}) =>
     fetch(apiUrl(endpoint, query ? qs(query) : undefined), {
-        method: method ?? "get",
+        method: method ?? "GET",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
+    }).then(async (res) => {
+        if (res.status.toString().startsWith("2")) {
+            return res.json().catch(() => ({})) as unknown
+        }
+
+        throw new Error(await res.text())
     })
-        .then((res) => res.json() as unknown)
-        .catch(() => ({}))
 
 export async function getMembercount(): Promise<{
     ps: number
@@ -45,7 +49,7 @@ export const getProfile = (memberId: string): Promise<Member> =>
     fetchAPI(`profile/${memberId}`)
 
 export const saveProfile = (profile: Profile): Promise<void> =>
-    fetchAPI(`profile/${profile.id}`, { method: "post", body: profile })
+    fetchAPI(`profile/${profile.id}`, { method: "POST", body: profile })
 
 export const getStaffProfiles = (): Promise<Role[]> =>
     fetchAPI("profile/by-role", {
@@ -62,3 +66,9 @@ export const getAllPermissions = (): Promise<{
     permissions: Permission[]
     roles: Role[]
 }> => fetchAPI("auth/permission")
+
+export const updatePermission = (permission: {
+    name: string
+    roles: string[]
+}): Promise<{ error?: string }> =>
+    fetchAPI("auth/permission", { method: "PATCH", body: permission })
