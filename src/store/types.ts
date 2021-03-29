@@ -3,8 +3,9 @@ import { Member, User } from "types"
 export interface RootState {
     menuVisible: boolean
     loggedIn: boolean
-    user?: User | null
-    member?: Member | null
+    user?: User
+    member?: Member
+    permissions: string[]
 }
 
 export enum Actions {

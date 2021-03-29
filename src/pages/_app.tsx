@@ -2,11 +2,17 @@ import "@fortawesome/fontawesome-svg-core/styles.css"
 import { Footer, Header, Menu } from "components"
 import { Container } from "components/primitives"
 import { env } from "helpers"
-import { getProfile, getUser } from "helpers/api"
+import { getUser } from "helpers/api"
 import { AppProps } from "next/app"
 import { useRouter } from "next/router"
 import { useEffect, useMemo, useReducer } from "react"
 import { CookiesProvider, useCookies } from "react-cookie"
+import "semantic-ui-css/components/dropdown.css"
+import "semantic-ui-css/components/icon.css"
+import "semantic-ui-css/components/label.css"
+import "semantic-ui-css/components/menu.css"
+import "semantic-ui-css/components/message.css"
+import "semantic-ui-css/components/transition.css"
 import {
     closeMenu,
     initialState,
@@ -16,7 +22,7 @@ import {
     SiteContext,
 } from "store"
 import "styles/index.css"
-import { User } from "types"
+import { ExtendedUser } from "types"
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
@@ -47,23 +53,22 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     useEffect(() => {
         if (state.loggedIn) {
             getUser()
-                .then((user: User) => {
-                    if (!user.userid) {
+                .then((user: ExtendedUser) => {
+                    if (!user) {
                         throw new Error("user logged out")
                     }
 
-                    return getProfile(user.userid).then((member) => ({
-                        user,
-                        member,
-                    }))
+                    return user
                 })
-                .then(({ user, member }) => dispatch(setUser(user, member)))
+                .then((res) => {
+                    const { permissions, member, ...user } = res
+                    dispatch(setUser(user, member, permissions))
+                })
                 .catch((error) => {
                     console.error(error.message)
 
                     removeCookie("gpad_auth")
                     dispatch(setLoggedIn(false))
-                    dispatch(setUser(null))
                 })
         }
     }, [state.loggedIn])

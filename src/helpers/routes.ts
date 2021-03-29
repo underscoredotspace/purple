@@ -1,9 +1,8 @@
 export interface Route {
     path: string
     title: string
-    category?: string
     external?: boolean
-    hidden?: boolean
+    permissions?: string[]
 }
 
 type Routes = Route[]
@@ -28,17 +27,14 @@ export const routes: Routes = [
     {
         path: "/gta-online",
         title: "GTA Online",
-        category: "Games we Play",
     },
     {
         path: "/red-dead",
         title: "Red Dead Redemption",
-        category: "Games we Play",
     },
     {
         path: "/other-games",
         title: "Games We Play",
-        category: "Games we Play",
     },
     {
         path: "/meet-the-staff",
@@ -52,7 +48,21 @@ export const routes: Routes = [
         path: "/privacy-policy",
         title: "Privacy Policy",
     },
-    { path: "/admin/staff-profile", title: "Your Profile", hidden: true },
+    {
+        path: "/admin/staff-profile",
+        title: "Your Staff Profile",
+        permissions: ["STAFF_PROFILE"],
+    },
+    {
+        path: "/admin/wall-of-fame",
+        title: "Update Wall of Fame",
+        permissions: ["UPDATE_WALL_OF_FAME"],
+    },
+    {
+        path: "/admin/manage-permissions",
+        title: "Manage Permissions",
+        permissions: ["MANAGE_PERMISSIONS"],
+    },
 ]
 
 export const getRoute = (pathname: string): Route | undefined =>

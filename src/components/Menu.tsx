@@ -1,4 +1,5 @@
 import { faDiscord } from "@fortawesome/free-brands-svg-icons"
+import { faLock } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { env } from "helpers"
 import { classNames } from "helpers/misc"
@@ -28,8 +29,20 @@ const MenuLink: React.FC<{ title: string; href?: string }> = ({
 )
 
 const createLink: React.FC<CreateLinkProps> = ({ route, pathname }) => {
+    const LockIcon = route.permissions ? (
+        <FontAwesomeIcon
+            icon={faLock}
+            className="text-yellow-400 text-xs ml-1"
+        />
+    ) : null
+
     if (route.path === pathname) {
-        return <b className="block p-2 bg-card">{route.title}</b>
+        return (
+            <b className="block p-2 bg-card">
+                {route.title}
+                {LockIcon}
+            </b>
+        )
     }
 
     const className = "bare p-2 hover:bg-card flex flex-row items-center"
@@ -41,9 +54,17 @@ const createLink: React.FC<CreateLinkProps> = ({ route, pathname }) => {
     ) : (
         <RouteLink to={route.path} title={route.title} className={className}>
             {route.title}
+            {LockIcon}
         </RouteLink>
     )
 }
+
+const hasPermission = (route: Route, permissions: string[]): boolean =>
+    route.permissions
+        ? !!route.permissions.find((permission) =>
+              permissions.includes(permission)
+          )
+        : true
 
 export const Menu: React.FC = () => {
     const { pathname } = useRouter()
@@ -80,7 +101,7 @@ export const Menu: React.FC = () => {
         >
             <ul className="p-4 h-full">
                 {Object.values(routes)
-                    .filter(({ hidden }) => !hidden)
+                    .filter((route) => hasPermission(route, state.permissions))
                     .map((route) => (
                         <li key={`menu-${route.title}`}>
                             {createLink({ route, pathname })}

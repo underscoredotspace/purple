@@ -14,7 +14,11 @@ export const setLoggedIn = (isLoggedIn: boolean): Action => ({
     payload: { isLoggedIn },
 })
 
-export const setUser = (user: User, member?: Member): Action => ({
+export const setUser = (
+    user: User,
+    member: Member | undefined,
+    permissions: string[] | undefined
+): Action => ({
     type: Actions.setUser,
-    payload: { user, member },
+    payload: { user, member, permissions },
 })
