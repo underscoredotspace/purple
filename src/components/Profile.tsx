@@ -12,15 +12,17 @@ interface ProfileProps {
 }
 
 const colours = {
-    16748308: "staff",
-    26623: "admin",
-    63488: "mod",
-    16713367: "admissions",
-    16761450: "sessionmaker",
-    "fake-events-role": "events",
-    8774655: "ps",
-    10680994: "xb",
-    8688216: "cod",
+    "568141992794783749": "staff",
+    "546342033867014165": "admin",
+    "549644467498516508": "mod",
+    "568174092977700866": "admissions", //admissions
+    "fake-events-role": "events", // events 😉
+    "572443602773344276": "sessionmaker", //session maker,
+    "594361392090316811": "ps", //gta-ps
+    "594361443239985152": "xb", //gta-xb
+    "760089861822087178": "ps", //rdo-ps
+    "764203700092534846": "xb", //rdo-xb
+    "638182847449923594": "cod", //cod
 }
 
 const rolesToShow: string[] = [
@@ -51,7 +53,7 @@ export const Profile: ProfileComponent = ({ member, highestRole }) => {
             : avatarURL
     )
 
-    const colour = colours[highestRole.color]
+    const colour = colours[highestRole.id]
 
     return (
         <Card>
@@ -132,7 +134,7 @@ export const Profile: ProfileComponent = ({ member, highestRole }) => {
                 {member?.roles?.filter(filterRoles).map((role) => (
                     <Pill
                         className={`mr-2 mb-2 bg-${
-                            colours[role.color] ?? "copy"
+                            colours[role.id] ?? "copy"
                         } bg-opacity-80`}
                         text={role.name}
                         key={`role-${member.id}-${role.id}`}
