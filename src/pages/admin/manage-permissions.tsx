@@ -176,7 +176,7 @@ const ManagePermissions: React.FC = () => {
                 </form>
             </Card>
 
-            {isSuperUser && <AddRemovePermission />}
+            {isSuperUser && <AddRemovePermission permissions={permissions} />}
         </>
     )
 }
