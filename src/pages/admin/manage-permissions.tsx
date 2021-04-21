@@ -1,4 +1,6 @@
 import { Card } from "components"
+
+import AddRemovePermission from "components/admin/AddRemovePermission"
 import { getAllPermissions, updatePermission } from "helpers/api"
 import React from "react"
 import { Dropdown, Message, MessageProps } from "semantic-ui-react"
@@ -12,6 +14,8 @@ const ManagePermissions: React.FC = () => {
     const [statusMessage, setStatusMessage] = React.useState<MessageProps>()
     const [formDisabled, setFormDisabled] = React.useState(false)
 
+    const isSuperUser = true
+        
     React.useEffect(() => {
         if (!selected) {
             setSelectedRoles([])
@@ -100,75 +104,81 @@ const ManagePermissions: React.FC = () => {
     // remove role from permission
 
     return (
-        <Card padding>
-            <form
-                className="flex flex-col w-full space-y-2"
-                onSubmit={(e) => {
-                    setFormDisabled(true)
-                    handleSubmit()
-                    e.preventDefault()
-                }}
-            >
-                <label
-                    htmlFor="permission-dropdown"
-                    className="p-1 text-sm uppercase text-discord"
+        <>
+            <Card padding>
+                <form
+                    className="flex flex-col w-full space-y-2"
+                    onSubmit={(e) => {
+                        setFormDisabled(true)
+                        handleSubmit()
+                        e.preventDefault()
+                    }}
                 >
-                    Permission
-                </label>
-                <Dropdown
-                    id="permission-dropdown"
-                    placeholder="Permission"
-                    fluid
-                    search
-                    selection
-                    options={permissions.map((p) => ({
-                        text: p.name,
-                        value: p.name,
-                    }))}
-                    onChange={(_, { value }) =>
-                        value && setSelected(value.toString())
-                    }
-                    value={selected}
-                    disabled={formDisabled}
-                />
-                {selected ? (
-                    <>
-                        <Dropdown
-                            scrolling
-                            placeholder="Roles"
-                            fluid
-                            search
-                            multiple
-                            selection
-                            options={roles.map((r) => ({
-                                text: r.name,
-                                value: r.id,
-                            }))}
-                            value={selectedRoles.map((role) => role.id)}
-                            onChange={(_, { value }) => {
-                                if (typeof value === "object") {
-                                    setSelectedRoles(
-                                        value.map((id) =>
-                                            roles.find((role) => role.id === id)
+                    <label
+                        htmlFor="permission-dropdown"
+                        className="p-1 text-sm uppercase text-discord"
+                    >
+                        Permission
+                    </label>
+                    <Dropdown
+                        id="permission-dropdown"
+                        placeholder="Permission"
+                        fluid
+                        search
+                        selection
+                        options={permissions.map((p) => ({
+                            text: p.name,
+                            value: p.name,
+                        }))}
+                        onChange={(_, { value }) =>
+                            value && setSelected(value.toString())
+                        }
+                        value={selected}
+                        disabled={formDisabled}
+                    />
+                    {selected ? (
+                        <>
+                            <Dropdown
+                                scrolling
+                                placeholder="Roles"
+                                fluid
+                                search
+                                multiple
+                                selection
+                                options={roles.map((r) => ({
+                                    text: r.name,
+                                    value: r.id,
+                                }))}
+                                value={selectedRoles.map((role) => role.id)}
+                                onChange={(_, { value }) => {
+                                    if (typeof value === "object") {
+                                        setSelectedRoles(
+                                            value.map((id) =>
+                                                roles.find(
+                                                    (role) => role.id === id
+                                                )
+                                            )
                                         )
-                                    )
-                                }
-                            }}
-                            disabled={formDisabled}
-                        />
-                        {statusMessage && <Message {...statusMessage} />}
-                        <input
-                            disabled={formDisabled}
-                            type="submit"
-                            value="Save Roles"
-                            className="bg-green-200 text-black border border-solid border-background px-2 py-1"
-                        />
-                    </>
-                ) : (
-                    <p>Select a permission to change</p>
-                )}
-            </form>
-        </Card>
+                                    }
+                                }}
+                                disabled={formDisabled}
+                            />
+                            {statusMessage && <Message {...statusMessage} />}
+                            <input
+                                disabled={formDisabled}
+                                type="submit"
+                                value="Save Roles"
+                                className="bg-green-200 text-black border border-solid border-background px-2 py-1"
+                            />
+                        </>
+                    ) : (
+                        <p>Select a permission to change</p>
+                    )}
+                </form>
+            </Card>
+
+            {isSuperUser && <AddRemovePermission permissions={permissions} />}
+        </>
     )
 }
 

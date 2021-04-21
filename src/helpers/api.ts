@@ -35,7 +35,7 @@ export async function getMembercount(): Promise<{
     ps: number
     xbox: number
 }> {
-    const { "GTA-PS": PS, "GTA-XBOX": XBOX } = await fetchAPI("member-count")
+    const { PlayStation: PS, Xbox: XBOX } = await fetchAPI("member-count")
 
     return { ps: Number(PS), xbox: Number(XBOX) }
 }
@@ -62,13 +62,25 @@ export const getStaffProfiles = (): Promise<Role[]> =>
         },
     }).then((roles: Role[]) => roles.sort((a, b) => b.position - a.position))
 
+interface APIPermission {
+    name: string
+    roles: string[]
+}
+
 export const getAllPermissions = (): Promise<{
     permissions: Permission[]
     roles: Role[]
-}> => fetchAPI("auth/permission")
+}> => fetchAPI("permission")
 
-export const updatePermission = (permission: {
-    name: string
-    roles: string[]
-}): Promise<{ error?: string }> =>
-    fetchAPI("auth/permission", { method: "PATCH", body: permission })
+export const updatePermission = (
+    permission: APIPermission
+): Promise<{ error?: string }> =>
+    fetchAPI("permission", { method: "PATCH", body: permission })
+
+export const addPermission = (
+    permission: APIPermission
+): Promise<{ error?: string }> =>
+    fetchAPI("permission", { method: "POST", body: permission })
+
+export const deletePermission = (name: string): Promise<{ error?: string }> =>
+    fetchAPI(`permission/${name}`, { method: "DELETE" })
