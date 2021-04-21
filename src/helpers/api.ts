@@ -35,7 +35,7 @@ export async function getMembercount(): Promise<{
     ps: number
     xbox: number
 }> {
-    const { "GTA-PS": PS, "GTA-XBOX": XBOX } = await fetchAPI("member-count")
+    const { PlayStation: PS, Xbox: XBOX } = await fetchAPI("member-count")
 
     return { ps: Number(PS), xbox: Number(XBOX) }
 }
