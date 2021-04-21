@@ -1,4 +1,5 @@
 import { Card } from "components"
+
 import AddRemovePermission from "components/admin/AddRemovePermission"
 import { getAllPermissions, updatePermission } from "helpers/api"
 import React from "react"
@@ -14,7 +15,7 @@ const ManagePermissions: React.FC = () => {
     const [formDisabled, setFormDisabled] = React.useState(false)
 
     const isSuperUser = true
-
+        
     React.useEffect(() => {
         if (!selected) {
             setSelectedRoles([])
