@@ -42,7 +42,7 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                discord: "#7289da",
+                discord: "#5865F2",
                 background: "#202225",
                 copy: "#dcddde",
                 card: "#36393f",
