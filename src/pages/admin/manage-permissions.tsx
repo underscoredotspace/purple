@@ -1,21 +1,23 @@
 import { Card } from "components"
-
 import AddRemovePermission from "components/admin/AddRemovePermission"
 import { getAllPermissions, updatePermission } from "helpers/api"
-import React from "react"
+import React, { useContext } from "react"
 import { Dropdown, Message, MessageProps } from "semantic-ui-react"
-import { Permission, Role } from "types"
+import { setAllPermissions, SiteContext } from "store"
+import { Role } from "types"
 
 const ManagePermissions: React.FC = () => {
+    const { dispatch, state } = useContext(SiteContext)
     const [roles, setRoles] = React.useState<Role[]>()
-    const [permissions, setPermissions] = React.useState<Permission[]>()
     const [selected, setSelected] = React.useState<string>(null)
     const [selectedRoles, setSelectedRoles] = React.useState<Role[]>()
     const [statusMessage, setStatusMessage] = React.useState<MessageProps>()
     const [formDisabled, setFormDisabled] = React.useState(false)
 
+    const permissions = state.allPermissions
+
     const isSuperUser = true
-        
+
     React.useEffect(() => {
         if (!selected) {
             setSelectedRoles([])
@@ -32,7 +34,7 @@ const ManagePermissions: React.FC = () => {
         getAllPermissions()
             .then((res) => {
                 setRoles(res.roles)
-                setPermissions(res.permissions)
+                dispatch(setAllPermissions(res.permissions))
             })
             .catch(console.error)
 
@@ -177,7 +179,9 @@ const ManagePermissions: React.FC = () => {
                 </form>
             </Card>
 
-            {isSuperUser && <AddRemovePermission permissions={permissions} />}
+            {isSuperUser && (
+                <AddRemovePermission getPermissions={getPermissions} />
+            )}
         </>
     )
 }

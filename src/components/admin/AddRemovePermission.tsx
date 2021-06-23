@@ -2,13 +2,14 @@ import { Card } from "components/Card"
 import { addPermission } from "helpers/api"
 import React, { useEffect } from "react"
 import { Message, MessageProps } from "semantic-ui-react"
-import { Permission } from "types"
 
 interface AddRemovePermissionsProps {
-    permissions: Permission[]
+    getPermissions: () => void
 }
 
-const AddRemovePermission: React.FC<AddRemovePermissionsProps> = () => {
+const AddRemovePermission: React.FC<AddRemovePermissionsProps> = ({
+    getPermissions,
+}) => {
     const [newPermission, setNewPermission] = React.useState("")
     const [statusMessage, setStatusMessage] = React.useState<MessageProps>()
     const [formDisabled, setFormDisabled] = React.useState(false)
@@ -48,6 +49,7 @@ const AddRemovePermission: React.FC<AddRemovePermissionsProps> = () => {
             .finally(() => {
                 setFormDisabled(false)
                 setNewPermission(null)
+                getPermissions()
             })
     }
 

@@ -1,4 +1,4 @@
-import { Member, User } from "types"
+import { Member, Permission, User } from "types"
 
 export interface RootState {
     menuVisible: boolean
@@ -6,6 +6,7 @@ export interface RootState {
     user?: User
     member?: Member
     permissions: string[]
+    allPermissions: Permission[]
 }
 
 export enum Actions {
@@ -13,6 +14,7 @@ export enum Actions {
     closeMenu = "closeMenu",
     setLoggedIn = "setLoggedIn",
     setUser = "setUser",
+    setPermissionsList = "setPermissionsList",
 }
 
 export type Action = { type: Actions; payload?: unknown }
