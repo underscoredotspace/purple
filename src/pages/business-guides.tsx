@@ -8,7 +8,11 @@ const BusinessGuides: React.FC = () => {
     useEffect(() => {
         getMarkdown("business-guides")
             .then((md) => md && setMarkdown(md))
-            .catch(() => setMarkdown("**access denied**"))
+            .catch(() =>
+                setMarkdown(
+                    "Sorry, this content is only for members. Join the crew using the link in the footer. "
+                )
+            )
     }, [])
 
     return <ReactMarkdown>{markdown}</ReactMarkdown>

@@ -33,6 +33,11 @@ export const routes: Routes = [
         title: "Red Dead Redemption",
     },
     {
+        path: "/business-guides",
+        title: "GTA Business Guides",
+        permissions: ["GUIDE_DOCS"],
+    },
+    {
         path: "/other-games",
         title: "Games We Play",
     },
