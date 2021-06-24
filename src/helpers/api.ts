@@ -84,3 +84,6 @@ export const addPermission = (
 
 export const deletePermission = (name: string): Promise<{ error?: string }> =>
     fetchAPI(`permission/${name}`, { method: "DELETE" })
+
+export const getMarkdown = (file: string): Promise<string> =>
+    fetchAPI(`md/${file}`).then((res) => res.data)
