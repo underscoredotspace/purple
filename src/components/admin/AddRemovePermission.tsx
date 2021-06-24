@@ -1,7 +1,8 @@
 import { Card } from "components/Card"
-import { addPermission } from "helpers/api"
-import React, { useEffect } from "react"
-import { Message, MessageProps } from "semantic-ui-react"
+import { addPermission, deletePermission } from "helpers/api"
+import React, { useContext, useEffect } from "react"
+import { Dropdown, Input, Message, MessageProps } from "semantic-ui-react"
+import { SiteContext } from "store"
 
 interface AddRemovePermissionsProps {
     getPermissions: () => void
@@ -10,75 +11,179 @@ interface AddRemovePermissionsProps {
 const AddRemovePermission: React.FC<AddRemovePermissionsProps> = ({
     getPermissions,
 }) => {
+    const { state } = useContext(SiteContext)
+    const permissions = state.allPermissions
+
+    const [selected, setSelected] = React.useState("")
     const [newPermission, setNewPermission] = React.useState("")
-    const [statusMessage, setStatusMessage] = React.useState<MessageProps>()
-    const [formDisabled, setFormDisabled] = React.useState(false)
+    const [statusMessageAdd, setStatusMessageAdd] = React.useState<
+        MessageProps
+    >()
+    const [statusMessageDelete, setStatusMessageDelete] = React.useState<
+        MessageProps
+    >()
+    const [addFormDisabled, setAddFormDisabled] = React.useState(false)
+    const [deleteFormDisabled, setDeleteFormDisabled] = React.useState(false)
 
     useEffect(() => {
         setTimeout(() => {
-            setStatusMessage(null)
+            setStatusMessageAdd(null)
         }, 3000)
-    }, [statusMessage])
+    }, [statusMessageAdd])
 
-    function handleAddPermission(e: React.FormEvent<HTMLFormElement>) {
+    useEffect(() => {
+        setTimeout(() => {
+            setStatusMessageDelete(null)
+        }, 3000)
+    }, [statusMessageDelete])
+
+    function handleDeletePermission(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        if (newPermission.trim().length === 0) {
-            setStatusMessage({
+
+        if (!selected) {
+            setStatusMessageDelete({
                 warning: true,
-                content: "Give the permission a name",
+                content: "Select a permission to delete",
             })
             return
         }
 
-        setFormDisabled(true)
+        setDeleteFormDisabled(true)
 
-        addPermission({ name: newPermission, roles: [] })
+        deletePermission(selected)
             .then(() => {
-                setStatusMessage({
+                setStatusMessageDelete({
                     success: true,
-                    content: `New permission ${newPermission} created`,
+                    content: `Permission ${selected} deleted`,
                 })
             })
             .catch((error) => {
-                setStatusMessage({
+                setStatusMessageDelete({
                     error: true,
                     content: "Something went wrong",
                 })
                 console.error(error)
             })
             .finally(() => {
-                setFormDisabled(false)
-                setNewPermission(null)
+                setDeleteFormDisabled(false)
+                setSelected(null)
                 getPermissions()
             })
     }
 
-    function formatPermission(val: string): string {
-        return val
+    function handleAddPermission(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        setNewPermission(formatPermission(newPermission))
+
+        if (newPermission.trim().length === 0) {
+            setStatusMessageAdd({
+                warning: true,
+                content: "Give the permission a name",
+            })
+            return
+        }
+
+        if (!window.confirm(`Add ${newPermission}?`)) {
+            return
+        }
+
+        setAddFormDisabled(true)
+
+        addPermission({ name: newPermission, roles: [] })
+            .then(() => {
+                setStatusMessageAdd({
+                    success: true,
+                    content: `New permission ${newPermission} created`,
+                })
+            })
+            .catch((error) => {
+                setStatusMessageAdd({
+                    error: true,
+                    content: "Something went wrong",
+                })
+                console.error(error)
+            })
+            .finally(() => {
+                setAddFormDisabled(false)
+                setNewPermission("")
+                getPermissions()
+            })
     }
 
-    return (
-        <Card padding>
-            <form
-                className="flex flex-col w-full space-y-2"
-                onSubmit={handleAddPermission}
-            >
-                <InputField
-                    field="New Permission"
-                    value={newPermission}
-                    onChange={(val) => setNewPermission(formatPermission(val))}
-                />
+    const formatPermission = (val: string): string =>
+        Array.from(val.toUpperCase())
+            .map((l) => (/\s/.test(l) ? "_" : l))
+            .join("")
+            .replaceAll(/_{1,}/g, "_")
+            .replaceAll(/[^A-Z_]/g, "")
+            .replace(/^_/, "")
+            .replace(/_$/, "")
 
-                {statusMessage && <Message {...statusMessage} />}
-                <input
-                    onChange={(e) => setNewPermission(e.target.value)}
-                    disabled={formDisabled}
-                    type="submit"
-                    value="Save Roles"
-                    className="bg-green-200 text-black border border-solid border-background px-2 py-1"
-                />
-            </form>
-        </Card>
+    return (
+        <>
+            <Card padding>
+                <form
+                    className="flex flex-col w-full space-y-2"
+                    onSubmit={handleAddPermission}
+                >
+                    <InputField
+                        field="New Permission"
+                        value={newPermission}
+                        onChange={(val) =>
+                            setNewPermission(formatPermission(val))
+                        }
+                    />
+
+                    {statusMessageAdd && <Message {...statusMessageAdd} />}
+                    <input
+                        disabled={addFormDisabled}
+                        type="submit"
+                        value="Add New Role"
+                        className="bg-green-200 text-black border border-solid border-background px-2 py-1"
+                    />
+                </form>
+            </Card>
+
+            <Card padding>
+                <form
+                    className="flex flex-col w-full space-y-2"
+                    onSubmit={handleDeletePermission}
+                >
+                    <label
+                        htmlFor="delete-permission-dropdown"
+                        className="p-1 text-sm uppercase text-discord"
+                    >
+                        Delete Permission
+                    </label>
+                    <Dropdown
+                        id="delete-permission-dropdown"
+                        placeholder="Select Permission"
+                        fluid
+                        search
+                        selection
+                        options={permissions.map((p) => ({
+                            text: p.name,
+                            value: p.name,
+                        }))}
+                        onChange={(_, { value }) =>
+                            value && setSelected(value.toString())
+                        }
+                        value={selected}
+                        disabled={deleteFormDisabled}
+                    />
+
+                    {statusMessageDelete && (
+                        <Message {...statusMessageDelete} />
+                    )}
+                    <input
+                        disabled={deleteFormDisabled}
+                        type="submit"
+                        value="Delete Role"
+                        className="bg-red-200 text-black border border-solid border-background px-2 py-1"
+                    />
+                </form>
+            </Card>
+        </>
     )
 }
 
@@ -99,8 +204,8 @@ const InputField: React.FC<InputFieldProps> = ({ field, value, onChange }) => (
             {field}
         </label>
 
-        <input
-            className="bg-card border border-background px-2 py-1"
+        <Input
+            className=""
             type="text"
             name={field}
             id={`staff-profile-field-${field}`}

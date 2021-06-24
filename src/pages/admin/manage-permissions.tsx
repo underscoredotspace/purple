@@ -96,15 +96,6 @@ const ManagePermissions: React.FC = () => {
             })
     }
 
-    // only me? undeletable permission?
-    // create permission
-    // rename permission
-    // delete permission
-
-    // anyone with MANAGE_PERMISSIONS
-    // add role to permission
-    // remove role from permission
-
     return (
         <>
             <Card padding>
@@ -170,7 +161,7 @@ const ManagePermissions: React.FC = () => {
                                 disabled={formDisabled}
                                 type="submit"
                                 value="Save Roles"
-                                className="bg-green-200 text-black border border-solid border-background px-2 py-1"
+                                className="bg-blue-200 text-black border border-solid border-background px-2 py-1"
                             />
                         </>
                     ) : (
