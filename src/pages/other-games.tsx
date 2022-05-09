@@ -67,12 +67,6 @@ const gameCards: GameCardProps[] = [
         pictures: ["games_cod1.jpg"],
     },
     {
-        title: "Among Us",
-        description:
-            "Since this game is massively popular, we're holding weekly events! Yes, red is sus aren't they?",
-        pictures: ["games_amongus.jpg"],
-    },
-    {
         title: "Minecraft",
         description: "We have a steady base of Minecraft players in GPAD.",
         pictures: ["games_minecraft1.jpg", "games_minecraft2.jpg"],

@@ -1,4 +1,8 @@
-import { faPlaystation, faXbox } from "@fortawesome/free-brands-svg-icons"
+import {
+    faPlaystation,
+    faWindows,
+    faXbox,
+} from "@fortawesome/free-brands-svg-icons"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { CrewStats, DiscordInvite, YouTube } from "components"
@@ -7,27 +11,32 @@ import { RouteLink, SectionTitle } from "components/primitives"
 const Home: React.FC = () => (
     <>
         <p>
-            We are an active and supportive dual-platform (PlayStation{" "}
+            We are an active and supportive PlayStation{" "}
             <FontAwesomeIcon
                 icon={faPlaystation}
                 className="text-ps"
                 size="xs"
+            />
+            , Xbox{" "}
+            <FontAwesomeIcon icon={faXbox} className="text-xb" size="xs" /> and
+            PC{" "}
+            <FontAwesomeIcon
+                icon={faWindows}
+                className="text-red-300"
+                size="xs"
             />{" "}
-            and Xbox{" "}
-            <FontAwesomeIcon icon={faXbox} className="text-xb" size="xs" />)
             gaming community.
         </p>
         <p>
             Our main games are{" "}
             <RouteLink to="/gta-online" title="Grand Theft Auto" bold>
                 Grand Theft Auto
-            </RouteLink>
-            ,{" "}
+            </RouteLink>{" "}
+            and{" "}
             <RouteLink to="/red-dead" title="Red Dead Redemption" bold>
                 Red Dead Redemption
-            </RouteLink>{" "}
-            and <strong>Call of Duty</strong>. Our community continues to grow
-            in a number of{" "}
+            </RouteLink>
+            . Our community continues to grow in a number of{" "}
             <RouteLink to="/other-games" title="Other Games">
                 other
             </RouteLink>{" "}
