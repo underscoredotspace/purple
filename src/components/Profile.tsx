@@ -19,7 +19,9 @@ const colours = {
     "fake-events-role": "events", // events 😉
     "572443602773344276": "sessionmaker", //session maker,
     "594361392090316811": "ps", //gta-ps
+    "952965992466767883": "ps", //gta-ps5
     "594361443239985152": "xb", //gta-xb
+    "952966466473431061": "xb", //gta-xb-xs
     "760089861822087178": "ps", //rdo-ps
     "764203700092534846": "xb", //rdo-xb
     "638182847449923594": "cod", //cod
@@ -30,10 +32,12 @@ const rolesToShow: string[] = [
     "fake-events-role", // events 😉
     "572443602773344276", //session maker,
     "594361392090316811", //gta-ps
+    "952965992466767883", //gta-ps5
     "594361443239985152", //gta-xb
+    "952966466473431061", //gta-xb-xs
     "760089861822087178", //rdo-ps
     "764203700092534846", //rdo-xb
-    "638182847449923594", //cod
+    // "638182847449923594", //cod
 ]
 
 function filterRoles(role: Role): boolean {
