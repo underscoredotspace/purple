@@ -10,14 +10,14 @@ const roles: RoleListItems = [
     {
         name: "Veteran Crew",
         colour: "vet",
-        id: "608388097285161131",
+        id: "608388097285161131", 
         description:
             "Veterans have demonstrated their knowledge of different games and have proven that they are willing to help the crew in any way possible. They monitor chats, assist new members, answer questions, and offer advice. ",
     },
     {
         name: "Admissions Team",
         colour: "admissions",
-        id: "568174092977700866",
+        id: "977016052804366366",
         description:
             "The first point of contact for prospective members. They handle the process of everyone becoming part of the family. ",
     },
@@ -32,15 +32,17 @@ const AboutTheCrew: React.FC = () => {
                 setHelperRoles(
                     roles.map((role) => ({
                         ...role,
-                        members: rolesWithMembers.find((r) => r.id === role.id)
-                            .members,
+                        members: rolesWithMembers.find((r) => {
+
+                            return r?.id === role?.id
+                        })?.members,
                     }))
                 )
             })
-            .catch((error) => {
-                console.error(error)
-                setHelperRoles(undefined)
-            })
+            // .catch((error) => {
+            //     console.error(error)
+            //     setHelperRoles(undefined)
+            // })
     }, [])
 
     return (
