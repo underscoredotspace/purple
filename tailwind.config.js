@@ -27,12 +27,14 @@ module.exports = {
                 "border-events",
                 "text-events",
                 "bg-sessionmaker",
-        
                 "text-eventcontest",
                 "text-discordcontest",
                 "text-achievements",
                 "bg-games",
                 "bg-cod",
+                "bg-blue-200",
+                "bg-green-200",
+                "bg-red-300"
             ],
         },
     },
