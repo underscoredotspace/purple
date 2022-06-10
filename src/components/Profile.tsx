@@ -16,28 +16,28 @@ const colours = {
     "546342033867014165": "admin",
     "549644467498516508": "mod",
     "568174092977700866": "admissions", //admissions
-    "fake-events-role": "events", // events 😉
+    "fake-events-role": "red-300", // events 😉
     "572443602773344276": "sessionmaker", //session maker,
-    "594361392090316811": "ps", //gta-ps
-    "952965992466767883": "ps", //gta-ps5
-    "594361443239985152": "xb", //gta-xb
-    "952966466473431061": "xb", //gta-xb-xs
-    "760089861822087178": "ps", //rdo-ps
-    "764203700092534846": "xb", //rdo-xb
-    "638182847449923594": "cod", //cod
+    "594361392090316811": "blue-200", //gta-ps
+    "952965992466767883": "blue-200", //gta-ps5
+    "594361443239985152": "green-200", //gta-xb
+    "952966466473431061": "green-200", //gta-xb-xs
+    "760089861822087178": "blue-200", //rdo-ps
+    "764203700092534846": "green-200", //rdo-xb
+    "930785647671799838": "yellow-200",  //pc
+    "930820341532598292": "yellow-200",  //rdo-pc
 }
 
 const rolesToShow: string[] = [
-    "568174092977700866", //admissions
     "fake-events-role", // events 😉
-    "572443602773344276", //session maker,
+    "930785647671799838",  //pc
+    "930820341532598292",  //rdo-pc
     "594361392090316811", //gta-ps
     "952965992466767883", //gta-ps5
     "594361443239985152", //gta-xb
     "952966466473431061", //gta-xb-xs
     "760089861822087178", //rdo-ps
     "764203700092534846", //rdo-xb
-    // "638182847449923594", //cod
 ]
 
 function filterRoles(role: Role): boolean {
@@ -135,7 +135,7 @@ export const Profile: ProfileComponent = ({ member, highestRole }) => {
                     "pt-2",
                 ].join(" ")}
             >
-                {member?.roles?.filter(filterRoles).map((role) => (
+                {member?.roles?.filter(filterRoles).sort((a, b) => b.position - a.position).map((role) => (
                     <Pill
                         className={`mr-2 mb-2 bg-${
                             colours[role.id] ?? "copy"

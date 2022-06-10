@@ -10,11 +10,11 @@ const Home: React.FC = () => (
             We are an active and supportive dual-platform (PlayStation{" "}
             <FontAwesomeIcon
                 icon={faPlaystation}
-                className="text-ps"
+                className="text-blue-200"
                 size="xs"
             />{" "}
             and Xbox{" "}
-            <FontAwesomeIcon icon={faXbox} className="text-xb" size="xs" />)
+            <FontAwesomeIcon icon={faXbox} className="text-green-200" size="xs" />)
             gaming community.
         </p>
         <p>
