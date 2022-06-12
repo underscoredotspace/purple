@@ -111,13 +111,16 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 };
 
 const App: React.FC<AppProps> = (props) => {
-  Sentry.init({
-    dsn:
-      "https://169bc0e6f1194b0f9ce597bcab686ebb@o1138904.ingest.sentry.io/6193708",
-    integrations: [new BrowserTracing()],
-    tracesSampleRate: 1.0,
-    environment: env.NODE_ENV,
-  });
+  typeof window !== "undefined" &&
+    Sentry.init({
+      dsn:
+        "https://169bc0e6f1194b0f9ce597bcab686ebb@o1138904.ingest.sentry.io/6193708",
+      integrations: [new BrowserTracing()],
+      tracesSampleRate: 1.0,
+      environment: window.location.host.startsWith("develop.")
+        ? "staging"
+        : env.NODE_ENV,
+    });
 
   return <MyApp {...props} />;
 };
