@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "next dev --port=1234",
     "build": "next build && next export && cp _redirects out/",
-    "start": "next start",
+    "start": "next start --port=1234",
     "lint": "eslint --ext={ts,tsx} ./src"
   },
   "dependencies": {
@@ -16,6 +16,8 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "latest",
     "@fortawesome/react-fontawesome": "latest",
+    "@sentry/browser": "^7.1.1",
+    "@sentry/tracing": "^7.1.1",
     "@types/node": "16",
     "@types/react": "latest",
     "@typescript-eslint/eslint-plugin": "^4.8.1",
