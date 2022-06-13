@@ -120,6 +120,7 @@ const App: React.FC<AppProps> = (props) => {
       environment: window.location.host.startsWith("develop.")
         ? "staging"
         : env.NODE_ENV,
+      release: env.VERSION,
     });
 
   return <MyApp {...props} />;

@@ -5,6 +5,7 @@ interface Environment {
   ENABLE_LOGIN: boolean;
   ENABLE_ANALYTICS: boolean;
   INVITE_CODE: string;
+  VERSION: string;
 }
 
 const API_URL = process.env["NEXT_PUBLIC_API_URL"];
@@ -15,6 +16,7 @@ const INVITE_CODE = process.env["NEXT_PUBLIC_INVITE_CODE"];
 
 export const env = {
   NODE_ENV: process.env["NODE_ENV"],
+  VERSION: process.env["npm_package_version"],
   API_URL,
   ASSETS,
   ENABLE_LOGIN,
