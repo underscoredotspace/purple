@@ -1,6 +1,4 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import * as Sentry from "@sentry/browser";
-import { BrowserTracing } from "@sentry/tracing";
 import { Footer, Header, Menu } from "components";
 import { Container } from "components/primitives";
 import { env } from "helpers";
@@ -110,20 +108,4 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   );
 };
 
-const App: React.FC<AppProps> = (props) => {
-  typeof window !== "undefined" &&
-    Sentry.init({
-      dsn:
-        "https://169bc0e6f1194b0f9ce597bcab686ebb@o1138904.ingest.sentry.io/6193708",
-      integrations: [new BrowserTracing()],
-      tracesSampleRate: 1.0,
-      environment: window.location.host.startsWith("develop.")
-        ? "staging"
-        : env.NODE_ENV,
-      release: env.VERSION,
-    });
-
-  return <MyApp {...props} />;
-};
-
-export default App;
+export default MyApp;
