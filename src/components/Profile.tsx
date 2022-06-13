@@ -15,7 +15,7 @@ const colours = {
     "568141992794783749": "staff",
     "546342033867014165": "admin",
     "549644467498516508": "mod",
-    "568174092977700866": "admissions", //admissions
+    "977016052804366366": "admissions", //admissions
     "fake-events-role": "red-300", // events 😉
     "572443602773344276": "sessionmaker", //session maker,
     "594361392090316811": "blue-200", //gta-ps
