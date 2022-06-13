@@ -9,14 +9,14 @@ import { RoleListItems } from "types";
 const roles: RoleListItems = [
   {
     name: "Veteran Crew",
-    colour: "vet",
+    colour: "purple-400",
     id: "608388097285161131",
     description:
       "Veterans have demonstrated their knowledge of different games and have proven that they are willing to help the crew in any way possible. They monitor chats, assist new members, answer questions, and offer advice. ",
   },
   {
     name: "Admissions Team",
-    colour: "admissions",
+    colour: "pink-300",
     id: "977016052804366366",
     description:
       "The first point of contact for prospective members. They handle the process of everyone becoming part of the family. ",
