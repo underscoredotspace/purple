@@ -16,7 +16,7 @@ const INVITE_CODE = process.env["NEXT_PUBLIC_INVITE_CODE"];
 
 export const env = {
   NODE_ENV: process.env["NODE_ENV"],
-  VERSION: process.env["npm_package_version"],
+  VERSION: process.env["NEXT_PUBLIC_VERSION"],
   API_URL,
   ASSETS,
   ENABLE_LOGIN,
