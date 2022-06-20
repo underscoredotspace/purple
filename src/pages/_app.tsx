@@ -1,12 +1,11 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { init } from "@sentry/nextjs";
 import { Footer, Header, Menu } from "components";
 import { Container } from "components/primitives";
 import { env } from "helpers";
 import { getUser } from "helpers/api";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useReducer, useState } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 import { CookiesProvider, useCookies } from "react-cookie";
 import "semantic-ui-css/components/dropdown.css";
 import "semantic-ui-css/components/icon.css";
@@ -109,27 +108,4 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   );
 };
 
-const setupSentry = (setSentryEnabled: (s: boolean) => void) => {
-  const environment = window.location.host.startsWith("develop.")
-    ? "staging"
-    : env.NODE_ENV;
-  const release = env.VERSION;
-
-  console.log("sentry initialised", { environment, release });
-  setSentryEnabled(true);
-
-  init({
-    environment,
-  });
-};
-
-const App: React.FC<AppProps> = (props) => {
-  const [sentryEnabled, setSentryEnabled] = useState(false);
-  !sentryEnabled &&
-    typeof window !== "undefined" &&
-    setupSentry(setSentryEnabled);
-
-  return <MyApp {...props} />;
-};
-
-export default App;
+export default MyApp;
