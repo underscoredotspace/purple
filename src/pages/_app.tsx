@@ -1,6 +1,5 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import * as Sentry from "@sentry/browser";
-import { BrowserTracing } from "@sentry/tracing";
+import { init } from "@sentry/nextjs";
 import { Footer, Header, Menu } from "components";
 import { Container } from "components/primitives";
 import { env } from "helpers";
@@ -119,13 +118,8 @@ const setupSentry = (setSentryEnabled: (s: boolean) => void) => {
   console.log("sentry initialised", { environment, release });
   setSentryEnabled(true);
 
-  Sentry.init({
-    dsn:
-      "https://169bc0e6f1194b0f9ce597bcab686ebb@o1138904.ingest.sentry.io/6193708",
-    integrations: [new BrowserTracing()],
-    tracesSampleRate: 1.0,
+  init({
     environment,
-    release,
   });
 };
 
