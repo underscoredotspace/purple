@@ -76,7 +76,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
   useEffect(() => {
     if (state.user) {
-      Sentry.setUser({ id: state.user.id, username: state.user.username });
+      Sentry.setUser({ id: state.user.userid, username: state.user.username });
     } else {
       Sentry.configureScope((scope) => scope.setUser(null));
     }
