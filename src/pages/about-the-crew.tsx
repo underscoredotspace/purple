@@ -24,23 +24,24 @@ const roles: RoleListItems = [
 ];
 
 const AboutTheCrew: React.FC = () => {
-  const [helperRoles, setHelperRoles] = useState<RoleListItems>();
+  const [helperRoles, setHelperRoles] = useState<RoleListItems | undefined>([]);
 
   useEffect(() => {
-    getMembersByRole(roles.map((role) => role.id)).then((rolesWithMembers) => {
-      setHelperRoles(
-        roles.map((role) => ({
-          ...role,
-          members: rolesWithMembers.find((r) => {
-            return r?.id === role?.id;
-          })?.members,
-        }))
-      );
-    });
-    // .catch((error) => {
-    //     console.error(error)
-    //     setHelperRoles(undefined)
-    // })
+    getMembersByRole(roles.map((role) => role.id))
+      .then((rolesWithMembers) => {
+        setHelperRoles(
+          roles.map((role) => ({
+            ...role,
+            members: rolesWithMembers.find((r) => {
+              return r?.id === role?.id;
+            })?.members,
+          }))
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+        setHelperRoles(undefined);
+      });
   }, []);
 
   return (
@@ -80,12 +81,16 @@ const AboutTheCrew: React.FC = () => {
         like <b>GPAD</b> anywhere.
       </p>
 
-      <SectionTitle>Keeping the Show Running</SectionTitle>
-      <p>
-        The crew wouldn&apos;t be the same without the members that help keep
-        the wheels turning.
-      </p>
-      {helperRoles &&
+      {typeof helperRoles !== "undefined" && (
+        <>
+          <SectionTitle>Keeping the Show Running</SectionTitle>
+          <p>
+            The crew wouldn&apos;t be the same without the members that help
+            keep the wheels turning.
+          </p>
+        </>
+      )}
+      {helperRoles?.length > 0 &&
         helperRoles.map(({ colour, description, members, name }) => (
           <Card padding key={`helper-role-${name}`}>
             <SectionTitle type="h3" className={`text-${colour}`}>

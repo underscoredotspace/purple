@@ -1,6 +1,6 @@
 {
   "name": "purple",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "private": true,
   "author": "Colin M Tindle <ampersand@underscore.space>",
   "license": "CC-BY-4.0",
@@ -16,8 +16,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "latest",
     "@fortawesome/react-fontawesome": "latest",
-    "@sentry/browser": "^7.1.1",
-    "@sentry/tracing": "^7.1.1",
+    "@sentry/nextjs": "^7.2.0",
     "@types/node": "16",
     "@types/react": "latest",
     "@typescript-eslint/eslint-plugin": "^4.8.1",

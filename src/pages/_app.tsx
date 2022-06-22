@@ -1,13 +1,12 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import * as Sentry from "@sentry/browser";
-import { BrowserTracing } from "@sentry/tracing";
 import { Footer, Header, Menu } from "components";
 import { Container } from "components/primitives";
 import { env } from "helpers";
 import { getUser } from "helpers/api";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useReducer, useState } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 import { CookiesProvider, useCookies } from "react-cookie";
 import "semantic-ui-css/components/dropdown.css";
 import "semantic-ui-css/components/icon.css";
@@ -76,6 +75,14 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   }, [state.loggedIn]);
 
   useEffect(() => {
+    if (state.user) {
+      Sentry.setUser({ id: state.user.userid, username: state.user.username });
+    } else {
+      Sentry.configureScope((scope) => scope.setUser(null));
+    }
+  }, [state.user]);
+
+  useEffect(() => {
     const bodyClasses = document.querySelector("body").classList;
     if (state.menuVisible) {
       bodyClasses.add("overflow-hidden");
@@ -110,32 +117,4 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   );
 };
 
-const setupSentry = (setSentryEnabled: (s: boolean) => void) => {
-  const environment = window.location.host.startsWith("develop.")
-    ? "staging"
-    : env.NODE_ENV;
-  const release = env.VERSION;
-
-  console.log("sentry initialised", { environment, release });
-  setSentryEnabled(true);
-
-  Sentry.init({
-    dsn:
-      "https://169bc0e6f1194b0f9ce597bcab686ebb@o1138904.ingest.sentry.io/6193708",
-    integrations: [new BrowserTracing()],
-    tracesSampleRate: 1.0,
-    environment,
-    release,
-  });
-};
-
-const App: React.FC<AppProps> = (props) => {
-  const [sentryEnabled, setSentryEnabled] = useState(false);
-  !sentryEnabled &&
-    typeof window !== "undefined" &&
-    setupSentry(setSentryEnabled);
-
-  return <MyApp {...props} />;
-};
-
-export default App;
+export default MyApp;
