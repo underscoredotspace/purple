@@ -1,4 +1,5 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import * as Sentry from "@sentry/browser";
 import { Footer, Header, Menu } from "components";
 import { Container } from "components/primitives";
 import { env } from "helpers";
@@ -72,6 +73,14 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         });
     }
   }, [state.loggedIn]);
+
+  useEffect(() => {
+    if (state.user) {
+      Sentry.setUser({ id: state.user.id, username: state.user.username });
+    } else {
+      Sentry.configureScope((scope) => scope.setUser(null));
+    }
+  }, [state.user]);
 
   useEffect(() => {
     const bodyClasses = document.querySelector("body").classList;
