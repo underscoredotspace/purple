@@ -45,7 +45,7 @@ function filterRoles(role: Role): boolean {
 
 type ProfileComponent = React.FC<ProfileProps>;
 
-const Profile: ProfileComponent = ({ member, highestRole }) => {
+export const Profile: ProfileComponent = ({ member, highestRole }) => {
   const avatarURL = `https://cdn.discordapp.com/avatars/${member.id}/${
     member.avatar
   }.${member.avatar.startsWith("a_") ? "gif" : "png"}?size=128`;
