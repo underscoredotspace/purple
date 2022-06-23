@@ -1,7 +1,8 @@
-import NextErrorComponent from 'next/error';
+import NextErrorComponent from "next/error";
 
-import * as Sentry from '@sentry/nextjs';
+import * as Sentry from "@sentry/nextjs";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   if (!hasGetInitialPropsRun && err) {
     // getInitialProps is not called in case of
@@ -16,7 +17,6 @@ const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
 
 MyError.getInitialProps = async (context) => {
   const errorInitialProps = await NextErrorComponent.getInitialProps(context);
-  
   const { res, err, asPath } = context;
 
   // Workaround for https://github.com/vercel/next.js/issues/8592, mark when
@@ -24,10 +24,10 @@ MyError.getInitialProps = async (context) => {
   errorInitialProps.hasGetInitialPropsRun = true;
 
   // Returning early because we don't want to log 404 errors to Sentry.
-  if (res?.statusCode === 404) {
+  if ([404, 500].includes(res?.statusCode)) {
     return errorInitialProps;
   }
-  
+
   // Running on the server, the response object (`res`) is available.
   //
   // Next.js will pass an err on the server if a page's data fetching methods
@@ -55,7 +55,7 @@ MyError.getInitialProps = async (context) => {
   // information about what the error might be. This is unexpected and may
   // indicate a bug introduced in Next.js, so record it in Sentry
   Sentry.captureException(
-    new Error(`_error.js getInitialProps missing data at path: ${asPath}`),
+    new Error(`_error.js getInitialProps missing data at path: ${asPath}`)
   );
   await Sentry.flush(2000);
 

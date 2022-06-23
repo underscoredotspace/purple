@@ -7,8 +7,11 @@ import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CrewStats, DiscordInvite, YouTube } from "components";
 import { RouteLink, SectionTitle } from "components/primitives";
+import { getMembercount } from "helpers/api";
+import { GetServerSideProps } from "next";
+import { MemberCounts } from "types";
 
-const Home: React.FC = () => (
+const Home: React.FC<MemberCounts> = (memberCounts) => (
   <>
     <p>
       We are an active and supportive multi-platform (PlayStation{" "}
@@ -59,7 +62,7 @@ const Home: React.FC = () => (
       coordinators do for the crew.
     </p>
 
-    <CrewStats />
+    <CrewStats {...memberCounts} />
 
     <SectionTitle>Come to our house and get payd!</SectionTitle>
     <p>
@@ -76,5 +79,18 @@ const Home: React.FC = () => (
     </p>
   </>
 );
+
+export const getServerSideProps: GetServerSideProps<MemberCounts> = async ({
+  res,
+}) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
+
+  const memberCounts = await getMembercount();
+
+  return { props: memberCounts };
+};
 
 export default Home;
