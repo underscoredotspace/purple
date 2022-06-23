@@ -90,7 +90,14 @@ const MeetTheStaff: React.FC<MeetTheStaffProps> = ({ profileRows }) => (
   </>
 );
 
-export const getServerSideProps: GetServerSideProps<MeetTheStaffProps> = async () => {
+export const getServerSideProps: GetServerSideProps<MeetTheStaffProps> = async ({
+  res,
+}) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
+
   const staffProfiles = await getStaffProfiles();
 
   return { props: { profileRows: mappedStaffProfiles(staffProfiles) } };

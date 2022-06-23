@@ -80,7 +80,14 @@ const Home: React.FC<MemberCounts> = (memberCounts) => (
   </>
 );
 
-export const getServerSideProps: GetServerSideProps<MemberCounts> = async () => {
+export const getServerSideProps: GetServerSideProps<MemberCounts> = async ({
+  res,
+}) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
+
   const memberCounts = await getMembercount();
 
   return { props: memberCounts };
