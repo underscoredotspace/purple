@@ -8,10 +8,7 @@ const SocialCard: React.FC = () => (
       content="An active and supportive multi-platform (PlayStation, Xbox and PC) Grand Theft Auto Online crew and gaming community"
     />
     <meta property="og:url" content="https://gpadcrew.com" />
-    <meta
-      name="og:image"
-      content="https://gpadcrew.com/assets/social-card.jpg"
-    />
+    <meta name="og:image" content="https://i.gpadcrew.com/social-card.jpg" />
     <meta name="theme-color" content="#0f2499" />
 
     <meta name="twitter:card" content="summary_large_image" />
