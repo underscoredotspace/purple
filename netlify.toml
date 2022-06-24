@@ -5,16 +5,16 @@
   status = 200
 
 [[plugins]]
-package = "@netlify/plugin-nextjs"
+  package = "@netlify/plugin-nextjs"
 
 [build]
-publish = ".next"
+  publish = ".next"
 
 [build.environment]
   NEXT_PUBLIC_API_URL = "https://gpadcrew.com/api"
+  NEXT_PUBLIC_ASSETS = "https://i.gpadcrew.com"
 
-[context.develop]
-  environment = {
-    NODE_ENV = "staging"
-    NEXT_PUBLIC_API_URL = "https://develop.gpadcrew.com/api"
-  }
+[context.develop.environment]
+  NODE_ENV = "staging"
+  NEXT_PUBLIC_API_URL = "https://develop.gpadcrew.com/api"
+  NEXT_PUBLIC_ASSETS = "https://i.gpadcrew.com"
