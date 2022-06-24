@@ -3,3 +3,7 @@ package = "@netlify/plugin-nextjs"
 
 [build]
 publish = ".next"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://v2.gpadcrew.com/:splat"
