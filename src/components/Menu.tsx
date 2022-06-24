@@ -77,8 +77,20 @@ export const Menu: React.FC = () => {
 
   useEffect(() => {
     document.addEventListener("keydown", handleEscape);
+    Sentry.addBreadcrumb({
+      category: "menu",
+      message: "opened",
+      level: "info",
+    });
 
-    return () => document.removeEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      Sentry.addBreadcrumb({
+        category: "menu",
+        message: "closed",
+        level: "info",
+      });
+    };
   }, [menuVisible]);
 
   function handleEscape({ key }: KeyboardEvent) {
