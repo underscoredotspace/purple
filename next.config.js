@@ -26,7 +26,13 @@ const sentryWebpackPluginOptions = {
   // https://github.com/getsentry/sentry-webpack-plugin#options.
 };
 
-console.log(JSON.stringify({ sentryWebpackPluginOptions }));
+console.log(
+  JSON.stringify({
+    sentryWebpackPluginOptions,
+    env: process.env.NODE_ENV,
+    context: process.env.CONTEXT,
+  })
+);
 
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
