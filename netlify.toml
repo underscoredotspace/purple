@@ -1,14 +1,20 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://v2.gpadcrew.com/:splat"
+  force = true
+  status = 200
+
 [[plugins]]
 package = "@netlify/plugin-nextjs"
 
 [build]
 publish = ".next"
 
-[[redirects]]
-  from = "/api/*"
-  to = "https://v2.gpadcrew.com/:splat"
-  status = 200
-  force = true
+[build.environment]
+  NEXT_PUBLIC_API_URL=https://gpadcrew.com/api
 
 [context.develop]
-  environment = { NODE_ENV = "staging" }
+  environment = {
+    NODE_ENV = "staging"
+    NEXT_PUBLIC_API_URL = "https://develop.gpadcrew.com/api"
+  }
