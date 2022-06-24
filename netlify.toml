@@ -11,7 +11,7 @@ package = "@netlify/plugin-nextjs"
 publish = ".next"
 
 [build.environment]
-  NEXT_PUBLIC_API_URL=https://gpadcrew.com/api
+  NEXT_PUBLIC_API_URL = "https://gpadcrew.com/api"
 
 [context.develop]
   environment = {
