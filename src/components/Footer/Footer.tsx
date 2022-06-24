@@ -56,15 +56,6 @@ export const Footer: React.FC = () => (
         icon={faInstagram}
         text="Instagram"
       />
-      <button
-        hidden
-        type="button"
-        onClick={() => {
-          throw new Error("Sentry Frontend Error");
-        }}
-      >
-        Throw error
-      </button>
     </div>
   </footer>
 );
