@@ -89,6 +89,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     } else {
       bodyClasses.remove("overflow-hidden");
     }
+
+    Sentry.addBreadcrumb({
+      category: "menu",
+      message: state.menuVisible ? "opened" : "closed",
+      level: "info",
+    });
   }, [state.menuVisible]);
 
   return (

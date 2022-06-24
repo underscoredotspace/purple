@@ -78,7 +78,9 @@ export const Menu: React.FC = () => {
   useEffect(() => {
     document.addEventListener("keydown", handleEscape);
 
-    return () => document.removeEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
   }, [menuVisible]);
 
   function handleEscape({ key }: KeyboardEvent) {

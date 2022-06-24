@@ -1,12 +1,12 @@
 {
   "name": "purple",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "private": true,
   "author": "Colin M Tindle <ampersand@underscore.space>",
   "license": "CC-BY-4.0",
   "scripts": {
-    "dev": "NEXT_PUBLIC_VERSION=$npm_package_version next dev --port=1234",
-    "build": "NEXT_PUBLIC_VERSION=$npm_package_version next build",
+    "dev": "next dev --port=1234",
+    "build": "next build",
     "start": "next start --port=1234",
     "lint": "eslint --ext={ts,tsx} ./src"
   },
@@ -52,6 +52,6 @@
     }
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^4.9.1"
+    "@netlify/plugin-nextjs": "^4.9.3"
   }
 }
