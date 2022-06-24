@@ -114,33 +114,28 @@ export const Menu: React.FC = () => {
             </li>
           ))}
 
-        {env.ENABLE_LOGIN ? (
-          <li key={"menu-login"}>
-            <MenuLink
-              href={`${env.API_URL}/auth/${
-                loggedIn ? "logout" : "login"
-              }?redirect=${pathname}`}
-              title={`Log ${loggedIn ? "out" : "in with Discord"}`}
-              onClick={() => onClickLogIn(loggedIn)}
-            >
-              Log&nbsp;
-              {loggedIn ? (
-                "out"
-              ) : (
-                <>
-                  in with&nbsp;
-                  <span className="font-bold text-discord">
-                    Discord&nbsp;
-                    <FontAwesomeIcon
-                      icon={faDiscord}
-                      className="text-discord"
-                    />
-                  </span>
-                </>
-              )}
-            </MenuLink>
-          </li>
-        ) : null}
+        <li key={"menu-login"}>
+          <MenuLink
+            href={`${env.API_URL}/auth/${
+              loggedIn ? "logout" : "login"
+            }?redirect=${pathname}`}
+            title={`Log ${loggedIn ? "out" : "in with Discord"}`}
+            onClick={() => onClickLogIn(loggedIn)}
+          >
+            Log&nbsp;
+            {loggedIn ? (
+              "out"
+            ) : (
+              <>
+                in with&nbsp;
+                <span className="font-bold text-discord">
+                  Discord&nbsp;
+                  <FontAwesomeIcon icon={faDiscord} className="text-discord" />
+                </span>
+              </>
+            )}
+          </MenuLink>
+        </li>
       </ul>
     </nav>
   );

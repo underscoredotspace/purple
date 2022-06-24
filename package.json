@@ -5,9 +5,9 @@
   "author": "Colin M Tindle <ampersand@underscore.space>",
   "license": "CC-BY-4.0",
   "scripts": {
-    "dev": "next dev --port=1234",
+    "dev": "ENVIRONMENT=development next dev --port=1234",
     "build": "next build",
-    "start": "next start --port=1234",
+    "start": "ENVIRONMENT=development next start --port=1234",
     "lint": "eslint --ext={ts,tsx} ./src"
   },
   "dependencies": {
