@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CrewStats, DiscordInvite, YouTube } from "components";
 import { RouteLink, SectionTitle } from "components/primitives";
 import { getMembercount } from "helpers/api";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import { MemberCounts } from "types";
 
 const Home: React.FC<MemberCounts> = (memberCounts) => (
@@ -80,17 +80,10 @@ const Home: React.FC<MemberCounts> = (memberCounts) => (
   </>
 );
 
-export const getServerSideProps: GetServerSideProps<MemberCounts> = async ({
-  res,
-}) => {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
-
+export const getStaticProps: GetStaticProps<MemberCounts> = async () => {
   const memberCounts = await getMembercount();
 
-  return { props: memberCounts };
+  return { props: memberCounts, revalidate: 3600 };
 };
 
 export default Home;

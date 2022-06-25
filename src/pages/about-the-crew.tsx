@@ -3,7 +3,7 @@ import MemberImage from "components/MemberImage";
 import { LazyImage, RouteLink, SectionTitle } from "components/primitives";
 import { env } from "helpers";
 import { getMembersByRole } from "helpers/api";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import React from "react";
 import { RoleListItems } from "types";
 
@@ -97,14 +97,7 @@ const AboutTheCrew: React.FC<AboutTheCrewProps> = ({ helperRoles }) => (
   </>
 );
 
-export const getServerSideProps: GetServerSideProps<AboutTheCrewProps> = async ({
-  res,
-}) => {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
-
+export const getStaticProps: GetStaticProps<AboutTheCrewProps> = async () => {
   const helperRoles = await getMembersByRole(roles.map((role) => role.id))
     .then((rolesWithMembers) => {
       return roles.map((role) => ({
@@ -119,7 +112,7 @@ export const getServerSideProps: GetServerSideProps<AboutTheCrewProps> = async (
       return [];
     });
 
-  return { props: { helperRoles } };
+  return { props: { helperRoles }, revalidate: 3600 };
 };
 
 export default AboutTheCrew;

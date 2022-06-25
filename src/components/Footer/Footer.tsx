@@ -30,6 +30,9 @@ export const Footer: React.FC = () => (
           className="text-pink-400 ml-1 text-sm"
         />
       </DiscordInvite>
+      <span className="text-xs text-gray-600 mt-4">
+        {`${process.env.RELEASE}-${process.env.ENVIRONMENT}`}
+      </span>
     </div>
     <div className="flex flex-col flex-1 items-center pl-2">
       <SocialLink
