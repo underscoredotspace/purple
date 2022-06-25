@@ -5,7 +5,7 @@ import {
   Profiles,
 } from "components/Profile";
 import { getStaffProfiles } from "helpers/api";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import React, { Fragment } from "react";
 import { Role } from "types";
 
@@ -33,17 +33,13 @@ const MeetTheStaff: React.FC<MeetTheStaffProps> = ({ profileRows }) => (
   </>
 );
 
-export const getServerSideProps: GetServerSideProps<MeetTheStaffProps> = async ({
-  res,
-}) => {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
-
+export const getStaticProps: GetStaticProps<MeetTheStaffProps> = async () => {
   const staffProfiles = await getStaffProfiles();
 
-  return { props: { profileRows: mappedStaffProfiles(staffProfiles) } };
+  return {
+    props: { profileRows: mappedStaffProfiles(staffProfiles) },
+    revalidate: 3600,
+  };
 };
 
 export default MeetTheStaff;
