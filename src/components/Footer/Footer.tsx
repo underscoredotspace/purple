@@ -62,8 +62,3 @@ export const Footer: React.FC = () => (
     </div>
   </footer>
 );
-
-/*
-release: process.env.npm_package_version,
-  environment: process.env.ENVIRONMENT,
-  */
