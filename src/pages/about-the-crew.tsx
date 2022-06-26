@@ -1,11 +1,11 @@
 import { Card } from "components";
 import MemberImage from "components/MemberImage";
 import { LazyImage, RouteLink, SectionTitle } from "components/primitives";
-import { env } from "helpers";
-import { getMembersByRole } from "helpers/api";
+import { env } from "lib/helpers";
+import { getMembersByRole } from "lib/helpers/api";
+import { RoleListItems } from "lib/types";
 import { GetStaticProps } from "next";
 import React from "react";
-import { RoleListItems } from "types";
 
 const roles: RoleListItems = [
   {

@@ -1,7 +1,7 @@
-import { env } from "helpers";
-import { classNames } from "helpers/misc";
+import { env } from "lib/helpers";
+import { classNames } from "lib/helpers/misc";
+import { Member } from "lib/types";
 import React, { useState } from "react";
-import { Member } from "types";
 
 interface MemberImageProps {
   member: Pick<Member, "avatar" | "username" | "id">;

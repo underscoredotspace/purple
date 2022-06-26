@@ -7,9 +7,9 @@ import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CrewStats, DiscordInvite, YouTube } from "components";
 import { RouteLink, SectionTitle } from "components/primitives";
-import { getMembercount } from "helpers/api";
+import { getMembercount } from "lib/helpers/api";
+import { MemberCounts } from "lib/types";
 import { GetStaticProps } from "next";
-import { MemberCounts } from "types";
 
 const Home: React.FC<MemberCounts> = (memberCounts) => (
   <>

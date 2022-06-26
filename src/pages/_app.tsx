@@ -2,8 +2,17 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import * as Sentry from "@sentry/browser";
 import { Footer, Header, Menu } from "components";
 import { Container } from "components/primitives";
-import { env } from "helpers";
-import { getUser } from "helpers/api";
+import { env } from "lib/helpers";
+import { getUser } from "lib/helpers/api";
+import {
+  closeMenu,
+  initialState,
+  reducer,
+  setLoggedIn,
+  setUser,
+  SiteContext,
+} from "lib/store";
+import { ExtendedUser } from "lib/types";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useReducer } from "react";
@@ -14,16 +23,7 @@ import "semantic-ui-css/components/label.css";
 import "semantic-ui-css/components/menu.css";
 import "semantic-ui-css/components/message.css";
 import "semantic-ui-css/components/transition.css";
-import {
-  closeMenu,
-  initialState,
-  reducer,
-  setLoggedIn,
-  setUser,
-  SiteContext,
-} from "store";
 import "styles/index.css";
-import { ExtendedUser } from "types";
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   const [state, dispatch] = useReducer(reducer, initialState);

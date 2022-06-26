@@ -1,5 +1,5 @@
 import { RouteLink } from "components/primitives";
-import { env } from "helpers";
+import { env } from "lib/helpers";
 
 const Logo: React.FC = () => (
   <RouteLink to="/" title="Home" className="flex-shrink-0">

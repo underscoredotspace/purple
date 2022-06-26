@@ -23,7 +23,7 @@ MyError.getInitialProps = async (context) => {
   errorInitialProps.hasGetInitialPropsRun = true;
 
   // Returning early because we don't want to log 404 errors to Sentry.
-  if ([404, 500].includes(res?.statusCode)) {
+  if ([404].includes(res?.statusCode)) {
     return errorInitialProps;
   }
 

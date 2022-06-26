@@ -2,10 +2,10 @@ import { Card } from "components";
 import { EventCard } from "components/EventCard";
 import MemberImage from "components/MemberImage";
 import { RouteLink, SectionTitle } from "components/primitives";
-import { getMembersByRole } from "helpers/api";
+import { getMembersByRole } from "lib/helpers/api";
+import { RoleListItem, RoleListItems } from "lib/types";
 import { GetStaticProps } from "next";
 import React from "react";
-import { RoleListItem, RoleListItems } from "types";
 
 const Role: React.FC<{ gp?: boolean }> = ({ children, gp }) => (
   <span className={`${gp ? "text-green-400" : "text-green-600"} font-bold`}>

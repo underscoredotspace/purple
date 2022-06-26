@@ -1,145 +1,145 @@
-import { Profile } from "components/Profile"
-import { getProfile, saveProfile } from "helpers/api"
-import { useRouter } from "next/router"
-import React, { useContext, useEffect, useState } from "react"
-import { SiteContext } from "store"
-import { Member } from "types"
+import { Profile } from "components/Profile";
+import { getProfile, saveProfile } from "lib/helpers/api";
+import { SiteContext } from "lib/store";
+import { Member } from "lib/types";
+import { useRouter } from "next/router";
+import React, { useContext, useEffect, useState } from "react";
 
-type HandleChange = (field: string, value: string) => void
+type HandleChange = (field: string, value: string) => void;
 
 interface StaffProfileFieldProps {
-    field: string
-    value: string
-    onChange: HandleChange
+  field: string;
+  value: string;
+  onChange: HandleChange;
 }
 
 const getHighestRole = (member: Member) =>
-    member?.roles.sort((a, b) => b.position - a.position)[0]
+  member?.roles.sort((a, b) => b.position - a.position)[0];
 
 const StaffProfile: React.FC = () => {
-    const { state } = useContext(SiteContext)
-    const [member, setMember] = useState<Member>()
-    const { push, replace } = useRouter()
+  const { state } = useContext(SiteContext);
+  const [member, setMember] = useState<Member>();
+  const { push, replace } = useRouter();
 
-    useEffect(() => {
-        if (!state.user) {
-            replace("/")
-        }
-    }, [])
+  useEffect(() => {
+    if (!state.user) {
+      replace("/");
+    }
+  }, []);
 
-    useEffect(() => {
-        if (!state.user?.userid) {
-            return
-        }
+  useEffect(() => {
+    if (!state.user?.userid) {
+      return;
+    }
 
-        getProfile(state.user.userid).then((m) => {
-            const memberWithProfile = {
-                ...m,
-                profile: {
-                    ...(m.profile ?? {
-                        id: m.id,
-                        name: null,
-                        location: null,
-                        bio: null,
-                    }),
-                },
-            }
-            setMember(memberWithProfile)
-        })
-    }, [state.user])
+    getProfile(state.user.userid).then((m) => {
+      const memberWithProfile = {
+        ...m,
+        profile: {
+          ...(m.profile ?? {
+            id: m.id,
+            name: null,
+            location: null,
+            bio: null,
+          }),
+        },
+      };
+      setMember(memberWithProfile);
+    });
+  }, [state.user]);
 
-    const handleChange: HandleChange = (field, value) =>
-        setMember((member) => ({
-            ...member,
-            profile: {
-                ...member.profile,
-                [field]: value,
-            },
-        }))
+  const handleChange: HandleChange = (field, value) =>
+    setMember((member) => ({
+      ...member,
+      profile: {
+        ...member.profile,
+        [field]: value,
+      },
+    }));
 
-    const handleSubmit = () =>
-        saveProfile(member.profile).then(() => {
-            alert("Profile updated!")
-            push("/meet-the-staff")
-        })
+  const handleSubmit = () =>
+    saveProfile(member.profile).then(() => {
+      alert("Profile updated!");
+      push("/meet-the-staff");
+    });
 
-    return member ? (
-        <div
-            className={[
-                "grid",
-                "grid-cols-profile",
-                "gap-4",
-                "items-start",
-                "justify-center",
-            ].join(" ")}
-        >
-            <form
-                className="flex flex-col space-y-2 w-full"
-                onSubmit={(e) => {
-                    handleSubmit()
-                    e.preventDefault()
-                }}
-            >
-                {Object.entries(member.profile).map(([field, value]) => (
-                    <StaffProfileField
-                        field={field}
-                        value={value}
-                        key={`staff-profile-field-${field}`}
-                        onChange={handleChange}
-                    />
-                ))}
+  return member ? (
+    <div
+      className={[
+        "grid",
+        "grid-cols-profile",
+        "gap-4",
+        "items-start",
+        "justify-center",
+      ].join(" ")}
+    >
+      <form
+        className="flex flex-col space-y-2 w-full"
+        onSubmit={(e) => {
+          handleSubmit();
+          e.preventDefault();
+        }}
+      >
+        {Object.entries(member.profile).map(([field, value]) => (
+          <StaffProfileField
+            field={field}
+            value={value}
+            key={`staff-profile-field-${field}`}
+            onChange={handleChange}
+          />
+        ))}
 
-                <input
-                    className="bg-card border border-solid border-background px-2 py-1"
-                    type="submit"
-                    value="Save"
-                />
-            </form>
+        <input
+          className="bg-card border border-solid border-background px-2 py-1"
+          type="submit"
+          value="Save"
+        />
+      </form>
 
-            <Profile
-                member={member}
-                highestRole={getHighestRole(member)}
-                key={`profile-${member.id}`}
-            />
-        </div>
-    ) : null
-}
+      <Profile
+        member={member}
+        highestRole={getHighestRole(member)}
+        key={`profile-${member.id}`}
+      />
+    </div>
+  ) : null;
+};
 
 const StaffProfileField: React.FC<StaffProfileFieldProps> = ({
-    field,
-    value,
-    onChange,
+  field,
+  value,
+  onChange,
 }) => (
-    <div
-        className={`flex flex-col ${
-            ["id", "picture"].includes(field) ? "hidden" : ""
-        }`}
+  <div
+    className={`flex flex-col ${
+      ["id", "picture"].includes(field) ? "hidden" : ""
+    }`}
+  >
+    <label
+      htmlFor={`staff-profile-field-${field}`}
+      className="p-1 text-sm uppercase text-discord"
     >
-        <label
-            htmlFor={`staff-profile-field-${field}`}
-            className="p-1 text-sm uppercase text-discord"
-        >
-            {field}
-        </label>
-        {field === "bio" ? (
-            <textarea
-                className="h-36 bg-card border border-background px-2 py-1"
-                name={field}
-                id={`staff-profile-field-${field}`}
-                value={value}
-                onChange={(e) => onChange(field, e.target.value)}
-            />
-        ) : (
-            <input
-                className="bg-card border border-background px-2 py-1"
-                type="text"
-                name={field}
-                id={`staff-profile-field-${field}`}
-                value={value}
-                onChange={(e) => onChange(field, e.target.value)}
-            />
-        )}
-    </div>
-)
+      {field}
+    </label>
+    {field === "bio" ? (
+      <textarea
+        className="h-36 bg-card border border-background px-2 py-1"
+        name={field}
+        id={`staff-profile-field-${field}`}
+        value={value}
+        onChange={(e) => onChange(field, e.target.value)}
+      />
+    ) : (
+      <input
+        className="bg-card border border-background px-2 py-1"
+        type="text"
+        name={field}
+        id={`staff-profile-field-${field}`}
+        value={value}
+        onChange={(e) => onChange(field, e.target.value)}
+      />
+    )}
+  </div>
+);
 
-export default StaffProfile
+export default StaffProfile;
