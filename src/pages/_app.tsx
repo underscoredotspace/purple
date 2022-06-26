@@ -46,10 +46,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   }, [query]);
 
   const [cookies, , removeCookie] = useCookies();
+  const authCookie = !!cookies["gpad_auth"];
 
   useEffect(() => {
-    dispatch(setLoggedIn(!!cookies["gpad_auth"]));
-  }, [cookies["gpad_auth"]]);
+    dispatch(setLoggedIn(authCookie));
+  }, [authCookie]);
 
   useEffect(() => {
     if (state.loggedIn) {

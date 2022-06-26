@@ -8,7 +8,7 @@
     "dev": "ENVIRONMENT=development next dev --port=1234",
     "build": "next build",
     "start": "ENVIRONMENT=development next start --port=1234",
-    "lint": "eslint --ext={ts,tsx} ./src"
+    "lint": "next lint"
   },
   "dependencies": {
     "@fortawesome/fontawesome-common-types": "latest",
@@ -29,7 +29,7 @@
     "husky": "^4.3.0",
     "lint-staged": "^10.5.1",
     "luxon": "^1.25.0",
-    "next": "^10.0.8",
+    "next": "^12.1.6",
     "postcss": "^8.4.14",
     "prettier": "^2.1.2",
     "react": "^17.0.2",
@@ -38,7 +38,7 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
     "tailwindcss": "^2.0.2",
-    "typescript": "4"
+    "typescript": "v4.3.2"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
@@ -52,6 +52,7 @@
     }
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^4.9.3"
+    "@netlify/plugin-nextjs": "^4.9.3",
+    "eslint-config-next": "12.1.6"
   }
 }

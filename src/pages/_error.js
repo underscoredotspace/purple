@@ -2,7 +2,6 @@ import NextErrorComponent from "next/error";
 
 import * as Sentry from "@sentry/nextjs";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   if (!hasGetInitialPropsRun && err) {
     // getInitialProps is not called in case of
