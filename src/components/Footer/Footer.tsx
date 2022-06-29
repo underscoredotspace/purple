@@ -7,7 +7,7 @@ import {
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DiscordInvite } from "components";
-import { env } from "helpers";
+import { env } from "lib/helpers";
 import SocialLink from "./SocialLink";
 
 export const Footer: React.FC = () => (

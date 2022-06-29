@@ -4,10 +4,10 @@ import {
   mappedStaffProfiles,
   Profiles,
 } from "components/Profile";
-import { getStaffProfiles } from "helpers/api";
+import { getStaffProfiles } from "lib/helpers/api";
+import { Role } from "lib/types";
 import { GetStaticProps } from "next";
 import React, { Fragment } from "react";
-import { Role } from "types";
 
 interface MeetTheStaffProps {
   profileRows: Role[];

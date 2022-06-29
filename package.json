@@ -1,14 +1,14 @@
 {
   "name": "purple",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "private": true,
   "author": "Colin M Tindle <ampersand@underscore.space>",
   "license": "CC-BY-4.0",
   "scripts": {
-    "dev": "ENVIRONMENT=development next dev --port=1234",
+    "dev": "next dev --port=1234",
     "build": "next build",
-    "start": "ENVIRONMENT=development next start --port=1234",
-    "lint": "eslint --ext={ts,tsx} ./src"
+    "start": "next start --port=1234",
+    "lint": "next lint"
   },
   "dependencies": {
     "@fortawesome/fontawesome-common-types": "latest",
@@ -16,35 +16,22 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "latest",
     "@fortawesome/react-fontawesome": "latest",
-    "@sentry/nextjs": "^7.2.0",
+    "@sentry/nextjs": "^7.3.0",
     "@types/node": "16",
     "@types/react": "latest",
-    "@typescript-eslint/eslint-plugin": "^4.8.1",
-    "@typescript-eslint/parser": "^4.8.1",
     "autoprefixer": "^10.0.2",
-    "eslint": "^7.13.0",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.21.5",
     "husky": "^4.3.0",
     "lint-staged": "^10.5.1",
     "luxon": "^1.25.0",
-    "next": "^10.0.8",
+    "next": "^12.2.0",
     "postcss": "^8.4.14",
-    "prettier": "^2.1.2",
     "react": "^17.0.2",
     "react-cookie": "^4.0.3",
     "react-dom": "^17.0.2",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
     "tailwindcss": "^2.0.2",
-    "typescript": "4"
-  },
-  "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "prettier --write",
-      "eslint --max-warnings=0"
-    ]
+    "typescript": "v4.3.2"
   },
   "husky": {
     "hooks": {
@@ -52,6 +39,8 @@
     }
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^4.9.3"
+    "@netlify/plugin-nextjs": "^4.9.3",
+    "eslint-config-next": "12.1.6",
+    "eslint-config-prettier": "^8.5.0"
   }
 }

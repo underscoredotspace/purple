@@ -1,185 +1,178 @@
-import { Card } from "components"
+import { Card } from "components";
 
-import AddRemovePermission from "components/admin/AddRemovePermission"
-import { getAllPermissions, updatePermission } from "helpers/api"
-import React from "react"
-import { Dropdown, Message, MessageProps } from "semantic-ui-react"
-import { Permission, Role } from "types"
+import AddRemovePermission from "components/admin/AddRemovePermission";
+import { getAllPermissions, updatePermission } from "lib/helpers/api";
+import { Permission, Role } from "lib/types";
+import React from "react";
+import { Dropdown, Message, MessageProps } from "semantic-ui-react";
 
 const ManagePermissions: React.FC = () => {
-    const [roles, setRoles] = React.useState<Role[]>()
-    const [permissions, setPermissions] = React.useState<Permission[]>()
-    const [selected, setSelected] = React.useState<string>(null)
-    const [selectedRoles, setSelectedRoles] = React.useState<Role[]>()
-    const [statusMessage, setStatusMessage] = React.useState<MessageProps>()
-    const [formDisabled, setFormDisabled] = React.useState(false)
+  const [roles, setRoles] = React.useState<Role[]>();
+  const [permissions, setPermissions] = React.useState<Permission[]>();
+  const [selected, setSelected] = React.useState<string>(null);
+  const [selectedRoles, setSelectedRoles] = React.useState<Role[]>();
+  const [statusMessage, setStatusMessage] = React.useState<MessageProps>();
+  const [formDisabled, setFormDisabled] = React.useState(false);
 
-    const isSuperUser = true
-        
-    React.useEffect(() => {
-        if (!selected) {
-            setSelectedRoles([])
-            return
-        }
+  const isSuperUser = true;
 
-        const selectedPermission = permissions.find(
-            ({ name }) => name === selected
-        )
-        setSelectedRoles(selectedPermission.roles)
-    }, [selected])
-
-    const getPermissions = () =>
-        getAllPermissions()
-            .then((res) => {
-                setRoles(res.roles)
-                setPermissions(res.permissions)
-            })
-            .catch(console.error)
-
-    React.useEffect(() => {
-        getPermissions()
-    }, [])
-
-    if (!roles && !permissions) {
-        return null
+  React.useEffect(() => {
+    if (!selected) {
+      setSelectedRoles([]);
+      return;
     }
 
-    const handleSubmit = () => {
-        if (
-            selectedRoles ===
-            permissions.find(({ name }) => name === selected).roles
-        ) {
-            setStatusMessage({
-                warning: true,
-                content: "No changes made 🤔",
-            })
+    const selectedPermission = permissions.find(
+      ({ name }) => name === selected
+    );
+    setSelectedRoles(selectedPermission.roles);
+  }, [selected]);
 
-            setFormDisabled(false)
+  const getPermissions = () =>
+    getAllPermissions()
+      .then((res) => {
+        setRoles(res.roles);
+        setPermissions(res.permissions);
+      })
+      .catch(console.error);
 
-            setTimeout(() => {
-                setStatusMessage(null)
-            }, 3000)
-            return
-        }
+  React.useEffect(() => {
+    getPermissions();
+  }, []);
 
-        updatePermission({
-            name: selected,
-            roles: selectedRoles.map((role) => role.id),
-        })
-            .then(async () => {
-                setStatusMessage({
-                    success: true,
-                    content: `Permission ${selected} updated!`,
-                })
+  if (!roles && !permissions) {
+    return null;
+  }
 
-                await getPermissions()
+  const handleSubmit = () => {
+    if (
+      selectedRoles === permissions.find(({ name }) => name === selected).roles
+    ) {
+      setStatusMessage({
+        warning: true,
+        content: "No changes made 🤔",
+      });
 
-                setTimeout(() => {
-                    setSelected(null)
-                    setStatusMessage(null)
-                    setFormDisabled(false)
-                }, 3000)
-            })
-            .catch((error) => {
-                setStatusMessage({
-                    error: true,
-                    header: "Failed to update permission",
-                    content: error.message,
-                })
+      setFormDisabled(false);
 
-                setTimeout(() => {
-                    setStatusMessage(null)
-                    setFormDisabled(false)
-                }, 3000)
-            })
+      setTimeout(() => {
+        setStatusMessage(null);
+      }, 3000);
+      return;
     }
 
-    // only me? undeletable permission?
-    // create permission
-    // rename permission
-    // delete permission
+    updatePermission({
+      name: selected,
+      roles: selectedRoles.map((role) => role.id),
+    })
+      .then(async () => {
+        setStatusMessage({
+          success: true,
+          content: `Permission ${selected} updated!`,
+        });
 
-    // anyone with MANAGE_PERMISSIONS
-    // add role to permission
-    // remove role from permission
+        await getPermissions();
 
-    return (
-        <>
-            <Card padding>
-                <form
-                    className="flex flex-col w-full space-y-2"
-                    onSubmit={(e) => {
-                        setFormDisabled(true)
-                        handleSubmit()
-                        e.preventDefault()
-                    }}
-                >
-                    <label
-                        htmlFor="permission-dropdown"
-                        className="p-1 text-sm uppercase text-discord"
-                    >
-                        Permission
-                    </label>
-                    <Dropdown
-                        id="permission-dropdown"
-                        placeholder="Permission"
-                        fluid
-                        search
-                        selection
-                        options={permissions.map((p) => ({
-                            text: p.name,
-                            value: p.name,
-                        }))}
-                        onChange={(_, { value }) =>
-                            value && setSelected(value.toString())
-                        }
-                        value={selected}
-                        disabled={formDisabled}
-                    />
-                    {selected ? (
-                        <>
-                            <Dropdown
-                                scrolling
-                                placeholder="Roles"
-                                fluid
-                                search
-                                multiple
-                                selection
-                                options={roles.map((r) => ({
-                                    text: r.name,
-                                    value: r.id,
-                                }))}
-                                value={selectedRoles.map((role) => role.id)}
-                                onChange={(_, { value }) => {
-                                    if (typeof value === "object") {
-                                        setSelectedRoles(
-                                            value.map((id) =>
-                                                roles.find(
-                                                    (role) => role.id === id
-                                                )
-                                            )
-                                        )
-                                    }
-                                }}
-                                disabled={formDisabled}
-                            />
-                            {statusMessage && <Message {...statusMessage} />}
-                            <input
-                                disabled={formDisabled}
-                                type="submit"
-                                value="Save Roles"
-                                className="bg-green-200 text-black border border-solid border-background px-2 py-1"
-                            />
-                        </>
-                    ) : (
-                        <p>Select a permission to change</p>
-                    )}
-                </form>
-            </Card>
+        setTimeout(() => {
+          setSelected(null);
+          setStatusMessage(null);
+          setFormDisabled(false);
+        }, 3000);
+      })
+      .catch((error) => {
+        setStatusMessage({
+          error: true,
+          header: "Failed to update permission",
+          content: error.message,
+        });
 
-            {isSuperUser && <AddRemovePermission permissions={permissions} />}
-        </>
-    )
-}
+        setTimeout(() => {
+          setStatusMessage(null);
+          setFormDisabled(false);
+        }, 3000);
+      });
+  };
 
-export default ManagePermissions
+  // only me? undeletable permission?
+  // create permission
+  // rename permission
+  // delete permission
+
+  // anyone with MANAGE_PERMISSIONS
+  // add role to permission
+  // remove role from permission
+
+  return (
+    <>
+      <Card padding>
+        <form
+          className="flex flex-col w-full space-y-2"
+          onSubmit={(e) => {
+            setFormDisabled(true);
+            handleSubmit();
+            e.preventDefault();
+          }}
+        >
+          <label
+            htmlFor="permission-dropdown"
+            className="p-1 text-sm uppercase text-discord"
+          >
+            Permission
+          </label>
+          <Dropdown
+            id="permission-dropdown"
+            placeholder="Permission"
+            fluid
+            search
+            selection
+            options={permissions.map((p) => ({
+              text: p.name,
+              value: p.name,
+            }))}
+            onChange={(_, { value }) => value && setSelected(value.toString())}
+            value={selected}
+            disabled={formDisabled}
+          />
+          {selected ? (
+            <>
+              <Dropdown
+                scrolling
+                placeholder="Roles"
+                fluid
+                search
+                multiple
+                selection
+                options={roles.map((r) => ({
+                  text: r.name,
+                  value: r.id,
+                }))}
+                value={selectedRoles.map((role) => role.id)}
+                onChange={(_, { value }) => {
+                  if (typeof value === "object") {
+                    setSelectedRoles(
+                      value.map((id) => roles.find((role) => role.id === id))
+                    );
+                  }
+                }}
+                disabled={formDisabled}
+              />
+              {statusMessage && <Message {...statusMessage} />}
+              <input
+                disabled={formDisabled}
+                type="submit"
+                value="Save Roles"
+                className="bg-green-200 text-black border border-solid border-background px-2 py-1"
+              />
+            </>
+          ) : (
+            <p>Select a permission to change</p>
+          )}
+        </form>
+      </Card>
+
+      {isSuperUser && <AddRemovePermission permissions={permissions} />}
+    </>
+  );
+};
+
+export default ManagePermissions;

@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/browser";
 import { Anchor } from "components/primitives";
-import { env } from "helpers";
+import { env } from "lib/helpers";
 
 interface DiscordInviteProps {
   className?: string;

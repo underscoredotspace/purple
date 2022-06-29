@@ -2,8 +2,8 @@ import { faPlaystation, faXbox } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Card } from "components";
 import { SectionTitle } from "components/primitives";
+import { MemberCounts } from "lib/types";
 import React from "react";
-import { MemberCounts } from "types";
 
 export const CrewStats: React.FC<MemberCounts> = ({ ps, xbox }) => (
   <Card padding>

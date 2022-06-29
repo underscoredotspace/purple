@@ -2,7 +2,6 @@ import NextErrorComponent from "next/error";
 
 import * as Sentry from "@sentry/nextjs";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   if (!hasGetInitialPropsRun && err) {
     // getInitialProps is not called in case of
@@ -24,7 +23,7 @@ MyError.getInitialProps = async (context) => {
   errorInitialProps.hasGetInitialPropsRun = true;
 
   // Returning early because we don't want to log 404 errors to Sentry.
-  if ([404, 500].includes(res?.statusCode)) {
+  if ([404].includes(res?.statusCode)) {
     return errorInitialProps;
   }
 

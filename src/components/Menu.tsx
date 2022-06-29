@@ -2,12 +2,12 @@ import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Sentry from "@sentry/browser";
-import { env } from "helpers";
-import { classNames } from "helpers/misc";
-import { Route, routes } from "helpers/routes";
+import { env } from "lib/helpers";
+import { classNames } from "lib/helpers/misc";
+import { Route, routes } from "lib/helpers/routes";
+import { closeMenu, SiteContext } from "lib/store";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect } from "react";
-import { closeMenu, SiteContext } from "store";
 import { RouteLink } from "./primitives";
 
 interface CreateLinkProps {

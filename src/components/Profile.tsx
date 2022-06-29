@@ -1,9 +1,9 @@
 import { faCrown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Card } from "components";
-import { env } from "helpers";
+import { env } from "lib/helpers";
+import { Member, Role } from "lib/types";
 import React, { useState } from "react";
-import { Member, Role } from "types";
 import { Pill } from "./primitives";
 
 interface ProfileProps {
