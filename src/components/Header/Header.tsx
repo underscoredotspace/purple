@@ -2,9 +2,7 @@ import { SiteContext } from "lib/store";
 import { useContext } from "react";
 import Logo from "./Logo";
 import MenuToggle from "./MenuToggle";
-import Meta from "./Meta";
 import ProfileImage from "./ProfileImage";
-import SocialCard from "./SocialCard";
 import Title from "./Title";
 
 export const Header: React.FC = () => {
@@ -16,9 +14,6 @@ export const Header: React.FC = () => {
         state.menuVisible ? "bg-opacity-95" : "bg-opacity-50"
       } bg-blur`}
     >
-      <SocialCard />
-      <Meta />
-
       <Logo />
       <Title />
       <ProfileImage />

@@ -7,19 +7,21 @@ import { classNames } from "lib/helpers/misc";
 import { Route, routes } from "lib/helpers/routes";
 import { closeMenu, SiteContext } from "lib/store";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect } from "react";
+import React, { PropsWithChildren, useContext, useEffect } from "react";
 import { RouteLink } from "./primitives";
 
-interface CreateLinkProps {
+interface CreateLinkProps extends PropsWithChildren {
   route: Route;
   pathname: string;
 }
 
-const MenuLink: React.FC<{
-  title: string;
-  href?: string;
-  onClick?: () => void;
-}> = ({ title, href, children, onClick }) => (
+const MenuLink: React.FC<
+  PropsWithChildren<{
+    title: string;
+    href?: string;
+    onClick?: () => void;
+  }>
+> = ({ title, href, children, onClick }) => (
   <a
     title={title}
     href={href}

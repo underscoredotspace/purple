@@ -15,7 +15,7 @@ const MemberImage: React.FC<MemberImageProps> = ({
   member,
   colour,
   className,
-  size = 64,
+  size = 48,
   title,
 }) => {
   const [avatarPath, setAvatarPath] = useState(

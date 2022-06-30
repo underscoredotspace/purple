@@ -1,8 +1,9 @@
 import { Card } from "components";
 import { LazyImage, Pill, Pills, RouteLink, Text } from "components/primitives";
 import { env } from "lib/helpers";
+import { PropsWithChildren } from "react";
 
-const Word: React.FC = ({ children }) => (
+const Word: React.FC<PropsWithChildren> = ({ children }) => (
   <span className={`bg-white text-black px-2 border-2 border-black screen`}>
     {children}
   </span>

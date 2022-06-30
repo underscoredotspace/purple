@@ -1,8 +1,9 @@
 import * as Sentry from "@sentry/browser";
 import { Anchor } from "components/primitives";
 import { env } from "lib/helpers";
+import { PropsWithChildren } from "react";
 
-interface DiscordInviteProps {
+interface DiscordInviteProps extends PropsWithChildren {
   className?: string;
   tag: string;
 }

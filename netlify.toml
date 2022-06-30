@@ -7,9 +7,9 @@
 [build.environment]
   NEXT_PUBLIC_API_URL = "https://gpadcrew.com/api"
   NEXT_PUBLIC_ASSETS = "https://i.gpadcrew.com"
-  ENVIRONMENT = "production"
+  NODE_ENV = "production"
 
 [context.develop.environment]
-  ENVIRONMENT = "staging"
+  NODE_ENV = "staging"
   NEXT_PUBLIC_API_URL = "https://develop.gpadcrew.com/api"
   NEXT_PUBLIC_ASSETS = "https://i.gpadcrew.com"

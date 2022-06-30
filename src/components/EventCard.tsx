@@ -1,8 +1,9 @@
 import { env } from "lib/helpers";
+import { PropsWithChildren } from "react";
 import { Card } from "./Card";
 import { LazyImage, SectionTitle } from "./primitives";
 
-export interface EventCardProps {
+export interface EventCardProps extends PropsWithChildren {
   title: string;
   src: string;
   width: number;

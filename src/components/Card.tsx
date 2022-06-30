@@ -1,6 +1,7 @@
 import { classNames } from "lib/helpers/misc";
+import { PropsWithChildren } from "react";
 
-interface CardProps {
+interface CardProps extends PropsWithChildren {
   className?: string;
   padding?: boolean;
 }

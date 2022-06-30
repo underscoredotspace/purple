@@ -1,6 +1,7 @@
 import { classNames } from "lib/helpers/misc";
+import { PropsWithChildren } from "react";
 
-export interface ContainerProps {
+export interface ContainerProps extends PropsWithChildren {
   className?: string;
 }
 
@@ -14,5 +15,7 @@ interface TextProps extends ContainerProps {
 }
 
 export const Text: React.FC<TextProps> = ({ className, padding, children }) => (
-  <p className={classNames([padding && "px-4 py-2", className])}>{children}</p>
+  <div className={classNames([padding && "px-4 py-2", className])}>
+    {children}
+  </div>
 );
