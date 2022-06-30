@@ -37,13 +37,13 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     if (state.menuVisible) {
       dispatch(closeMenu());
     }
-  }, [pathname]);
+  }, [pathname, state.menuVisible]);
 
   useEffect(() => {
     if (Object.keys(query).length > 0) {
       replace({ pathname, query: {} });
     }
-  }, [query]);
+  }, [pathname, query, replace]);
 
   const [cookies, , removeCookie] = useCookies();
   const authCookie = !!cookies["gpad_auth"];
@@ -73,7 +73,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
           dispatch(setLoggedIn(false));
         });
     }
-  }, [state.loggedIn]);
+  }, [removeCookie, state.loggedIn]);
 
   useEffect(() => {
     if (state.user) {
@@ -90,12 +90,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     } else {
       bodyClasses.remove("overflow-hidden");
     }
-
-    Sentry.addBreadcrumb({
-      category: "menu",
-      message: state.menuVisible ? "opened" : "closed",
-      level: "info",
-    });
   }, [state.menuVisible]);
 
   return (

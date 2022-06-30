@@ -25,7 +25,7 @@ const StaffProfile: React.FC = () => {
     if (!state.user) {
       replace("/");
     }
-  }, []);
+  }, [replace, state.user]);
 
   useEffect(() => {
     if (!state.user?.userid) {

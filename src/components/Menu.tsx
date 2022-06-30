@@ -7,7 +7,12 @@ import { classNames } from "lib/helpers/misc";
 import { Route, routes } from "lib/helpers/routes";
 import { closeMenu, SiteContext } from "lib/store";
 import { useRouter } from "next/router";
-import React, { PropsWithChildren, useContext, useEffect } from "react";
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useEffect,
+} from "react";
 import { RouteLink } from "./primitives";
 
 interface CreateLinkProps extends PropsWithChildren {
@@ -77,19 +82,22 @@ export const Menu: React.FC = () => {
   const { state, dispatch } = useContext(SiteContext);
   const { loggedIn, menuVisible } = state;
 
+  const handleEscape = useCallback(
+    ({ key }: KeyboardEvent) => {
+      if (key === "Escape" && menuVisible) {
+        dispatch(closeMenu());
+      }
+    },
+    [dispatch, menuVisible]
+  );
+
   useEffect(() => {
     document.addEventListener("keydown", handleEscape);
 
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [menuVisible]);
-
-  function handleEscape({ key }: KeyboardEvent) {
-    if (key === "Escape" && menuVisible) {
-      dispatch(closeMenu());
-    }
-  }
+  }, [handleEscape, menuVisible]);
 
   return (
     <nav
