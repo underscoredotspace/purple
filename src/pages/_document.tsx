@@ -9,7 +9,7 @@ const MyDocument: React.FC<DocumentProps> = () => {
         <SocialCard />
         <Meta />
       </Head>
-      <body>
+      <body className="overflow-x-hidden">
         <Main />
         <NextScript />
       </body>
