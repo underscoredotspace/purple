@@ -11,6 +11,9 @@ const moduleExports = {
     RELEASE: process.env.npm_package_version,
     ENVIRONMENT: process.env.NODE_ENV ?? "development",
   },
+  images: {
+    domains: ["cdn.discordapp.com"],
+  },
 };
 
 const sentryWebpackPluginOptions = {
