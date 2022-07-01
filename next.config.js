@@ -9,7 +9,7 @@ const moduleExports = {
   // Your existing module.exports
   env: {
     RELEASE: process.env.npm_package_version,
-    ENVIRONMENT: process.env.ENVIRONMENT ?? "development",
+    ENVIRONMENT: process.env.NODE_ENV ?? "development",
   },
 };
 
@@ -21,7 +21,7 @@ const sentryWebpackPluginOptions = {
   //   urlPrefix, include, ignore
   silent: true, // Suppresses all logs
   release: process.env.npm_package_version,
-  environment: process.env.ENVIRONMENT ?? "development",
+  environment: process.env.NODE_ENV ?? "development",
 };
 
 // Make sure adding Sentry options is the last code to run before exporting, to

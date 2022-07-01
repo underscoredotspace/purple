@@ -1,7 +1,7 @@
 import { classNames } from "lib/helpers/misc";
-import { createElement } from "react";
+import { createElement, PropsWithChildren } from "react";
 
-interface SectionTitleProps {
+interface SectionTitleProps extends PropsWithChildren {
   type?: string;
   className?: string;
 }

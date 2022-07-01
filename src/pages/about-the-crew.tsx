@@ -80,7 +80,7 @@ const AboutTheCrew: React.FC<AboutTheCrewProps> = ({ helperRoles }) => (
             </SectionTitle>
             <p>{description}</p>
 
-            <div className="grid grid-cols-4 place-items-center py-4 gap-4">
+            <div className="grid grid-cols-5 place-items-center py-8 gap-4">
               {members &&
                 members.map((member) => (
                   <MemberImage

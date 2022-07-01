@@ -5,9 +5,12 @@ import { RouteLink, SectionTitle } from "components/primitives";
 import { getMembersByRole } from "lib/helpers/api";
 import { RoleListItem, RoleListItems } from "lib/types";
 import { GetStaticProps } from "next";
-import React from "react";
+import React, { PropsWithChildren } from "react";
 
-const Role: React.FC<{ gp?: boolean }> = ({ children, gp }) => (
+const Role: React.FC<PropsWithChildren<{ gp?: boolean }>> = ({
+  children,
+  gp,
+}) => (
   <span className={`${gp ? "text-green-400" : "text-green-600"} font-bold`}>
     {children}
   </span>

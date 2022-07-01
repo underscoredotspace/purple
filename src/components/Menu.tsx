@@ -1,39 +1,45 @@
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import * as Sentry from "@sentry/browser";
-import { env } from "lib/helpers";
+import { env, logger } from "lib/helpers";
+import { BreadcrumbCategory } from "lib/helpers/logging/types";
 import { classNames } from "lib/helpers/misc";
 import { Route, routes } from "lib/helpers/routes";
 import { closeMenu, SiteContext } from "lib/store";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect } from "react";
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useEffect,
+} from "react";
 import { RouteLink } from "./primitives";
 
-interface CreateLinkProps {
+interface CreateLinkProps extends PropsWithChildren {
   route: Route;
   pathname: string;
 }
 
-const MenuLink: React.FC<{
-  title: string;
-  href?: string;
-  onClick?: () => void;
-}> = ({ title, href, children, onClick }) => (
+const MenuLink: React.FC<
+  PropsWithChildren<{
+    title: string;
+    href?: string;
+  }>
+> = ({ title, href, children }) => (
   <a
     title={title}
     href={href}
     className="bare p-2 hover:bg-card flex flex-row items-center"
-    onClick={onClick}
+    onClick={() => onMenuLinkClick(title)}
   >
     {children}
   </a>
 );
 
-const onClickLogIn = (loggedIn: boolean) =>
-  Sentry.addBreadcrumb({
-    category: "link",
-    message: `Log ${loggedIn ? "out" : "in"}`,
+const onMenuLinkClick = (title: string) =>
+  logger.addBreadcrumb({
+    category: BreadcrumbCategory.LINK,
+    message: `Menu: ${title}`,
     level: "info",
   });
 
@@ -75,19 +81,22 @@ export const Menu: React.FC = () => {
   const { state, dispatch } = useContext(SiteContext);
   const { loggedIn, menuVisible } = state;
 
+  const handleEscape = useCallback(
+    ({ key }: KeyboardEvent) => {
+      if (key === "Escape" && menuVisible) {
+        dispatch(closeMenu());
+      }
+    },
+    [dispatch, menuVisible]
+  );
+
   useEffect(() => {
     document.addEventListener("keydown", handleEscape);
 
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [menuVisible]);
-
-  function handleEscape({ key }: KeyboardEvent) {
-    if (key === "Escape" && menuVisible) {
-      dispatch(closeMenu());
-    }
-  }
+  }, [handleEscape, menuVisible]);
 
   return (
     <nav
@@ -120,7 +129,6 @@ export const Menu: React.FC = () => {
               loggedIn ? "logout" : "login"
             }?redirect=${pathname}`}
             title={`Log ${loggedIn ? "out" : "in with Discord"}`}
-            onClick={() => onClickLogIn(loggedIn)}
           >
             Log&nbsp;
             {loggedIn ? (

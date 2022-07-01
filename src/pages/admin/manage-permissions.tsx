@@ -26,7 +26,7 @@ const ManagePermissions: React.FC = () => {
       ({ name }) => name === selected
     );
     setSelectedRoles(selectedPermission.roles);
-  }, [selected]);
+  }, [selected, permissions]);
 
   const getPermissions = () =>
     getAllPermissions()

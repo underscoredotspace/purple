@@ -1,15 +1,16 @@
-import * as Sentry from "@sentry/browser";
 import { Anchor } from "components/primitives";
-import { env } from "lib/helpers";
+import { env, logger } from "lib/helpers";
+import { BreadcrumbCategory } from "lib/helpers/logging/types";
+import { PropsWithChildren } from "react";
 
-interface DiscordInviteProps {
+interface DiscordInviteProps extends PropsWithChildren {
   className?: string;
   tag: string;
 }
 
 const onClickDiscordInvite = () =>
-  Sentry.addBreadcrumb({
-    category: "link",
+  logger.addBreadcrumb({
+    category: BreadcrumbCategory.LINK,
     message: "Discord invite",
     level: "info",
   });

@@ -1,6 +1,7 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import * as Sentry from "@sentry/browser";
+import { logger } from "lib/helpers";
+import { BreadcrumbCategory } from "lib/helpers/logging/types";
 import React from "react";
 import { Anchor } from "../primitives";
 
@@ -12,8 +13,8 @@ interface SocialLinkProps {
 }
 
 const onClickSocialLink = (title: string) =>
-  Sentry.addBreadcrumb({
-    category: "link",
+  logger.addBreadcrumb({
+    category: BreadcrumbCategory.LINK,
     message: `Social link ${title}`,
     level: "info",
   });

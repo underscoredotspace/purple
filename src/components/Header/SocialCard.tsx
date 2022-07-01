@@ -1,7 +1,5 @@
-import Head from "next/head";
-
 const SocialCard: React.FC = () => (
-  <Head>
+  <>
     <meta property="og:title" content="Gettin' Payd All Day (GPAD)" />
     <meta
       property="og:description"
@@ -13,7 +11,7 @@ const SocialCard: React.FC = () => (
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image:alt" content="GPAD GTA Crew" />
-  </Head>
+  </>
 );
 
 export default SocialCard;

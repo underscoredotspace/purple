@@ -1,4 +1,6 @@
-interface AnchorProps {
+import { PropsWithChildren } from "react";
+
+interface AnchorProps extends PropsWithChildren {
   className?: string;
   title: string;
   href: string;

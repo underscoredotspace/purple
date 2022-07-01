@@ -48,7 +48,7 @@ type ProfileComponent = React.FC<ProfileProps>;
 export const Profile: ProfileComponent = ({ member, highestRole }) => {
   const avatarURL = `https://cdn.discordapp.com/avatars/${member.id}/${
     member.avatar
-  }.${member.avatar.startsWith("a_") ? "gif" : "png"}?size=128`;
+  }.${member.avatar.startsWith("a_") ? "gif" : "png"}?size=64`;
 
   const [avatarPath, setAvatarPath] = useState(
     member?.profile?.picture

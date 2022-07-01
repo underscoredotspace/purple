@@ -6,19 +6,12 @@ import { useContext } from "react";
 const Menu: React.FC = () => {
   const { state, dispatch } = useContext(SiteContext);
 
-  return state.menuVisible ? (
+  return (
     <button
       onClick={() => dispatch(toggleMenu())}
       className="w-7 text-center flex-shrink-0"
     >
-      <FontAwesomeIcon icon={faTimes} size="2x" />
-    </button>
-  ) : (
-    <button
-      onClick={() => dispatch(toggleMenu())}
-      className="w-7 text-center flex-shrink-0"
-    >
-      <FontAwesomeIcon icon={faBars} size="2x" />
+      <FontAwesomeIcon icon={state.menuVisible ? faTimes : faBars} size="2x" />
     </button>
   );
 };

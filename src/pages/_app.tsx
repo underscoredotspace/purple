@@ -2,8 +2,9 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import * as Sentry from "@sentry/browser";
 import { Footer, Header, Menu } from "components";
 import { Container } from "components/primitives";
-import { env } from "lib/helpers";
+import { env, logger } from "lib/helpers";
 import { getUser } from "lib/helpers/api";
+import { BreadcrumbCategory } from "lib/helpers/logging/types";
 import {
   closeMenu,
   initialState,
@@ -27,7 +28,7 @@ import "styles/index.css";
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { pathname, query, replace } = useRouter();
+  const { pathname } = useRouter();
 
   const contextValue = useMemo(() => {
     return { state, dispatch };
@@ -40,10 +41,14 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   }, [pathname]);
 
   useEffect(() => {
-    if (Object.keys(query).length > 0) {
-      replace({ pathname, query: {} });
-    }
-  }, [query]);
+    const message = state.menuVisible ? "opened" : "closed";
+
+    logger.addBreadcrumb({
+      category: BreadcrumbCategory.MENU,
+      level: "info",
+      message,
+    });
+  }, [state.menuVisible]);
 
   const [cookies, , removeCookie] = useCookies();
   const authCookie = !!cookies["gpad_auth"];
@@ -73,7 +78,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
           dispatch(setLoggedIn(false));
         });
     }
-  }, [state.loggedIn]);
+  }, [removeCookie, state.loggedIn]);
 
   useEffect(() => {
     if (state.user) {
@@ -86,16 +91,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   useEffect(() => {
     const bodyClasses = document.querySelector("body").classList;
     if (state.menuVisible) {
-      bodyClasses.add("overflow-hidden");
+      bodyClasses.add("overflow-y-hidden");
     } else {
-      bodyClasses.remove("overflow-hidden");
+      bodyClasses.remove("overflow-y-hidden");
     }
-
-    Sentry.addBreadcrumb({
-      category: "menu",
-      message: state.menuVisible ? "opened" : "closed",
-      level: "info",
-    });
   }, [state.menuVisible]);
 
   return (
