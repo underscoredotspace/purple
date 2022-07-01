@@ -7,14 +7,14 @@ import {
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DiscordInvite } from "components";
-import { env } from "lib/helpers";
+import Image from "next/image";
 import SocialLink from "./SocialLink";
 
 export const Footer: React.FC = () => (
   <footer className="flex flex-row justify-around mt-4 py-4 px-4 bg-card border-t-2 items-center">
     <div className="flex flex-col items-center flex-1">
-      <img
-        src={`${env.ASSETS}/logo.webp`}
+      <Image
+        src="/logo.webp"
         alt="GPAD Logo"
         className="mb-1"
         width={96}
