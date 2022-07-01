@@ -14,6 +14,11 @@ const moduleExports = {
   images: {
     domains: ["cdn.discordapp.com"],
   },
+  experimental: {
+    images: {
+      allowFutureImage: true,
+    },
+  },
 };
 
 const sentryWebpackPluginOptions = {

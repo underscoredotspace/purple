@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Card } from "components";
 import { env } from "lib/helpers";
 import { Member, Role } from "lib/types";
+import Image from "next/image";
 import React, { useState } from "react";
 import { Pill } from "./primitives";
 
@@ -48,7 +49,7 @@ type ProfileComponent = React.FC<ProfileProps>;
 export const Profile: ProfileComponent = ({ member, highestRole }) => {
   const avatarURL = `https://cdn.discordapp.com/avatars/${member.id}/${
     member.avatar
-  }.${member.avatar.startsWith("a_") ? "gif" : "png"}?size=64`;
+  }.${member.avatar.startsWith("a_") ? "gif" : "png"}`;
 
   const [avatarPath, setAvatarPath] = useState(
     member?.profile?.picture
@@ -62,7 +63,7 @@ export const Profile: ProfileComponent = ({ member, highestRole }) => {
     <Card>
       <div
         className={[
-          "border-b-4",
+          "border-b",
           `border-${colour}`,
           "border-opacity-50",
           "w-full",
@@ -79,21 +80,17 @@ export const Profile: ProfileComponent = ({ member, highestRole }) => {
         )}
       </div>
       <div className="flex flex-col px-4 py-2">
-        <img
-          className={[
-            "rounded-squircle",
-            "w-20",
-            "h-20",
-            "mt-1",
-            "mx-auto",
-            "border-2",
-            "border-opacity-50",
-            `border-${colour}`,
-          ].join(" ")}
-          src={avatarPath}
-          alt={member?.profile?.name ?? member.displayName}
-          onError={() => setAvatarPath(`${env.ASSETS}/profiles/claude.png`)}
-        />
+        <div
+          className={`w-20 h-20 mt-1 mx-auto rounded-squircle border-4 border-opacity-50 border-${colour} overflow-hidden`}
+        >
+          <Image
+            width={80}
+            height={80}
+            src={avatarPath}
+            alt={member?.profile?.name ?? member.displayName}
+            onError={() => setAvatarPath(`${env.ASSETS}/profiles/claude.png`)}
+          />
+        </div>
 
         <div className="mx-auto pt-2 text-center">
           <div className="font-bold">
