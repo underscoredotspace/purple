@@ -3,9 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Card } from "components";
 import { SectionTitle } from "components/primitives";
 import { MemberCounts } from "lib/types";
+import { DateTime } from "luxon";
 import React from "react";
 
-export const CrewStats: React.FC<MemberCounts> = ({ ps, xbox }) => (
+export const CrewStats: React.FC<MemberCounts> = ({
+  ps,
+  xbox,
+  lastUpdated,
+}) => (
   <Card padding>
     <SectionTitle type="h4" className="text-center mb-4">
       Our Membership
@@ -21,7 +26,7 @@ export const CrewStats: React.FC<MemberCounts> = ({ ps, xbox }) => (
       </div>
     </div>
     <div className="text-gray-500 text-xs text-right mt-4">
-      updated every 6 hours
+      {`updated ${DateTime.fromJSDate(new Date(lastUpdated)).toRelative()}`}
     </div>
   </Card>
 );

@@ -55,4 +55,5 @@ export type RoleListItems = RoleListItem[];
 export interface MemberCounts {
   ps: number;
   xbox: number;
+  lastUpdated: string;
 }
