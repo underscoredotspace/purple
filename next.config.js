@@ -29,6 +29,7 @@ const sentryWebpackPluginOptions = {
   //   urlPrefix, include, ignore
   silent: true, // Suppresses all logs
   release: process.env.npm_package_version,
+  environment: process.env.APP_ENV ?? "development",
 };
 
 // Make sure adding Sentry options is the last code to run before exporting, to
