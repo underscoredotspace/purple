@@ -1,8 +1,4 @@
-import {
-  faPlaystation,
-  faWindows,
-  faXbox,
-} from "@fortawesome/free-brands-svg-icons";
+import { faPlaystation, faXbox } from "@fortawesome/free-brands-svg-icons";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CrewStats, DiscordInvite, YouTube } from "components";
@@ -14,17 +10,15 @@ import { GetStaticProps } from "next";
 const Home: React.FC<MemberCounts> = (memberCounts) => (
   <>
     <p>
-      We are an active and supportive multi-platform (PlayStation{" "}
+      We are an active and supportive PlayStation{" "}
       <FontAwesomeIcon
         icon={faPlaystation}
         className="text-blue-200"
         size="xs"
       />{" "}
-      , Xbox{" "}
-      <FontAwesomeIcon icon={faXbox} className="text-green-200" size="xs" /> and
-      PC{" "}
-      <FontAwesomeIcon icon={faWindows} className="text-yellow-200" size="xs" />{" "}
-      ) gaming community.
+      and Xbox{" "}
+      <FontAwesomeIcon icon={faXbox} className="text-green-200" size="xs" />{" "}
+      gaming community.
     </p>
     <p>
       Our main games are{" "}
