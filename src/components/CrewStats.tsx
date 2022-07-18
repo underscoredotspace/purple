@@ -11,7 +11,7 @@ export const CrewStats: React.FC<MemberCounts> = ({
   xbox,
   lastUpdated,
 }) => {
-  const [lastUpdateText, setLastUpdatedText] = useState<string>();
+  const [lastUpdateText, setLastUpdatedText] = useState<string>("...");
 
   useEffect(() => {
     setLastUpdatedText(
