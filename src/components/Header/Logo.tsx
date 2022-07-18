@@ -1,14 +1,9 @@
 import { RouteLink } from "components/primitives";
-import { env } from "lib/helpers";
+import Image from "next/image";
 
 const Logo: React.FC = () => (
   <RouteLink to="/" title="Home" className="flex-shrink-0">
-    <img
-      src={`${env.ASSETS}/logo.webp`}
-      alt="GPAD Logo"
-      width={40}
-      height={40}
-    />
+    <Image src="/logo.webp" alt="GPAD Logo" width={40} height={40} />
   </RouteLink>
 );
 

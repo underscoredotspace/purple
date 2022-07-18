@@ -3,7 +3,7 @@ const SocialCard: React.FC = () => (
     <meta property="og:title" content="Gettin' Payd All Day (GPAD)" />
     <meta
       property="og:description"
-      content="An active and supportive multi-platform (PlayStation, Xbox and PC) Grand Theft Auto Online crew and gaming community"
+      content="An active and supportive PlayStation and Xbox Grand Theft Auto Online crew and gaming community"
     />
     <meta property="og:url" content="https://gpadcrew.com" />
     <meta name="og:image" content="https://i.gpadcrew.com/social-card.jpg" />

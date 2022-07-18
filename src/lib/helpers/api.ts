@@ -33,10 +33,19 @@ const fetchAPI: FetchAPI = (endpoint, { query, body, method } = {}) =>
 export async function getMembercount(): Promise<{
   ps: number;
   xbox: number;
+  lastUpdated: string;
 }> {
-  const { PlayStation: PS, Xbox: XBOX } = await fetchAPI("member-count");
+  const {
+    PlayStation: PS,
+    Xbox: XBOX,
+    lastUpdated,
+  } = await fetchAPI("member/count");
 
-  return { ps: Number(PS), xbox: Number(XBOX) };
+  return {
+    ps: Number(PS),
+    xbox: Number(XBOX),
+    lastUpdated: String(lastUpdated),
+  };
 }
 
 export const getUser = (): Promise<User> => fetchAPI("auth/user");

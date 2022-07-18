@@ -9,7 +9,15 @@ const moduleExports = {
   // Your existing module.exports
   env: {
     RELEASE: process.env.npm_package_version,
-    ENVIRONMENT: process.env.NODE_ENV ?? "development",
+    ENVIRONMENT: process.env.APP_ENV ?? "development",
+  },
+  images: {
+    domains: ["cdn.discordapp.com", "i.gpadcrew.com"],
+  },
+  experimental: {
+    images: {
+      allowFutureImage: true,
+    },
   },
 };
 
@@ -19,9 +27,9 @@ const sentryWebpackPluginOptions = {
   // recommended:
   //   release, url, org, project, authToken, configFile, stripPrefix,
   //   urlPrefix, include, ignore
-  silent: true, // Suppresses all logs
+  // silent: true, // Suppresses all logs
   release: process.env.npm_package_version,
-  environment: process.env.NODE_ENV ?? "development",
+  environment: process.env.APP_ENV ?? "development",
 };
 
 // Make sure adding Sentry options is the last code to run before exporting, to

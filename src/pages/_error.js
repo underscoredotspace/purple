@@ -14,18 +14,15 @@ const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   return <NextErrorComponent statusCode={statusCode} />;
 };
 
-MyError.getInitialProps = async (context) => {
-  const errorInitialProps = await NextErrorComponent.getInitialProps(context);
-  const { res, err, asPath } = context;
+MyError.getInitialProps = async ({ res, err }) => {
+  const errorInitialProps = await NextErrorComponent.getInitialProps({
+    res,
+    err,
+  });
 
   // Workaround for https://github.com/vercel/next.js/issues/8592, mark when
   // getInitialProps has run
   errorInitialProps.hasGetInitialPropsRun = true;
-
-  // Returning early because we don't want to log 404 errors to Sentry.
-  if ([404].includes(res?.statusCode)) {
-    return errorInitialProps;
-  }
 
   // Running on the server, the response object (`res`) is available.
   //
@@ -51,13 +48,8 @@ MyError.getInitialProps = async (context) => {
   }
 
   // If this point is reached, getInitialProps was called without any
-  // information about what the error might be. This is unexpected and may
-  // indicate a bug introduced in Next.js, so record it in Sentry
-  Sentry.captureException(
-    new Error(`_error.js getInitialProps missing data at path: ${asPath}`)
-  );
-  await Sentry.flush(2000);
-
+  // information about what the error might be. This can be caused by
+  // a falsy value being thrown e.g. throw undefined
   return errorInitialProps;
 };
 

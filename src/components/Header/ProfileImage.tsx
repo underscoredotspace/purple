@@ -19,7 +19,7 @@ const ProfileImage: React.FC = () => {
           }
         }
         title={`You're logged in as ${state.user.username}`}
-        className="w-8 h-8 border border-copy border-opacity-50"
+        className="border border-copy border-opacity-50 flex-shrink-0"
       />
     );
   }
