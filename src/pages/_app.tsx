@@ -18,12 +18,7 @@ import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useReducer } from "react";
 import { CookiesProvider, useCookies } from "react-cookie";
-import "semantic-ui-css/components/dropdown.css";
-import "semantic-ui-css/components/icon.css";
-import "semantic-ui-css/components/label.css";
-import "semantic-ui-css/components/menu.css";
-import "semantic-ui-css/components/message.css";
-import "semantic-ui-css/components/transition.css";
+import "styles/admin.css";
 import "styles/index.css";
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
