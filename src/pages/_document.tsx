@@ -8,6 +8,10 @@ const MyDocument: React.FC<DocumentProps> = () => {
       <Head>
         <SocialCard />
         <Meta />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <body className="overflow-x-hidden">
         <Main />

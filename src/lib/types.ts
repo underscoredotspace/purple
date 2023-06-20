@@ -56,4 +56,5 @@ export interface MemberCounts {
   ps: number;
   xbox: number;
   lastUpdated: string;
+  error?: any
 }

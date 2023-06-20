@@ -10,6 +10,7 @@ export const CrewStats: React.FC<MemberCounts> = ({
   ps,
   xbox,
   lastUpdated,
+  error
 }) => {
   const [lastUpdateText, setLastUpdatedText] = useState<string>("...");
 
@@ -19,7 +20,7 @@ export const CrewStats: React.FC<MemberCounts> = ({
     );
   }, [lastUpdated]);
 
-  return (
+  return error ? null : (
     <Card padding>
       <SectionTitle type="h4" className="text-center mb-4">
         Our Membership

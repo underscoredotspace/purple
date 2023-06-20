@@ -39,7 +39,7 @@ export async function getMembercount(): Promise<{
     PlayStation: PS,
     Xbox: XBOX,
     lastUpdated,
-  } = await fetchAPI("member/count");
+  } = await fetchAPI("member/count").catch(error =>({error}));
 
   return {
     ps: Number(PS),

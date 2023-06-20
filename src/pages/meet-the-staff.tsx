@@ -16,6 +16,10 @@ interface MeetTheStaffProps {
 const MeetTheStaff: React.FC<MeetTheStaffProps> = ({ profileRows }) => (
   <>
     {profileRows.map((role, index, array) => {
+      if (role.members.length < 1) {
+        return null
+      }
+      
       return (
         <Fragment key={`profile-row-${index}`}>
           <div className="mb-4">
