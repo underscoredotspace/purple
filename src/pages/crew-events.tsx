@@ -51,7 +51,7 @@ const Events: React.FC<EventsProps> = ({ helperRoles }) => (
       events that run throughout the week. We have chaos, races and, most of
       all, fun!
     </p>
-    <p>
+    {/* <p>
       We&apos;re getting into regular{" "}
       <b>
         <RouteLink to="/red-dead" title="Red Dead Redeption" bold>
@@ -59,7 +59,7 @@ const Events: React.FC<EventsProps> = ({ helperRoles }) => (
         </RouteLink>
       </b>{" "}
       events such as Fight Clubs, Wagon Racing and Weekly Challenges.
-    </p>
+    </p> */}
 
     <SectionTitle type="h3">Our Events</SectionTitle>
 
@@ -76,8 +76,8 @@ const Events: React.FC<EventsProps> = ({ helperRoles }) => (
 
     <EventCard title="GPAD Grand Prix" src="f1.jpg" width={1044} height={572}>
       GPAD&apos;s Grand Prix takes place on 8 tracks from around the world.
-      Racers will compete for the podium in their very own Open Wheel
-      vehicle.The winner of <b>each race</b> get&apos;s an extra special{" "}
+      Racers will compete for the podium in their very own Open Wheel vehicle.
+      The winner of <b>each race</b> get&apos;s an extra special{" "}
       <Role gp>Grand Prix</Role> role.
     </EventCard>
 
