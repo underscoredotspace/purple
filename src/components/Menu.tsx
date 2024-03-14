@@ -1,11 +1,10 @@
-import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { env, logger } from "lib/helpers";
+import { logger } from "lib/helpers";
 import { BreadcrumbCategory } from "lib/helpers/logging/types";
 import { classNames } from "lib/helpers/misc";
 import { Route, routes } from "lib/helpers/routes";
-import { closeMenu, SiteContext } from "lib/store";
+import { SiteContext, closeMenu } from "lib/store";
 import { useRouter } from "next/router";
 import React, {
   PropsWithChildren,
@@ -123,7 +122,7 @@ export const Menu: React.FC = () => {
             </li>
           ))}
 
-        <li key={"menu-login"}>
+        {/* <li key={"menu-login"} className="hidden">
           <MenuLink
             href={`${env.API_URL}/auth/${
               loggedIn ? "logout" : "login"
@@ -143,7 +142,7 @@ export const Menu: React.FC = () => {
               </>
             )}
           </MenuLink>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

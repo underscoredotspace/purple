@@ -1,5 +1,5 @@
-import { Card, YouTube } from "components";
-import { LazyImage, SectionTitle } from "components/primitives";
+import { YouTube } from "components";
+import { LazyImage } from "components/primitives";
 import { env } from "lib/helpers";
 import React from "react";
 
@@ -8,7 +8,7 @@ const GTAOnline: React.FC = () => (
     <p>
       Roll with us through the streets of Los Santos and Blane County. Whether
       your choice of ride is a Trashmaster, a Faggio or an Opressor Mk2
-      you&apos;ll feel welcome sourcing and selling with us.
+      you&apos;ll feel welcome heisting and selling with us.
     </p>
 
     <LazyImage
@@ -28,7 +28,7 @@ const GTAOnline: React.FC = () => (
     </p>
 
     <YouTube videoId="i55hcnoRLPE" title="GTA Online" />
-    <Card padding>
+    {/* <Card padding>
       <SectionTitle type="h3">Money Making Guides</SectionTitle>
       <p>
         We have tons of guides to help you get the Benjamins, full of tips and
@@ -36,7 +36,7 @@ const GTAOnline: React.FC = () => (
         series will get you through your car sourcing and MC sales better than
         ever.
       </p>
-    </Card>
+    </Card> */}
   </>
 );
 

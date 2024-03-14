@@ -1,8 +1,9 @@
 import { faPlaystation, faXbox } from "@fortawesome/free-brands-svg-icons";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CrewStats, DiscordInvite, YouTube } from "components";
-import { RouteLink, SectionTitle } from "components/primitives";
+import { Card, DiscordInvite } from "components";
+import { LazyImage, RouteLink, SectionTitle } from "components/primitives";
+import { env } from "lib/helpers";
 import { getMembercount } from "lib/helpers/api";
 import { MemberCounts } from "lib/types";
 import { GetStaticProps } from "next";
@@ -21,27 +22,37 @@ const Home: React.FC<MemberCounts> = (memberCounts) => (
       gaming community.
     </p>
     <p>
-      Our main games are{" "}
+      Our main games is{" "}
       <RouteLink to="/gta-online" title="Grand Theft Auto" bold>
         Grand Theft Auto
-      </RouteLink>
-      ,{" "}
-      <RouteLink to="/red-dead" title="Red Dead Redemption" bold>
-        Red Dead Redemption
       </RouteLink>{" "}
-      and <strong>Call of Duty</strong>. Our community continues to grow in a
-      number of{" "}
-      <RouteLink to="/other-games" title="Other Games">
-        other
-      </RouteLink>{" "}
-      online multiplayer games.
-    </p>
-    <p>
-      We have an active discord community where members can game together but
-      also share experiences outside of gaming.
+      and our community continues to grow in a number of other online
+      multiplayer games.
     </p>
 
-    <YouTube videoId="ulKZbFzPZyw" title="Welcome to GPAD" />
+    <Card padding>
+      <SectionTitle>Join the Crew</SectionTitle>
+      <p>
+        Join our{" "}
+        <DiscordInvite tag="landing">
+          Discord Server
+          <FontAwesomeIcon
+            icon={faExternalLinkAlt}
+            className="text-pink-400 ml-1"
+            size="xs"
+          />
+        </DiscordInvite>{" "}
+        and our Admissions team will help you join. We are ready to drive your
+        PostOp vans and buggies!
+      </p>
+    </Card>
+
+    <LazyImage
+      src={`${env.ASSETS}/post-op.webp`}
+      alt="a PostOp van being pushed by a Vigilante"
+    />
+
+    {/* <YouTube videoId="ulKZbFzPZyw" title="Welcome to GPAD" /> */}
 
     <p>
       Have a look at{" "}
@@ -56,21 +67,7 @@ const Home: React.FC<MemberCounts> = (memberCounts) => (
       coordinators do for the crew.
     </p>
 
-    <CrewStats {...memberCounts} />
-
-    <SectionTitle>Come to our house and get payd!</SectionTitle>
-    <p>
-      Join our{" "}
-      <DiscordInvite tag="landing">
-        Discord Server
-        <FontAwesomeIcon
-          icon={faExternalLinkAlt}
-          className="text-pink-400 ml-1"
-          size="xs"
-        />
-      </DiscordInvite>{" "}
-      and our Admissions team will help you join.
-    </p>
+    {/* <CrewStats {...memberCounts} /> */}
   </>
 );
 

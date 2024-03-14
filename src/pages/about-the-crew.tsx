@@ -8,20 +8,20 @@ import { GetStaticProps } from "next";
 import React from "react";
 
 const roles: RoleListItems = [
-  {
-    name: "Veteran Crew",
-    colour: "purple-400",
-    id: "608388097285161131",
-    description:
-      "Veterans have demonstrated their knowledge of different games and have proven that they are willing to help the crew in any way possible. They monitor chats, assist new members, answer questions, and offer advice. ",
-  },
-  {
-    name: "Admissions Team",
-    colour: "pink-300",
-    id: "977016052804366366",
-    description:
-      "The first point of contact for prospective members. They handle the process of everyone becoming part of the family. ",
-  },
+  // {
+  //   name: "Veteran Crew",
+  //   colour: "purple-400",
+  //   id: "608388097285161131",
+  //   description:
+  //     "Veterans have demonstrated their knowledge of different games and have proven that they are willing to help the crew in any way possible. They monitor chats, assist new members, answer questions, and offer advice. ",
+  // },
+  // {
+  //   name: "Admissions Team",
+  //   colour: "pink-300",
+  //   id: "977016052804366366",
+  //   description:
+  //     "The first point of contact for prospective members. They handle the process of everyone becoming part of the family. ",
+  // },
 ];
 
 interface AboutTheCrewProps {
@@ -36,13 +36,11 @@ const AboutTheCrew: React.FC<AboutTheCrewProps> = ({ helperRoles }) => (
         <b>GTA Online</b>
       </RouteLink>{" "}
       crew but has now become something much bigger. Our{" "}
-      <RouteLink to="/red-dead" title="Red Dead Redemption">
-        <b>Red Dead</b>
-      </RouteLink>{" "}
+      {/* <RouteLink to="/red-dead" title="Red Dead Redemption"> */}
+      <b>Red Dead</b> {/* </RouteLink> */}
       expansion has taken off and as{" "}
-      <RouteLink to="/other-games" title="Other Games">
-        other games
-      </RouteLink>{" "}
+      {/* <RouteLink to="/other-games" title="Other Games"> */}
+      other games {/* </RouteLink> */}
       became popular, we&apos;ve given our community options for those games as
       well.
     </p>
