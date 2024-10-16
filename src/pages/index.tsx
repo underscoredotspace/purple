@@ -4,11 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Card, DiscordInvite } from "components";
 import { LazyImage, RouteLink, SectionTitle } from "components/primitives";
 import { env } from "lib/helpers";
-import { getMembercount } from "lib/helpers/api";
-import { MemberCounts } from "lib/types";
-import { GetStaticProps } from "next";
 
-const Home: React.FC<MemberCounts> = (memberCounts) => (
+const Home: React.FC = () => (
   <>
     <p>
       We are an active and supportive PlayStation{" "}
@@ -71,10 +68,10 @@ const Home: React.FC<MemberCounts> = (memberCounts) => (
   </>
 );
 
-export const getStaticProps: GetStaticProps<MemberCounts> = async () => {
-  const memberCounts = await getMembercount();
+// export const getStaticProps: GetStaticProps<MemberCounts> = async () => {
+//   const memberCounts = await getMembercount();
 
-  return { props: memberCounts, revalidate: 3600 };
-};
+//   return { props: memberCounts, revalidate: 3600 };
+// };
 
 export default Home;

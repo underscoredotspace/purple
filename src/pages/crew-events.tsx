@@ -1,10 +1,5 @@
-import { Card } from "components";
 import { EventCard } from "components/EventCard";
-import MemberImage from "components/MemberImage";
 import { RouteLink, SectionTitle } from "components/primitives";
-import { getMembersByRole } from "lib/helpers/api";
-import { RoleListItem, RoleListItems } from "lib/types";
-import { GetStaticProps } from "next";
 import React, { PropsWithChildren } from "react";
 
 const Role: React.FC<PropsWithChildren<{ gp?: boolean }>> = ({
@@ -16,32 +11,32 @@ const Role: React.FC<PropsWithChildren<{ gp?: boolean }>> = ({
   </span>
 );
 
-const roles: RoleListItems = [
-  {
-    name: "PlayStation",
-    colour: "ps",
-    id: "608396947795083274",
-  },
-  {
-    name: "Xbox",
-    colour: "xb",
-    id: "609447212925190147",
-  },
-];
+// const roles: RoleListItems = [
+//   {
+//     name: "PlayStation",
+//     colour: "ps",
+//     id: "608396947795083274",
+//   },
+//   {
+//     name: "Xbox",
+//     colour: "xb",
+//     id: "609447212925190147",
+//   },
+// ];
 
-const eventsTeam: RoleListItem = {
-  name: "Events Team",
-  colour: "red-300",
-  description:
-    "The Events Team are the masterminds behind the creative activities that bring us together in game. They help plan, organize and host crew events.",
-  id: "",
-};
+// const eventsTeam: RoleListItem = {
+//   name: "Events Team",
+//   colour: "red-300",
+//   description:
+//     "The Events Team are the masterminds behind the creative activities that bring us together in game. They help plan, organize and host crew events.",
+//   id: "",
+// };
 
-interface EventsProps {
-  helperRoles: RoleListItems;
-}
+// interface EventsProps {
+//   helperRoles: RoleListItems;
+// }
 
-const Events: React.FC<EventsProps> = ({ helperRoles }) => (
+const Events: React.FC = () => (
   <>
     <p>
       These are our current{" "}
@@ -129,7 +124,7 @@ const Events: React.FC<EventsProps> = ({ helperRoles }) => (
       Social Club.
     </EventCard>
 
-    {helperRoles &&
+    {/* {helperRoles &&
       helperRoles.map(({ colour, description, members, name }) => (
         <Card padding key={`helper-role-${name}`}>
           <SectionTitle type="h3" className={`text-${colour}`}>
@@ -148,27 +143,27 @@ const Events: React.FC<EventsProps> = ({ helperRoles }) => (
               ))}
           </div>
         </Card>
-      ))}
+      ))} */}
   </>
 );
 
-export const getStaticProps: GetStaticProps<EventsProps> = async () => {
-  const helperRoles = await getMembersByRole(roles.map((role) => role.id))
-    .then((rolesWithMembers) => [
-      {
-        ...eventsTeam,
-        members: rolesWithMembers.reduce(
-          (members, role) => [...members, ...role.members],
-          []
-        ),
-      },
-    ])
-    .catch((error) => {
-      console.error(error);
-      return [];
-    });
+// export const getStaticProps: GetStaticProps<EventsProps> = async () => {
+//   const helperRoles = await getMembersByRole(roles.map((role) => role.id))
+//     .then((rolesWithMembers) => [
+//       {
+//         ...eventsTeam,
+//         members: rolesWithMembers.reduce(
+//           (members, role) => [...members, ...role.members],
+//           []
+//         ),
+//       },
+//     ])
+//     .catch((error) => {
+//       console.error(error);
+//       return [];
+//     });
 
-  return { props: { helperRoles }, revalidate: 3600 };
-};
+//   return { props: { helperRoles }, revalidate: 3600 };
+// };
 
 export default Events;

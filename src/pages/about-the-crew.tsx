@@ -1,34 +1,29 @@
-import { Card } from "components";
-import MemberImage from "components/MemberImage";
-import { LazyImage, RouteLink, SectionTitle } from "components/primitives";
+import { LazyImage, RouteLink } from "components/primitives";
 import { env } from "lib/helpers";
-import { getMembersByRole } from "lib/helpers/api";
-import { RoleListItems } from "lib/types";
-import { GetStaticProps } from "next";
 import React from "react";
 
-const roles: RoleListItems = [
-  // {
-  //   name: "Veteran Crew",
-  //   colour: "purple-400",
-  //   id: "608388097285161131",
-  //   description:
-  //     "Veterans have demonstrated their knowledge of different games and have proven that they are willing to help the crew in any way possible. They monitor chats, assist new members, answer questions, and offer advice. ",
-  // },
-  // {
-  //   name: "Admissions Team",
-  //   colour: "pink-300",
-  //   id: "977016052804366366",
-  //   description:
-  //     "The first point of contact for prospective members. They handle the process of everyone becoming part of the family. ",
-  // },
-];
+// const roles: RoleListItems = [
+//   // {
+//   //   name: "Veteran Crew",
+//   //   colour: "purple-400",
+//   //   id: "608388097285161131",
+//   //   description:
+//   //     "Veterans have demonstrated their knowledge of different games and have proven that they are willing to help the crew in any way possible. They monitor chats, assist new members, answer questions, and offer advice. ",
+//   // },
+//   // {
+//   //   name: "Admissions Team",
+//   //   colour: "pink-300",
+//   //   id: "977016052804366366",
+//   //   description:
+//   //     "The first point of contact for prospective members. They handle the process of everyone becoming part of the family. ",
+//   // },
+// ];
 
-interface AboutTheCrewProps {
-  helperRoles: RoleListItems;
-}
+// interface AboutTheCrewProps {
+//   helperRoles: RoleListItems;
+// }
 
-const AboutTheCrew: React.FC<AboutTheCrewProps> = ({ helperRoles }) => (
+const AboutTheCrew: React.FC = () => (
   <>
     <p>
       GPAD started out as a{" "}
@@ -63,7 +58,7 @@ const AboutTheCrew: React.FC<AboutTheCrewProps> = ({ helperRoles }) => (
       like <b>GPAD</b> anywhere.
     </p>
 
-    {helperRoles.length > 0 && (
+    {/* {helperRoles.length > 0 && (
       <>
         <SectionTitle>Keeping the Show Running</SectionTitle>
         <p>
@@ -91,26 +86,26 @@ const AboutTheCrew: React.FC<AboutTheCrewProps> = ({ helperRoles }) => (
           </Card>
         ))}
       </>
-    )}
+    )} */}
   </>
 );
 
-export const getStaticProps: GetStaticProps<AboutTheCrewProps> = async () => {
-  const helperRoles = await getMembersByRole(roles.map((role) => role.id))
-    .then((rolesWithMembers) => {
-      return roles.map((role) => ({
-        ...role,
-        members: rolesWithMembers.find((r) => {
-          return r?.id === role?.id;
-        })?.members,
-      }));
-    })
-    .catch((error) => {
-      console.error(error);
-      return [];
-    });
+// export const getStaticProps: GetStaticProps<AboutTheCrewProps> = async () => {
+//   const helperRoles = await getMembersByRole(roles.map((role) => role.id))
+//     .then((rolesWithMembers) => {
+//       return roles.map((role) => ({
+//         ...role,
+//         members: rolesWithMembers.find((r) => {
+//           return r?.id === role?.id;
+//         })?.members,
+//       }));
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//       return [];
+//     });
 
-  return { props: { helperRoles }, revalidate: 3600 };
-};
+//   return { props: { helperRoles }, revalidate: 3600 };
+// };
 
 export default AboutTheCrew;
